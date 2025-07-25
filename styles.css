@@ -1,0 +1,397 @@
+/* Reset & base */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Define CSS Variables for the Navy Blue color palette */
+:root {
+    --primary-color: #003366;      /* Classic Navy Blue for main accents, active states */
+    --secondary-color: #6699CC;    /* A medium, muted blue for secondary accents, lighter backgrounds */
+    --dark-primary: #002244;       /* Even darker navy for strong accents, darker hover */
+    --dark-text: #1a1a1a;          /* Very dark grey for main text */
+    --light-text: #fefefe;         /* Off-white for text on dark backgrounds */
+    --accent-light: #CCDDFF;       /* Very light blue for subtle highlights */
+    --grey-text: #3a3a3a;          /* Standard grey for general paragraphs */
+    --light-grey-bg: #fefefe;      /* Light background color */
+    --medium-grey-border: #ccc;    /* Border color */
+    --soft-shadow: rgb(0 0 0 / 0.1);
+    --strong-shadow: rgb(0 0 0 / 0.15);
+    --hover-secondary: #88BBEE;    /* Lighter shade of secondary for hover effect */
+}
+
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background: var(--light-grey-bg);
+  color: var(--dark-text);
+  line-height: 1.6;
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--dark-primary);
+}
+
+/* Container for sections */
+section {
+  max-width: 800px;
+  margin: 0 auto 60px; /* Spacing between sections */
+  padding: 0 20px;
+}
+
+/* Sticky Header */
+header {
+  position: sticky;
+  top: 0;
+  background: rgba(255, 255, 255, 0.85); /* Slightly less transparent white */
+  backdrop-filter: saturate(180%) blur(10px); /* Frosted glass effect */
+  padding: 16px 20px;
+  box-shadow: 0 2px 6px var(--soft-shadow);
+  z-index: 1000; /* Ensures header stays on top of other content */
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+nav {
+  display: flex;
+  gap: 24px; /* Space between navigation links */
+  flex-wrap: wrap; /* Allows navigation items to wrap on smaller screens */
+  justify-content: center; /* Centers navigation items */
+}
+
+nav a {
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for hover effects */
+}
+
+nav a:hover,
+nav a:focus {
+  background-color: var(--secondary-color);
+  color: var(--dark-text);
+}
+
+/* Section Headings */
+section h2 {
+  font-weight: 700;
+  font-size: 1.8rem;
+  margin-bottom: 16px;
+  color: var(--dark-text);
+  border-bottom: 2px solid var(--secondary-color); /* Subtle underline matching theme */
+  padding-bottom: 6px;
+}
+
+/* Paragraphs */
+section p {
+  font-size: 1.1rem;
+  margin-bottom: 24px;
+  color: var(--grey-text);
+}
+
+/* Lists */
+ul {
+  list-style-type: disc; /* Standard disc bullets */
+  margin-left: 20px;
+  margin-bottom: 24px;
+  color: var(--grey-text);
+}
+
+ul li {
+  margin-bottom: 10px;
+}
+
+/* Input fields (specifically for text inputs) */
+input[type="text"] {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 1rem;
+  border: 1.5px solid var(--medium-grey-border);
+  border-radius: 8px;
+  margin-bottom: 20px;
+  transition: border-color 0.3s ease; /* Smooth transition for focus effect */
+}
+
+input[type="text"]:focus {
+  border-color: var(--primary-color);
+  outline: none; /* Removes default browser outline */
+}
+
+/* Project list (for dynamically loaded projects in the Portfolio section) */
+#projectList {
+    display: grid;
+    gap: 20px; /* Space between grid items */
+    /* Responsive grid: columns will automatically adjust based on available space */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    margin-bottom: 30px;
+}
+
+.project-item {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px var(--soft-shadow);
+    padding: 20px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth hover effect */
+}
+
+.project-item:hover {
+    transform: translateY(-5px); /* Lifts the card slightly on hover */
+    box-shadow: 0 8px 15px var(--strong-shadow); /* Enhanced shadow on hover */
+}
+
+.project-item a { /* Styling for the actual links inside project items */
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: var(--primary-color); /* Primary theme color for links */
+    display: block; /* Makes the entire area of the project item clickable */
+    text-decoration: none; /* Removes default underline */
+}
+
+.project-item a:hover {
+    color: var(--dark-primary); /* Darker primary color on hover */
+    text-decoration: underline; /* Re-adds underline on hover for clear indication */
+}
+
+
+/* Tab Buttons (for Certificates & Resume) */
+.tab-buttons {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap; /* Allows buttons to wrap on small screens */
+  justify-content: center; /* Centers the buttons */
+}
+
+.tab-btn {
+  background: var(--secondary-color);
+  color: var(--dark-text);
+  border: none;
+  padding: 10px 18px;
+  border-radius: 12px;
+  cursor: pointer; /* Indicates it's clickable */
+  font-weight: 700;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  box-shadow: 0 4px 6px var(--soft-shadow);
+}
+
+.tab-btn.active {
+  background-color: var(--primary-color);
+  color: var(--light-text);
+  box-shadow: 0 6px 10px var(--strong-shadow);
+}
+
+.tab-btn:hover:not(.active) { /* Hover effect for non-active tabs */
+  background-color: var(--hover-secondary);
+  color: var(--dark-primary);
+}
+
+/* Tab content */
+.tab-content {
+  display: none; /* Hidden by default */
+  background: #fff;
+  padding: 20px 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.05); /* Soft shadow for content box */
+}
+
+.tab-content.active {
+  display: block; /* Shown when active */
+}
+
+/* Download button */
+.btn-download {
+  display: inline-block; /* Allows padding and margin, but respects text flow */
+  padding: 14px 28px;
+  background-color: var(--primary-color);
+  color: var(--light-text);
+  font-weight: 700;
+  border-radius: 12px;
+  text-decoration: none;
+  box-shadow: 0 6px 12px rgb(0 0 0 / 0.12); /* Shadow for depth */
+  transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+
+.btn-download:hover {
+  background-color: var(--dark-primary);
+  box-shadow: 0 8px 16px rgb(0 0 0 / 0.2); /* Stronger shadow on hover */
+}
+
+/* Video gallery styling (for embedded videos) */
+#videoGallery,
+#about .video-item { /* Apply to about video as well */
+    display: grid; /* Keep it as grid for consistency */
+    gap: 30px; /* Space between video items */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+    margin-bottom: 30px;
+}
+
+#about .video-item {
+    grid-template-columns: 1fr; /* Force single column for about me video */
+}
+
+.video-item {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px var(--soft-shadow);
+    overflow: hidden; /* Ensures any overflowing content (like iframe shadows) is contained */
+    padding-bottom: 20px; /* Space for text below the video */
+}
+
+.video-item h3 {
+    font-size: 1.3rem;
+    margin: 15px 15px 5px; /* Margin around video title */
+    color: var(--dark-text);
+}
+
+.video-item p {
+    font-size: 0.95rem;
+    color: var(--grey-text);
+    margin: 0 15px 15px; /* Margin around video description */
+}
+
+.video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio (9 / 16 * 100) for responsive iframes */
+    height: 0;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none; /* Removes iframe border */
+}
+
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 24px 20px;
+  color: #555;
+  border-top: 1px solid #eee; /* Subtle top border */
+  font-size: 0.9rem;
+}
+
+/* Responsive adjustments for various screen sizes */
+@media (max-width: 768px) { /* Tablet and smaller screens */
+    #projectList {
+        grid-template-columns: 1fr; /* Stack projects vertically */
+    }
+    #videoGallery {
+        grid-template-columns: 1fr; /* Stack videos vertically */
+    }
+}
+
+@media (max-width: 600px) { /* Mobile screens */
+  nav {
+    gap: 12px;
+    padding-bottom: 8px;
+  }
+  header {
+      padding-bottom: 12px;
+  }
+  header h1 {
+    font-size: 2.4rem; /* Smaller font size for hero title */
+    text-align: center;
+  }
+  section {
+    margin-bottom: 40px;
+  }
+  .btn-download {
+    padding: 12px 20px;
+  }
+}
+
+/* =============================
+    Hero Banner Section styles
+    ============================= */
+
+#hero {
+  /* Using new navy blue gradient */
+  background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+  color: var(--light-text);
+  padding: 80px 20px 100px;
+  box-shadow: inset 0 0 50px var(--strong-shadow); /* Inner shadow for depth */
+  margin-bottom: 40px; /* Space after hero section */
+}
+
+.hero-container {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 40px; /* Space between photo and text */
+  flex-wrap: wrap; /* Allows photo and text to wrap on smaller screens */
+  justify-content: center;
+}
+
+.hero-photo img {
+  width: 180px;
+  height: 180px;
+  object-fit: cover; /* Ensures image covers the area without distortion */
+  border-radius: 50%; /* Makes the image round */
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3); /* Strong shadow for the photo */
+  border: 4px solid rgba(255, 255, 255, 0.8); /* Semi-transparent white border */
+}
+
+.hero-text h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 12px;
+  color: var(--light-text);
+}
+
+.hero-text .title {
+  font-weight: 600;
+  font-size: 1.4rem;
+  margin-bottom: 20px;
+  color: var(--accent-light);
+}
+
+.hero-text .bio {
+  font-size: 1.15rem;
+  line-height: 1.6;
+  max-width: 600px;
+  color: rgba(255, 255, 255, 0.9); /* Slightly darker accent for bio text */
+}
+
+/* Responsive hero adjustments */
+@media (max-width: 700px) {
+  #hero {
+    padding: 60px 20px 80px;
+  }
+  .hero-container {
+    flex-direction: column; /* Stack photo and text vertically on small screens */
+  }
+  .hero-photo img {
+    width: 140px;
+    height: 140px;
+  }
+  .hero-text h1 {
+    font-size: 2.4rem;
+    text-align: center;
+  }
+  .hero-text .title,
+  .hero-text .bio {
+    text-align: center;
+  }
+}
