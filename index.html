@@ -10,8 +10,108 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Link to the external stylesheet -->
-    <link rel="stylesheet" href="style.css">
+    <style>
+        /* This CSS file handles the styling for both light and dark modes */
+        html { scroll-behavior: smooth; }
+        
+        body {
+            /* Default light mode styles, overridden by dark: for dark mode */
+            @apply bg-white text-gray-800 font-sans transition-colors duration-300;
+        }
+        
+        /* Dark mode-specific body styles */
+        html[data-theme="dark"] body {
+            @apply bg-slate-900 text-slate-200;
+        }
+
+        /* Hero Section Gradient - Always Dark */
+        .hero-gradient {
+            background-image: linear-gradient(to bottom right, #1F2937, #111827);
+        }
+        
+        /* Frosted glass header effect - Always Dark */
+        .sticky-header {
+            background-color: rgba(30, 41, 59, 0.85);
+            backdrop-filter: saturate(180%) blur(10px);
+        }
+        
+        /* Active nav link styles */
+        .nav-link.active {
+            @apply bg-blue-700 text-white font-bold;
+        }
+        
+        /* The main content sections are initially hidden */
+        .main-content-section {
+            display: none;
+            opacity: 0;
+            transform: scale(0.98) translateY(10px);
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+        }
+
+        /* This class makes the section pop into view */
+        .main-content-section.active {
+            display: block;
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+        
+        /* Fade-in animation for tab content inside 'Certificates & Resume' */
+        .tab-content {
+            display: none;
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Hover effects */
+        .project-item:hover, .tab-btn:hover, .nav-link:hover {
+            transform: scale(1.02);
+        }
+        
+        .cta-btn {
+            transition: all 0.3s ease;
+        }
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+        
+        /* The following classes use Tailwind's dark: prefix for theme switching */
+        .bg-section {
+            @apply bg-gray-100 dark:bg-slate-800;
+        }
+        
+        .bg-card {
+            @apply bg-white dark:bg-slate-700;
+        }
+        
+        .border-color {
+            @apply border-blue-600 dark:border-blue-400;
+        }
+        
+        .text-primary-color {
+            @apply text-gray-900 dark:text-slate-100;
+        }
+        
+        .text-secondary-color {
+            @apply text-gray-600 dark:text-slate-400;
+        }
+        
+        .input-style {
+            @apply bg-gray-200 dark:bg-gray-900 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-200;
+        }
+        
+        .footer-style {
+            @apply bg-gray-900 text-white;
+        }
+    </style>
 </head>
 <body>
     
@@ -182,7 +282,184 @@
         <p class="text-sm">&copy; 2025 James Amit. All rights reserved.</p>
     </footer>
     
-    <!-- Link to the external JavaScript file -->
-    <script src="script.js"></script>
+    <!-- JavaScript for dynamic behavior -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            // --- Content Visibility Logic ---
+            const navLinks = document.querySelectorAll('.nav-link');
+            const contentSections = document.querySelectorAll('.main-content-section');
+            
+            // Set the initial active link and section
+            const initialTarget = navLinks[0].getAttribute('data-target');
+            document.getElementById(initialTarget).classList.add('active');
+            navLinks[0].classList.add('active');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    const targetId = link.getAttribute('data-target');
+                    showSection(targetId);
+                    updateNavLinkStatus(link);
+                });
+            });
+            
+            function showSection(targetId) {
+                // Hide all sections first
+                contentSections.forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                // Show the target section
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.classList.add('active');
+                    window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to the top of the page
+                }
+            }
+            
+            function updateNavLinkStatus(activeLink) {
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                });
+                activeLink.classList.add('active');
+            }
+            
+            // --- Tab Functionality for Certificates & Resume ---
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove 'active' from all buttons
+                    tabButtons.forEach(btn => {
+                        btn.classList.remove('active', 'bg-blue-700', 'text-white');
+                        btn.classList.add('bg-card');
+                    });
+                    // Add 'active' to the clicked button
+                    button.classList.add('active', 'bg-blue-700', 'text-white');
+                    button.classList.remove('bg-card');
+                    
+                    // Hide all tab content
+                    const tabContents = document.querySelectorAll('.tab-content');
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    // Show the corresponding tab content
+                    const targetTabId = button.getAttribute('data-tab');
+                    const targetTab = document.getElementById(targetTabId);
+                    if (targetTab) {
+                        targetTab.classList.add('active');
+                    }
+                });
+            });
+            
+            // --- Light/Dark Mode Toggle ---
+            const themeToggle = document.getElementById('theme-toggle');
+            const htmlTag = document.documentElement;
+            const currentTheme = localStorage.getItem('theme');
+            
+            // Set initial theme from local storage or system preference
+            if (currentTheme) {
+                htmlTag.setAttribute('data-theme', currentTheme);
+            } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                htmlTag.setAttribute('data-theme', 'dark');
+            }
+            
+            // Update the toggle icon based on the current theme
+            function updateThemeIcon() {
+                const icon = themeToggle.querySelector('i');
+                if (htmlTag.getAttribute('data-theme') === 'dark') {
+                    icon.classList.remove('fa-moon');
+                    icon.classList.add('fa-sun');
+                } else {
+                    icon.classList.remove('fa-sun');
+                    icon.classList.add('fa-moon');
+                }
+            }
+            updateThemeIcon();
+
+            themeToggle.addEventListener('click', () => {
+                const newTheme = htmlTag.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+                htmlTag.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                updateThemeIcon();
+            });
+
+            // --- Data Loading Simulations ---
+            const projectList = document.getElementById('projectList');
+            const projects = [
+                {
+                    title: 'Project A: Employee Onboarding Module',
+                    description: 'Developed an interactive e-learning module that reduced new hire training time by 20%.',
+                    image: 'https://placehold.co/400x225/A0C8F0/003366?text=Module+Preview'
+                },
+                {
+                    title: 'Project B: Leadership Development Program',
+                    description: 'Designed a blended learning curriculum for emerging leaders, including workshops and coaching sessions.',
+                    image: 'https://placehold.co/400x225/CCDDFF/003366?text=Program+Overview'
+                },
+                {
+                    title: 'Project C: Software Simulation Training',
+                    description: 'Created a step-by-step simulation to train a sales team on a new CRM tool.',
+                    image: 'https://placehold.co/400x225/6699CC/FFFFFF?text=CRM+Training+Demo'
+                }
+            ];
+            
+            function renderProjects() {
+                setTimeout(() => {
+                    if (projectList) {
+                        projectList.innerHTML = projects.map(project => `
+                            <div class="project-item bg-card rounded-2xl shadow-md transition-all duration-300 ease-in-out hover:shadow-xl hover:-translate-y-1 overflow-hidden">
+                                <img src="${project.image}" alt="Thumbnail for ${project.title}" class="w-full h-40 object-cover rounded-t-2xl" />
+                                <div class="p-6">
+                                    <h3 class="text-xl font-bold text-primary-color mb-2">${project.title}</h3>
+                                    <p class="text-secondary-color mb-4">${project.description}</p>
+                                    <a href="#" class="text-blue-400 font-semibold hover:underline flex items-center">
+                                        View Project <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        `).join('');
+                    }
+                }, 1500); // Simulate a network delay
+            }
+            renderProjects();
+            
+            const certificateList = document.getElementById('certificateList');
+            const certificates = [
+                {
+                    title: 'Instructional Design Certificate',
+                    image: 'https://placehold.co/400x225/E0F2F1/004D40?text=ID+Cert',
+                    link: '#'
+                },
+                {
+                    title: 'Project Management Certification',
+                    image: 'https://placehold.co/400x225/FFF3E0/5D4037?text=PMP+Cert',
+                    link: '#'
+                },
+                {
+                    title: 'eLearning Development Badge',
+                    image: 'https://placehold.co/400x225/F0F4C3/33691E?text=eLearning+Badge',
+                    link: '#'
+                }
+            ];
+            
+            function renderCertificates() {
+                setTimeout(() => {
+                    if (certificateList) {
+                        certificateList.innerHTML = certificates.map(cert => `
+                            <div class="project-item bg-card rounded-2xl shadow-md transition-all duration-300 ease-in-out hover:shadow-xl hover:-translate-y-1 overflow-hidden">
+                                <img src="${cert.image}" alt="Thumbnail for ${cert.title}" class="w-full h-40 object-cover rounded-t-2xl" />
+                                <div class="p-6">
+                                    <h3 class="text-xl font-bold text-primary-color mb-2">${cert.title}</h3>
+                                    <a href="${cert.link}" target="_blank" rel="noopener noreferrer" class="text-blue-400 font-semibold hover:underline flex items-center">
+                                        View Certificate <i class="fas fa-external-link-alt ml-2 text-sm"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        `).join('');
+                    }
+                }, 1500);
+            }
+            renderCertificates();
+        });
+    </script>
 </body>
 </html>
