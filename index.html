@@ -1,143 +1,188 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>James Amit Portfolio</title>
-  <!-- Google Fonts for 'Inter' -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-  
-  <!-- styles.css link here -->
-  <link rel="stylesheet" href="styles.css" /> 
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>James Amit Portfolio</title>
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for 'Inter' -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Link to the external stylesheet -->
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-  <header>
-    <nav>
-      <a href="#about">About</a>
-      <a href="#work">Work Experience</a>
-      <a href="#portfolio">Portfolio</a>
-      <a href="#teaching">Teaching</a>
-      <a href="#certificates">Certificates & Resume</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
+    
+    <!-- Sticky Header -->
+    <header id="site-header" class="sticky-header fixed w-full top-0 left-0 p-4 shadow-2xl transition-all duration-300 ease-in-out z-50">
+        <nav class="container mx-auto flex flex-wrap justify-center items-center gap-4">
+            <!-- Nav links -->
+            <button class="nav-link text-lg font-semibold px-4 py-2 rounded-xl transition duration-300 hover:bg-gray-700 hover:text-white" data-target="hero-and-about">About</button>
+            <button class="nav-link text-lg font-semibold px-4 py-2 rounded-xl transition duration-300 hover:bg-gray-700 hover:text-white" data-target="work">Work Experience</button>
+            <button class="nav-link text-lg font-semibold px-4 py-2 rounded-xl transition duration-300 hover:bg-gray-700 hover:text-white" data-target="portfolio">Portfolio</button>
+            <button class="nav-link text-lg font-semibold px-4 py-2 rounded-xl transition duration-300 hover:bg-gray-700 hover:text-white" data-target="teaching">Teaching</button>
+            <button class="nav-link text-lg font-semibold px-4 py-2 rounded-xl transition duration-300 hover:bg-gray-700 hover:text-white" data-target="certificates-and-resume">Certificates & Resume</button>
+            <button class="nav-link text-lg font-semibold px-4 py-2 rounded-xl transition duration-300 hover:bg-gray-700 hover:text-white" data-target="contact">Contact</button>
 
-  <section id="hero">
-    <div class="hero-container">
-      <div class="hero-photo">
-        <!-- Remember to replace this placeholder with the actual path to your image -->
-        <img src="images/james-amit.jpg" alt="James Amit - Instructional Designer" />
-      </div>
-      <div class="hero-text">
-        <h1>James Amit</h1>
-        <p class="title">Instructional Designer and Former Training Supervisor</p>
-        <p class="bio">
-          Seasoned learning and development professional with 5 years of corporate experience and 4+ years in contact center training. Passionate about designing impactful training programs using ADDIE and Bloom's Taxonomy. My expertise lies in transforming complex information into engaging, measurable learning experiences that drive real business impact.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <section id="about">
-    <h2>About Me</h2>
-    <!-- Replaced text with video embed -->
-    <div class="video-item">
-        <h3>My Story & Philosophy</h3>
-        <div class="video-wrapper">
-            <!-- IMPORTANT: Replace YOUR_ABOUT_ME_VIDEO_ID with the actual ID from YouTube/Vimeo -->
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/YOUR_ABOUT_ME_VIDEO_ID" 
-                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <!-- Theme Toggle Button -->
+            <button id="theme-toggle" class="p-2 rounded-full text-white bg-gray-700 hover:bg-gray-600 transition-colors duration-300 focus:outline-none">
+                <i class="fas fa-moon"></i>
+            </button>
+        </nav>
+    </header>
+    
+    <!-- Main Content Wrapper -->
+    <div id="content-container" class="mt-[100px] pb-16">
+        
+        <!-- Hero and About Me sections are grouped to appear together -->
+        <div id="hero-and-about" class="main-content-section active">
+            <!-- Hero Section -->
+            <section id="hero" class="hero-gradient text-white pt-10 pb-10 shadow-xl">
+                <div class="container mx-auto px-6 flex flex-col md:flex-row items-center justify-center gap-12 text-center md:text-left">
+                    <div class="flex-shrink-0">
+                        <!-- Placeholder image for the headshot -->
+                        <img src="https://placehold.co/200x200/475569/E2E8F0?text=James" alt="James Amit - Instructional Designer" class="w-48 h-48 object-cover rounded-full shadow-2xl border-4 border-white transition-transform duration-300 transform hover:scale-110" />
+                    </div>
+                    <div class="max-w-2xl">
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-4 leading-tight">James Amit</h1>
+                        <p class="text-xl lg:text-2xl font-light text-slate-300 mb-6">Instructional Designer and Former Training Supervisor</p>
+                        <p class="text-lg leading-relaxed text-slate-400">
+                            A seasoned learning and development professional with a passion for designing impactful training programs. My expertise lies in transforming complex information into engaging, measurable learning experiences that drive real business impact.
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- About Me -->
+            <section id="about" class="bg-section p-8 rounded-2xl shadow-xl mt-16 mx-6">
+                <h2 class="text-3xl font-bold mb-6 border-b-2 border-color pb-2 text-primary-color">About Me</h2>
+                <div class="space-y-6">
+                    <div class="relative w-full aspect-video rounded-xl overflow-hidden shadow-lg">
+                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/YOUR_ABOUT_ME_VIDEO_ID" title="My Story and Philosophy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <p class="text-lg leading-relaxed text-secondary-color">
+                        Welcome! I'm James Amit, an instructional designer dedicated to crafting engaging and impactful learning experiences. In this video, I share my journey in learning and development, my philosophy on effective instruction, and how I approach every project to deliver measurable results. I believe that great instructional design is about more than just content; it's about empowering learners to truly achieve their potential.
+                    </p>
+                </div>
+            </section>
         </div>
-        <p>
-            Welcome! I'm James Amit, an instructional designer dedicated to crafting engaging and impactful learning experiences. 
-            In this video, I share my journey in learning and development, my philosophy on effective instruction, and how I approach every project to deliver measurable results. 
-            I believe that great instructional design is about more than just content; it's about empowering learners to truly achieve their potential.
-        </p>
-    </div>
-  </section>
-
-  <section id="work">
-    <h2>Work Experience</h2>
-    <ul>
-      <li>
-        <strong>Training Supervisor</strong> — [Your Company Name 1] (e.g., Jan 2022 - Present)
-        <p>Led a team of 5 trainers, responsible for the full training lifecycle from needs assessment to delivery and evaluation for over 200 new hires annually. Developed and implemented a new onboarding curriculum that reduced time-to-proficiency by 15%.</p>
-      </li>
-      <li>
-        <strong>Instructional Designer</strong> — [Your Company Name 2] (e.g., Jun 2019 - Dec 2021)
-        <p>Designed and developed engaging eLearning modules and blended learning programs for a diverse employee base. Collaborated with SMEs to translate complex technical information into digestible, interactive content, leading to a 20% improvement in compliance scores.</p>
-      </li>
-      <!-- Add more relevant work experience here -->
-    </ul>
-  </section>
-
-  <section id="portfolio">
-    <h2>Portfolio</h2>
-    <input type="text" id="searchInput" placeholder="Search projects..." />
-    <div id="projectList">
-      <!-- Portfolio projects will be dynamically loaded here by script.js -->
-      <p><em>Loading portfolio projects...</em></p>
-    </div>
-  </section>
-
-  <section id="teaching">
-    <h2>Teaching Videos & Demos</h2>
-    <div id="videoGallery">
-      <!-- Example: Embedded YouTube/Vimeo videos. Replace with YOUR video IDs! -->
-      <div class="video-item">
-        <h3>Introduction to Adult Learning Principles</h3>
-        <div class="video-wrapper">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        
+        <!-- Work Experience -->
+        <section id="work" class="main-content-section container mx-auto px-6 p-8 rounded-2xl shadow-xl">
+            <h2 class="text-3xl font-bold mb-6 border-b-2 border-color pb-2 text-primary-color">Work Experience</h2>
+            <ul class="space-y-6 list-disc list-inside text-lg text-secondary-color">
+                <li class="pl-4">
+                    <strong class="font-bold text-primary-color">Training Supervisor</strong> <span class="text-sm text-secondary-color">— Jan 2022 - Present</span>
+                    <p class="ml-4 text-base">Led a team of 5 trainers, responsible for the full training lifecycle from needs assessment to delivery and evaluation for over 200 new hires annually. Developed and implemented a new onboarding curriculum that reduced time-to-proficiency by 15%.</p>
+                </li>
+                <li class="pl-4">
+                    <strong class="font-bold text-primary-color">Instructional Designer</strong> <span class="text-sm text-secondary-color">— Jun 2019 - Dec 2021</span>
+                    <p class="ml-4 text-base">Designed and developed engaging eLearning modules and blended learning programs for a diverse employee base. Collaborated with SMEs to translate complex technical information into digestible, interactive content, leading to a 20% improvement in compliance scores.</p>
+                </li>
+            </ul>
+        </section>
+        
+        <!-- Portfolio -->
+        <section id="portfolio" class="main-content-section container mx-auto px-6 p-8 rounded-2xl shadow-xl">
+            <h2 class="text-3xl font-bold mb-6 border-b-2 border-color pb-2 text-primary-color">Portfolio</h2>
+            <div class="flex items-center gap-4 mb-8">
+                <label for="searchInput" class="sr-only">Search projects</label>
+                <input type="text" id="searchInput" placeholder="Search projects..." class="flex-grow p-3 rounded-xl focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 input-style" />
+            </div>
+            <div id="projectList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Portfolio projects will be dynamically loaded here by script.js -->
+                <p class="col-span-full text-center text-lg text-secondary-color animate-pulse">
+                    <i class="fas fa-spinner fa-spin mr-2"></i>Loading portfolio projects...
+                </p>
+            </div>
+        </section>
+        
+        <!-- Teaching Videos -->
+        <section id="teaching" class="main-content-section container mx-auto px-6 p-8 rounded-2xl shadow-xl">
+            <h2 class="text-3xl font-bold mb-6 border-b-2 border-color pb-2 text-primary-color">Teaching Demos & Videos</h2>
+            <div id="videoGallery" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="video-item bg-card p-4 rounded-xl shadow-md transition-transform duration-300 hover:scale-105">
+                    <h3 class="text-xl font-semibold mb-2 text-primary-color">Introduction to Adult Learning Principles</h3>
+                    <div class="relative w-full aspect-video rounded-lg overflow-hidden mb-4">
+                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Introduction to Adult Learning Principles" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <p class="text-sm text-secondary-color">A short video explaining key principles of adult learning relevant to corporate training. (Placeholder video)</p>
+                </div>
+                <div class="video-item bg-card p-4 rounded-xl shadow-md transition-transform duration-300 hover:scale-105">
+                    <h3 class="text-xl font-semibold mb-2 text-primary-color">Software Demo: Navigating Our New CRM</h3>
+                    <div class="relative w-full aspect-video rounded-lg overflow-hidden mb-4">
+                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/some_other_video_id" title="Software Demo: Navigating Our New CRM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <p class="text-sm text-secondary-color">A concise tutorial demonstrating essential features of a Customer Relationship Management system. (Placeholder video)</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Certificates & Resume -->
+        <div id="certificates-and-resume" class="main-content-section container mx-auto px-6 p-8 rounded-2xl shadow-xl">
+            <h2 class="text-3xl font-bold mb-6 border-b-2 border-color pb-2 text-primary-color">Certificates & Resume</h2>
+            
+            <div class="flex flex-wrap justify-center gap-4 mb-8">
+                <button class="tab-btn active bg-blue-700 text-white font-bold py-3 px-6 rounded-xl shadow-lg transition-colors duration-300 hover:bg-blue-800 focus:outline-none" data-tab="certificates-tab">Certificates</button>
+                <button class="tab-btn bg-card text-primary-color font-bold py-3 px-6 rounded-xl shadow-lg transition-colors duration-300 hover:bg-blue-600 focus:outline-none" data-tab="resume-tab">Resume</button>
+            </div>
+            
+            <div id="certificates-tab" class="tab-content active p-6 bg-card rounded-xl shadow-inner transition-opacity">
+                <p class="mb-4 text-lg text-primary-color">Here are some of my professional certificates:</p>
+                <div id="certificateList" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Certificates will be dynamically loaded here by JavaScript -->
+                    <p class="col-span-full text-center text-secondary-color animate-pulse">
+                        <i class="fas fa-spinner fa-spin mr-2"></i>Loading certificates...
+                    </p>
+                </div>
+            </div>
+            
+            <div id="resume-tab" class="tab-content p-6 bg-card rounded-xl shadow-inner transition-opacity">
+                <div class="flex flex-col md:flex-row items-center justify-between mb-4">
+                    <p class="mb-4 text-lg text-primary-color">View a preview of my resume, or download the full version below:</p>
+                    <a href="#" download class="cta-btn bg-orange-600 text-white font-bold py-4 px-8 rounded-full shadow-lg transition-all duration-300 transform hover:bg-orange-700">
+                        Download Resume <i class="fas fa-download ml-2"></i>
+                    </a>
+                </div>
+                <div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden shadow-lg border-4 border-color">
+                    <!-- Placeholder for the resume PDF preview -->
+                    <!-- Note: Replace the 'src' with the actual URL to the PDF file. -->
+                    <iframe src="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" class="w-full h-full" frameborder="0"></iframe>
+                </div>
+            </div>
         </div>
-        <p>A short video explaining key principles of adult learning relevant to corporate training. (This is a placeholder video - replace with your own!)</p>
-      </div>
-      <div class="video-item">
-        <h3>Software Demo: Navigating Our New CRM</h3>
-        <div class="video-wrapper">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/some_other_video_id" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
-        <p>A concise tutorial demonstrating essential features of a Customer Relationship Management system. (This is a placeholder video - replace with your own!)</p>
-      </div>
-      <!-- Add more of your teaching videos or demo recordings here -->
+        
+        <!-- Contact -->
+        <section id="contact" class="main-content-section container mx-auto px-6 p-8 rounded-2xl shadow-xl">
+            <h2 class="text-3xl font-bold mb-6 border-b-2 border-color pb-2 text-primary-color">Contact</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-lg text-primary-color">
+                <!-- Email -->
+                <div class="flex items-center space-x-3">
+                    <i class="fas fa-envelope text-blue-400 text-2xl"></i>
+                    <a href="mailto:jamesbrian.amit@gmail.com" class="text-blue-400 hover:underline">jamesbrian.amit@gmail.com</a>
+                </div>
+                <!-- Phone -->
+                <div class="flex items-center space-x-3">
+                    <i class="fas fa-phone-alt text-blue-400 text-2xl"></i>
+                    <a href="tel:+15551234567" class="text-blue-400 hover:underline">+1 (555) 123-4567</a>
+                </div>
+                <!-- LinkedIn -->
+                <div class="flex items-center space-x-3">
+                    <i class="fab fa-linkedin text-blue-400 text-2xl"></i>
+                    <a href="https://www.linkedin.com/in/amitjamesmadr" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:underline">linkedin.com/in/amitjamesmadr</a>
+                </div>
+            </div>
+        </section>
     </div>
-  </section>
-
-  <section id="certificates">
-    <h2>Certificates & Resume</h2>
-
-    <div class="tab-buttons">
-      <button class="tab-btn active" data-tab="certificates-tab">Certificates</button>
-      <button class="tab-btn" data-tab="resume-tab">Resume</button>
-    </div>
-
-    <div id="certificates-tab" class="tab-content active">
-      <p>Here are some of my professional certificates:</p>
-      <ul>
-        <li><a href="#" target="_blank" rel="noopener noreferrer">Instructional Design Certificate (Name of Institution)</a></li>
-        <li><a href="#" target="_blank" rel="noopener noreferrer">Project Management Certification (PMP/CAPM/Other)</a></li>
-        <li><a href="#" target="_blank" rel="noopener noreferrer">eLearning Development Badge (Articulate/Captivate)</a></li>
-        <!-- Add your certificates here, linking to actual PDF files in your 'certificates' folder -->
-      </ul>
-    </div>
-
-    <div id="resume-tab" class="tab-content">
-      <p>Download my full resume here:</p>
-      <a href="#" download class="btn-download">Download Resume</a>
-    </div>
-  </section>
-
-  <section id="contact">
-    <h2>Contact</h2>
-    <p>Email: <a href="mailto:jamesbrian.amit@gmail.com">jamesbrian.amit@gmail.com</a></p>
-    <p>LinkedIn: <a href="https://www.linkedin.com/in/amitjamesmadr" target="_blank" rel="noopener noreferrer">https://www.linkedin.com/in/amitjamesmadr</a></p>
-  </section>
-
-  <footer>
-    <p>© 2025 James Amit</p>
-  </footer>
-
-  <!-- script.js link here -->
-  <script src="script.js"></script>
+    
+    <!-- Footer -->
+    <footer class="footer-style text-center py-8">
+        <p class="text-sm">&copy; 2025 James Amit. All rights reserved.</p>
+    </footer>
+    
+    <!-- Link to the external JavaScript file -->
+    <script src="script.js"></script>
 </body>
 </html>
