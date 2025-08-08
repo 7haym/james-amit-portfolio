@@ -226,7 +226,7 @@
         <!-- Connect & Expertise -->
         <section id="connect-and-expertise" class="main-content-section bg-white dark:bg-slate-800 rounded-2xl shadow-xl mt-10 p-6">
             <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-slate-100">Connect & Expertise</h2>
-            <div class="grid md:grid-cols-2 gap-6">
+            <div class="grid md:grid-cols-1 gap-6">
                 <div class="bg-white dark:bg-slate-700 p-4 rounded-2xl shadow-md">
                     <h3 class="text-xl font-bold mb-3 text-gray-900 dark:text-slate-100">Connect</h3>
                     <ul class="space-y-3 text-gray-700 dark:text-slate-300">
@@ -296,42 +296,50 @@
 
     <!-- Clean & readable JS -->
     <script>
-    (function () {
-        // ---------- Utilities ----------
-        const $ = (sel, root = document) => root.querySelector(sel);
-        const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+(function () {
+    // ---------- Utilities ----------
+    const $ = (sel, root = document) => root.querySelector(sel);
+    const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
-        // ---------- Elements ----------
-        const navContainer = document.getElementById('nav-links') || document;
-        const navLinks = $$('.nav-link');
-        const contentSections = $$('.main-content-section');
-        const projectList = document.getElementById('projectList');
-        const certificateList = document.getElementById('certificateList');
-        const searchInput = document.getElementById('searchInput');
-        const tabButtons = $$('.tab-btn');
-        const tabContents = $$('.tab-content');
-        const modal = document.getElementById('modal');
-        const modalBody = document.getElementById('modal-body');
-        const modalClose = document.getElementById('modal-close');
-        const mobileBtn = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const mobileClose = document.getElementById('mobile-menu-close');
-        const themeToggle = document.getElementById('theme-toggle') || document.getElementById('theme-toggle-mobile');
-        const themeToggleMobile = document.getElementById('theme-toggle-mobile');
+    // ---------- Elements ----------
+    const navContainer = document.getElementById('nav-links') || document;
+    const navLinks = $$('.nav-link');
+    const contentSections = $$('.main-content-section');
+    const projectList = document.getElementById('projectList');
+    const certificateList = document.getElementById('certificateList');
+    const searchInput = document.getElementById('searchInput');
+    const tabButtons = $$('.tab-btn');
+    const tabContents = $$('.tab-content');
+    const modal = document.getElementById('modal');
+    const modalBody = document.getElementById('modal-body');
+    const modalClose = document.getElementById('modal-close');
+    const mobileBtn = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileClose = document.getElementById('mobile-menu-close');
+    const themeToggle = document.getElementById('theme-toggle') || document.getElementById('theme-toggle-mobile');
+    const themeToggleMobile = document.getElementById('theme-toggle-mobile');
 
-        // ---------- State ----------
-        let projects = [
-            { title: 'Project A: Employee Onboarding Module', description: 'Interactive e-learning module that reduced new hire training time by 20%.', image: 'https://placehold.co/400x225/A0C8F0/003366?text=Module+Preview' },
-            { title: 'Project B: Leadership Development Program', description: 'Blended learning curriculum for emerging leaders, workshops & coaching.', image: 'https://placehold.co/400x225/CCDDFF/003366?text=Program+Overview' },
-            { title: 'Project C: Software Simulation Training', description: 'Step-by-step simulation to train a sales team on a new CRM tool.', image: 'https://placehold.co/400x225/6699CC/FFFFFF?text=CRM+Training+Demo' }
-        ];
+    // ---------- State ----------
+    let projects = [
+        { title: 'Project A: Employee Onboarding Module', description: 'Interactive e-learning module that reduced new hire training time by 20%.', image: 'https://placehold.co/400x225/A0C8F0/003366?text=Module+Preview' },
+        { title: 'Project B: Leadership Development Program', description: 'Blended learning curriculum for emerging leaders, workshops & coaching.', image: 'https://placehold.co/400x225/CCDDFF/003366?text=Program+Overview' },
+        { title: 'Project C: Software Simulation Training', description: 'Step-by-step simulation to train a sales team on a new CRM tool.', image: 'https://placehold.co/400x225/6699CC/FFFFFF?text=CRM+Training+Demo' }
+    ];
 
-        let certificates = [
-            { title: '4DX Certificate', image: 'https://raw.githubusercontent.com/7haym/james-amit-portfolio/main/certificates/Thumbnail/4DX.PNG', link: 'https://raw.githubusercontent.com/7haym/james-amit-portfolio/main/certificates/4DX_Certificate_Amit.pdf' },
-            { title: 'CEET Certificate', image: 'https://raw.githubusercontent.com/7haym/james-amit-portfolio/main/certificates/Thumbnail/CEET.PNG', link: 'https://raw.githubusercontent.com/7haym/james-amit-portfolio/main/certificates/CEET_Certificate_AMIT.pdf' },
-            // ... other certificates truncated for brevity; original list will be used in production
-        ];
-
+    // ---------- FULL certificate list inserted ----------
+    let certificates = [
+        { title: '4DX Certificate', image: 'https://raw.githubusercontent.com/7haym/james-amit-portfolio/main/certificates/Thumbnail/4DX.PNG', link: 'https://raw.githubusercontent.com/7haym/james-amit-portfolio/main/certificates/4DX_Certificate_Amit.pdf' },
+        { title: 'CEET Certificate', image: 'https://raw.githubusercontent.com/7haym/james-amit-portfolio/main/certificates/Thumbnail/CEET.PNG', link: 'https://raw.githubusercontent.com/7haym/james-amit-portfolio/main/certificates/CEET_Certificate_AMIT.pdf' },
+        { title: 'CET Certificate', image: 'https://raw.githubusercontent.com/7haym/james-amit-portfolio/main/certificates/Thumbnail/CET.PNG', link: 'https://raw.githubusercontent.com/7haym/james-amit-portfolio/main/certificates/CET_Certificate_Amit.pdf' },
+        { title: 'CNX EVOLVE Certificate', image: 'https://raw.githubusercontent.com/7haym/james-amit-portfolio/main/certificates/Thumbnail/EVOLVE.PNG', link: 'https://raw.githubusercontent.com/7haym/james-amit-portfolio/main/certificates/CNX_EVOLVE_Certificate.pdf' },
+        { title: '21st Century Executive Toolkit Leadership and Management', image: 'https://raw.githubusercontent.com/7haym/james-amit-portfolio/main/certificates/Thumbnail/Leadership-and-Management.PNG', link: 'https://raw.githubusercontent.com/7haym/james-amit-portfolio/main/certificates/James-Amit-21st-Century-Executive-Toolkit-2-8211-Leadership-and-Management-21st-Century-Executive-Toolkit2-Leadership-vs-Management-Process-Doctors-Academy.pdf' },
+        { title: '21st Century Executive Toolkit Servant Leadership', image: 'https://raw.githubusercontent.com/7haym/james-amit-portfolio/main/certificates/Thumbnail/Servant-Leadership.PNG', link: 'https://raw.githubusercontent.com/7haym/james-amit-portfolio/main/certificates/James-Amit-21st-Century-Executive-Toolkit-2-8211-Servant-Leadership-21st-Century-Executive-Toolkit2-Servant-Leadership-Process-Doctors-Academy.pdf' },
+        { title: '21st Century Executive Toolkit Leadership Essentials', image: 'https://raw.githubusercontent.com/7haym/james-amit-portfolio/main/certificates/Thumbnail/Leadership-Essentials.PNG', link: 'https://raw.githubusercontent.com/7haym/james-amit-portfolio/main/certificates/James-Amit-21st-Century-Executive-Toolkit-8211-Leadership-Essentials-21sLE-New-Branding-Certificate-Process-Doctors-Academy.pdf' },
+        { title: '21st Century Executive Toolkit Management Essentials', image: 'https://raw.githubusercontent.com/7haym/james-amit-portfolio/main/certificates/Thumbnail/Management-Essentials.PNG', link: 'https://raw.githubusercontent.com/7haym/james-amit-portfolio/main/certificates/James-Amit-21st-Century-Executive-Toolkit-8211-Management-Essentials-21st-Century-Executive-Toolkit1-Management-Essentials-Process-Doctors-Academy.pdf' },
+        { title: '21st Century Executive Toolkit Productivity Essentials', image: 'https://raw.githubusercontent.com/7haym/james-amit-portfolio/main/certificates/Thumbnail/Productivity-Essentials.PNG', link: 'https://raw.githubusercontent.com/7haym/james-amit-portfolio/main/certificates/James-Amit-21st-Century-Executive-Toolkit-8211-Productivity-Essentials-21st-Century-Toolkit-Productivity-Essentials-Process-Doctors-Academy.pdf' },
+        { title: 'Attitude of Gratitude 21C Learning Skills', image: 'https://raw.githubusercontent.com/7haym/james-amit-portfolio/main/certificates/Thumbnail/Attitude-of-Gratitude.PNG', link: 'https://raw.githubusercontent.com/7haym/james-amit-portfolio/main/certificates/James-Amit-Attitude-of-Gratitude-21C-Learning-Skills-Attitude-of-Gratitude-Process-Doctors-Academy.pdf' },
+        { title: 'LSSYB Certified Certificate', image: 'https://raw.githubusercontent.com/7haym/james-amit-portfolio/main/certificates/Thumbnail/LSSYB_Certified_Certificate.PNG', link: 'https://raw.githubusercontent.com/7haym/james-amit-portfolio/main/certificates/LSSYB_Certified_Certificate.pdf' }
+    ];
         // ---------- Helpers ----------
         function showSection(targetId) {
             contentSections.forEach(s => s.classList.remove('active'));
