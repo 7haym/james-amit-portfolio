@@ -1,12 +1,13 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>James Amit — Instructional Designer</title>
-    <meta name="description" content="James Amit — Instructional Designer. Portfolio, work experience, teaching demos, certificates, and ways to connect." />
-    <!-- Prevent dark-mode flash: set theme before paint -->
-    <script>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>James Amit — Instructional Designer</title>
+<meta content="James Amit — Instructional Designer. Portfolio, work experience, teaching demos, certificates, and ways to connect." name="description"/>
+<!-- Prevent dark-mode flash: set theme before paint -->
+<script>
         (function() {
             try {
                 const stored = localStorage.getItem('theme');
@@ -16,17 +17,13 @@
             } catch (e) { /* ignore */ }
         })();
     </script>
-
-    <!-- Tailwind via CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Inter font -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <style>
+<!-- Tailwind via CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- Inter font -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Font Awesome -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
         :root { --transition-fast: 180ms; --transition-medium: 300ms; }
         html, body { height: 100%; font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
         /* Section transitions */
@@ -50,284 +47,307 @@
         /* Keep footer at bottom in short pages */
         body { min-height: 100vh; display: flex; flex-direction: column; }
     </style>
-</head>
+<style>
+.tool-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    min-width: 250px;
+    flex-shrink: 0;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+.tool-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+}
+.focused {
+    transform: scale(1.08);
+    box-shadow: 0 10px 35px rgba(59, 130, 246, 0.6);
+}
+.nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: linear-gradient(135deg, #3b82f6, #6366f1);
+    color: white;
+    border: none;
+    padding: 0.5rem 0.8rem;
+    border-radius: 9999px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    transition: background 0.3s ease;
+}
+.nav-btn:hover {
+    background: linear-gradient(135deg, #2563eb, #4f46e5);
+}
+
+/* === Added CSS === */
+/* Match Companies logo background to Tools card logo background */
+.logo-item {
+    background: #e5e7eb; /* Tailwind gray-200 for light mode */
+    padding: 0.75rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+/* Dark mode match to Tools section */
+.dark .logo-item {
+    background: #475569; /* Tailwind slate-600 */
+}
+
+/* Add spacing between Connect and Companies cards */
+#connect-and-expertise .grid {
+    gap: 2rem;
+}
+</style></head>
 <body class="bg-white text-gray-800 dark:bg-slate-900 dark:text-slate-200">
-
-    <!-- Header -->
-    <header id="site-header" class="fixed w-full top-0 left-0 z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md shadow transition-all">
-        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
-            <a href="#hero-and-about" class="flex items-center gap-3" aria-label="Home — James Amit Portfolio">
-                <img src="https://placehold.co/40x40/475569/E2E8F0?text=J" alt="" class="rounded-full w-10 h-10 shadow-sm" loading="lazy">
-                <span class="font-extrabold text-lg">James Amit</span>
-            </a>
-
-            <!-- Desktop nav -->
-            <nav class="hidden md:flex items-center gap-2" aria-label="Primary">
-                <div id="nav-links" class="flex items-center gap-2">
-                    <button class="nav-link px-4 py-2 rounded-xl text-sm font-medium hover:bg-blue-100/70 dark:hover:bg-slate-700" data-target="hero-and-about">About</button>
-                    <button class="nav-link px-4 py-2 rounded-xl text-sm font-medium hover:bg-blue-100/70 dark:hover:bg-slate-700" data-target="work">Work Experience</button>
-                    <button class="nav-link px-4 py-2 rounded-xl text-sm font-medium hover:bg-blue-100/70 dark:hover:bg-slate-700" data-target="portfolio">Portfolio</button>
-                    <button class="nav-link px-4 py-2 rounded-xl text-sm font-medium hover:bg-blue-100/70 dark:hover:bg-slate-700" data-target="teaching">Teaching</button>
-                    <button class="nav-link px-4 py-2 rounded-xl text-sm font-medium hover:bg-blue-100/70 dark:hover:bg-slate-700" data-target="certificates-and-resume">Certificates & Resume</button>
-                    <button class="nav-link px-4 py-2 rounded-xl text-sm font-medium hover:bg-blue-100/70 dark:hover:bg-slate-700" data-target="connect-and-expertise">Connect & Expertise</button>
-                </div>
-                <button id="theme-toggle" class="ml-3 p-2 rounded-full bg-gray-700 text-white hover:bg-gray-600" aria-pressed="false" aria-label="Toggle theme">
-                    <i class="fas"></i>
-                </button>
-            </nav>
-
-            <!-- Mobile actions -->
-            <div class="md:hidden flex items-center gap-2">
-                <button id="theme-toggle-mobile" class="p-2 rounded-full bg-gray-700 text-white hover:bg-gray-600" aria-pressed="false" aria-label="Toggle theme">
-                    <i class="fas"></i>
-                </button>
-                <button id="mobile-menu-button" class="p-2 rounded-lg border ml-1" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </div>
-        </div>
-
-        <!-- Mobile slide menu -->
-        <div id="mobile-menu" class="mobile-menu fixed inset-y-0 right-0 w-11/12 max-w-xs bg-white dark:bg-slate-800 shadow-lg p-6 z-50 md:hidden" role="menu" aria-hidden="true">
-            <div class="flex items-center justify-between mb-6">
-                <div class="font-bold text-lg">Menu</div>
-                <button id="mobile-menu-close" class="p-2 rounded-md" aria-label="Close menu"><i class="fas fa-times"></i></button>
-            </div>
-            <div class="flex flex-col gap-2">
-                <button class="nav-link px-4 py-3 text-left rounded-lg text-base" data-target="hero-and-about">About</button>
-                <button class="nav-link px-4 py-3 text-left rounded-lg text-base" data-target="work">Work Experience</button>
-                <button class="nav-link px-4 py-3 text-left rounded-lg text-base" data-target="portfolio">Portfolio</button>
-                <button class="nav-link px-4 py-3 text-left rounded-lg text-base" data-target="teaching">Teaching</button>
-                <button class="nav-link px-4 py-3 text-left rounded-lg text-base" data-target="certificates-and-resume">Certificates & Resume</button>
-                <button class="nav-link px-4 py-3 text-left rounded-lg text-base" data-target="connect-and-expertise">Connect & Expertise</button>
-            </div>
-        </div>
-    </header>
-
-    <!-- Page content wrapper -->
-    <main id="content-container" class="mt-[96px] container mx-auto px-4 pb-16 flex-1">
-
-        <!-- Hero & About -->
-        <section id="hero-and-about" class="main-content-section active">
-            <section id="hero" class="hero-gradient rounded-b-3xl shadow-xl p-8 text-white" style="background:linear-gradient(135deg,#475569,#1f2937);">
-                <div class="md:flex md:items-center md:gap-10">
-                    <div class="flex-shrink-0 mx-auto md:mx-0">
-                        <img src="https://placehold.co/200x200/475569/E2E8F0?text=James" alt="James Amit portrait" class="w-48 h-48 object-cover rounded-full shadow-2xl border-4 border-white transform transition-transform duration-300 hover:scale-105" loading="lazy">
-                    </div>
-                    <div class="mt-6 md:mt-0 max-w-2xl">
-                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-3 leading-tight">James Amit</h1>
-                        <p class="text-xl lg:text-2xl font-light text-slate-200 mb-4">Instructional Designer and Former Training Supervisor</p>
-                        <p class="text-lg leading-relaxed text-slate-300">A seasoned learning and development professional focused on transforming complex information into measurable, engaging learning experiences.</p>
-                    </div>
-                </div>
-            </section>
-
-            <section id="about" class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl mt-10 p-6">
-                <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-slate-100">About Me</h2>
-                <div class="space-y-4">
-                    <div class="relative w-full aspect-video rounded-xl overflow-hidden">
-                        <!-- Lazy YT: placeholder that loads iframe when clicked -->
-                        <button class="yt-placeholder w-full h-full block bg-gray-100 dark:bg-slate-700 relative flex items-center justify-center text-gray-700 dark:text-slate-200" data-yt="https://www.youtube.com/embed/dQw4w9WgXcQ" aria-label="Play introduction video">
-                            <img src="https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg" alt="Video thumbnail" class="absolute inset-0 w-full h-full object-cover" loading="lazy">
-                            <span class="relative z-10 bg-black/45 rounded-full p-4">
-                                <i class="fas fa-play text-white text-xl"></i>
-                            </span>
-                        </button>
-                    </div>
-                    <p class="text-lg text-gray-700 dark:text-slate-300">Welcome — I'm James Amit. In the video I share my journey in learning & development, my instructional philosophy, and how I design for measurable outcomes.</p>
-                </div>
-            </section>
-        </section>
-
-        <!-- Work Experience -->
-        <section id="work" class="main-content-section bg-white dark:bg-slate-800 rounded-2xl shadow-xl mt-10 p-6">
-            <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-slate-100">Work Experience</h2>
-            <ul class="space-y-6 list-disc list-inside text-gray-700 dark:text-slate-300">
-                <li>
-                    <strong>Training Supervisor</strong> <span class="text-sm text-gray-500 dark:text-slate-400">— Jan 2022 - Present</span>
-                    <p>Led a team of 5 trainers through the full training lifecycle for 200+ new hires annually; implemented onboarding strategies that reduced time-to-proficiency by 15%.</p>
-                </li>
-                <li>
-                    <strong>Instructional Designer</strong> <span class="text-sm text-gray-500 dark:text-slate-400">— Jun 2019 - Dec 2021</span>
-                    <p>Designed eLearning and blended learning programs, improving compliance scores by 20% through more engaging content and stronger SME collaboration.</p>
-                </li>
-            </ul>
-        </section>
-
-        <!-- Portfolio -->
-        <section id="portfolio" class="main-content-section bg-white dark:bg-slate-800 rounded-2xl shadow-xl mt-10 p-6">
-            <div class="flex items-center justify-between mb-4">
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-slate-100">Portfolio</h2>
-                <input id="searchInput" type="search" placeholder="Search projects..." aria-label="Search projects" class="px-3 py-2 rounded-lg border bg-gray-100 dark:bg-slate-700 text-sm w-60" />
-            </div>
-            <div id="projectList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- JS will render project cards here -->
-                <p class="col-span-full text-center text-gray-500 dark:text-slate-400">Loading projects…</p>
-            </div>
-        </section>
-
-        <!-- Teaching -->
-        <section id="teaching" class="main-content-section bg-white dark:bg-slate-800 rounded-2xl shadow-xl mt-10 p-6">
-            <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-slate-100">Teaching Demos & Videos</h2>
-            <div class="grid md:grid-cols-2 gap-6">
-                <article class="bg-white dark:bg-slate-700 p-4 rounded-xl shadow-md">
-                    <h3 class="font-semibold mb-2 text-gray-900 dark:text-slate-100">Introduction to Adult Learning Principles</h3>
-                    <div class="relative w-full aspect-video rounded-lg overflow-hidden mb-3">
-                        <button class="yt-placeholder w-full h-full block bg-gray-100 dark:bg-slate-700 relative" data-yt="https://www.youtube.com/embed/dQw4w9WgXcQ" aria-label="Play Adult Learning video">
-                            <img src="https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg" alt="Adult learning video thumbnail" class="absolute inset-0 w-full h-full object-cover" loading="lazy">
-                            <span class="relative z-10 bg-black/45 rounded-full p-3 absolute left-4 bottom-4">
-                                <i class="fas fa-play text-white"></i>
-                            </span>
-                        </button>
-                    </div>
-                    <p class="text-sm text-gray-600 dark:text-slate-300">Short overview of key adult learning principles for corporate training.</p>
-                </article>
-
-                <article class="bg-white dark:bg-slate-700 p-4 rounded-xl shadow-md">
-                    <h3 class="font-semibold mb-2 text-gray-900 dark:text-slate-100">Software Demo: Navigating Our CRM</h3>
-                    <div class="relative w-full aspect-video rounded-lg overflow-hidden mb-3">
-                        <button class="yt-placeholder w-full h-full block bg-gray-100 dark:bg-slate-700 relative" data-yt="https://www.youtube.com/embed/some_other_video_id" aria-label="Play CRM demo video">
-                            <img src="https://placehold.co/1280x720/6699CC/ffffff?text=CRM+Demo" alt="CRM demo thumbnail" class="absolute inset-0 w-full h-full object-cover" loading="lazy">
-                            <span class="relative z-10 bg-black/45 rounded-full p-3 absolute left-4 bottom-4">
-                                <i class="fas fa-play text-white"></i>
-                            </span>
-                        </button>
-                    </div>
-                    <p class="text-sm text-gray-600 dark:text-slate-300">Concise tutorial showing core CRM features. (Placeholder)</p>
-                </article>
-            </div>
-        </section>
-
-        <!-- Certificates & Resume -->
-        <section id="certificates-and-resume" class="main-content-section bg-white dark:bg-slate-800 rounded-2xl shadow-xl mt-10 p-6">
-            <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-slate-100">Certificates & Resume</h2>
-            <div class="flex flex-wrap gap-3 mb-6">
-                <button class="tab-btn px-4 py-2 rounded-xl bg-gray-100 dark:bg-slate-700" data-tab="certificates-tab">Certificates</button>
-                <button class="tab-btn px-4 py-2 rounded-xl bg-gray-100 dark:bg-slate-700" data-tab="resume-tab">Resume</button>
-            </div>
-
-            <div id="certificates-tab" class="tab-content bg-white dark:bg-slate-700 rounded-xl p-4 shadow-inner">
-                <div id="certificateList" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <p class="col-span-full text-center text-gray-500 dark:text-slate-300">Loading certificates…</p>
-                </div>
-            </div>
-
-            <div id="resume-tab" class="tab-content hidden bg-white dark:bg-slate-700 rounded-xl p-4 shadow-inner">
-                <div class="flex items-center justify-between mb-4">
-                    <p class="text-gray-900 dark:text-slate-100">Preview or download the resume</p>
-                    <a id="viewResume" href="#" class="inline-flex items-center gap-2 bg-orange-600 text-white px-4 py-2 rounded-full font-semibold">View Resume <i class="fas fa-eye"></i></a>
-                </div>
-                <div class="w-full aspect-[4/5] border-4 border-blue-600 dark:border-blue-400 rounded-xl overflow-hidden">
-                    <iframe id="resumePreview" src="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" class="w-full h-full" loading="lazy" title="Resume preview"></iframe>
-                </div>
-            </div>
-        </section>
-
-<!-- Connect & Expertise -->
-<section id="connect-and-expertise" class="main-content-section bg-white dark:bg-slate-800 rounded-2xl shadow-xl mt-10 p-6">
-    <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-slate-100">Connect & Expertise</h2>
-    
-    <div class="grid md:grid-cols-2 gap-6">
-        <!-- Connect Card -->
-        <div class="bg-white dark:bg-slate-700 p-6 rounded-2xl shadow-md">
-            <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-slate-100">Connect</h3>
-            <p class="text-gray-600 dark:text-slate-300 mb-4">I’d love to hear from you — feel free to reach out through any of these channels.</p>
-            <ul class="space-y-3 text-gray-700 dark:text-slate-300">
-                <li class="flex items-center gap-3"><i class="fas fa-envelope text-blue-500"></i><a href="mailto:jamesbrian.amit@gmail.com" class="hover:underline">jamesbrian.amit@gmail.com</a></li>
-                <li class="flex items-center gap-3"><i class="fas fa-phone-alt text-blue-500"></i><span>+1 (555) 123-4567</span></li>
-                <li class="flex items-center gap-3"><i class="fab fa-linkedin text-blue-500"></i><a href="https://linkedin.com/in/amitjamesmadr" target="_blank" rel="noopener" class="hover:underline">linkedin.com/in/amitjamesmadr</a></li>
-            </ul>
-        </div>
-
-        <!-- Companies Card -->
-        <div class="bg-white dark:bg-slate-700 p-6 rounded-2xl shadow-md">
-            <h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-slate-100">Companies</h3>
-            <p class="text-gray-600 dark:text-slate-300 mb-4">Organizations I’ve worked with and contributed to over the years.</p>
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                <div class="logo-item bg-white dark:bg-slate-600 rounded-xl p-3 flex items-center justify-center shadow-sm">
-                    <img src="https://7haym.github.io/james-amit-portfolio/logos/companies/Acquire_Intelligence_logo.png" alt="Acquire Intelligence" class="lazy-logo max-h-12">
-                </div>
-                <div class="logo-item bg-white dark:bg-slate-600 rounded-xl p-3 flex items-center justify-center shadow-sm">
-                    <img src="https://7haym.github.io/james-amit-portfolio/logos/companies/Concentrix_logo.svg.png" alt="Concentrix" class="lazy-logo max-h-12">
-                </div>
-                <div class="logo-item bg-white dark:bg-slate-600 rounded-xl p-3 flex items-center justify-center shadow-sm">
-                    <img src="https://7haym.github.io/james-amit-portfolio/logos/companies/Hexaware_logo.png" alt="Hexaware" class="lazy-logo max-h-12">
-                </div>
-                <div class="logo-item bg-white dark:bg-slate-600 rounded-xl p-3 flex items-center justify-center shadow-sm">
-                    <img src="https://7haym.github.io/james-amit-portfolio/logos/companies/ePLDT-logo.png" alt="ePLDT" class="lazy-logo max-h-12">
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Tools Card -->
-    <div class="bg-white dark:bg-slate-700 p-6 rounded-2xl shadow-md mt-6">
-        <h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-slate-100">Tools</h3>
-        <p class="text-gray-600 dark:text-slate-300 mb-4">Applications and platforms I regularly use to design, deliver, and manage learning experiences.</p>
-        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-            <div class="logo-item p-3 bg-white dark:bg-slate-600 rounded-xl flex items-center justify-center shadow-sm">
-                <img src="https://7haym.github.io/james-amit-portfolio/Logos/Tools/Articulate%20360.png" alt="Articulate 360" class="lazy-logo max-h-12">
-            </div>
-            <div class="logo-item p-3 bg-white dark:bg-slate-600 rounded-xl flex items-center justify-center shadow-sm">
-                <img src="https://7haym.github.io/james-amit-portfolio/logos/tools/Canva_logo_PNG12.png" alt="Canva" class="lazy-logo max-h-12">
-            </div>
-            <div class="logo-item p-3 bg-white dark:bg-slate-600 rounded-xl flex items-center justify-center shadow-sm">
-                <img src="https://7haym.github.io/james-amit-portfolio/logos/tools/CapCut-Logo.png" alt="CapCut" class="lazy-logo max-h-12">
-            </div>
-            <div class="logo-item p-3 bg-white dark:bg-slate-600 rounded-xl flex items-center justify-center shadow-sm">
-                <img src="https://7haym.github.io/james-amit-portfolio/logos/tools/Confluence-Logo-PNG-001.png" alt="Confluence" class="lazy-logo max-h-12">
-            </div>
-            <div class="logo-item p-3 bg-white dark:bg-slate-600 rounded-xl flex items-center justify-center shadow-sm">
-                <img src="https://7haym.github.io/james-amit-portfolio/logos/tools/Cornerstone_OnDemand_logo.svg.png" alt="Cornerstone OnDemand" class="lazy-logo max-h-12">
-            </div>
-            <div class="logo-item p-3 bg-white dark:bg-slate-600 rounded-xl flex items-center justify-center shadow-sm">
-                <img src="https://7haym.github.io/james-amit-portfolio/logos/tools/Genially-Logo-Vector.svg-.png" alt="Genially" class="lazy-logo max-h-12">
-            </div>
-            <div class="logo-item p-3 bg-white dark:bg-slate-600 rounded-xl flex items-center justify-center shadow-sm">
-                <img src="https://7haym.github.io/james-amit-portfolio/logos/tools/Google-Workspace-PNG_004.png" alt="Google Workspace" class="lazy-logo max-h-12">
-            </div>
-            <div class="logo-item p-3 bg-white dark:bg-slate-600 rounded-xl flex items-center justify-center shadow-sm">
-                <img src="https://7haym.github.io/james-amit-portfolio/logos/tools/Lightworks_logo.png" alt="Lightworks" class="lazy-logo max-h-12">
-            </div>
-            <div class="logo-item p-3 bg-white dark:bg-slate-600 rounded-xl flex items-center justify-center shadow-sm">
-                <img src="https://7haym.github.io/james-amit-portfolio/logos/tools/Mentimeter-Logo-Vector.svg-.png" alt="Mentimeter" class="lazy-logo max-h-12">
-            </div>
-            <div class="logo-item p-3 bg-white dark:bg-slate-600 rounded-xl flex items-center justify-center shadow-sm">
-                <img src="https://7haym.github.io/james-amit-portfolio/logos/tools/Microsoft_Office_logo_PNG2.png" alt="Microsoft Office" class="lazy-logo max-h-12">
-            </div>
-            <div class="logo-item p-3 bg-white dark:bg-slate-600 rounded-xl flex items-center justify-center shadow-sm">
-                <img src="https://7haym.github.io/james-amit-portfolio/logos/tools/Moodle-Logo.wine.png" alt="Moodle" class="lazy-logo max-h-12">
-            </div>
-            <div class="logo-item p-3 bg-white dark:bg-slate-600 rounded-xl flex items-center justify-center shadow-sm">
-                <img src="https://7haym.github.io/james-amit-portfolio/logos/tools/Photoshop-logo-500x281.png" alt="Photoshop" class="lazy-logo max-h-12">
-            </div>
-            <div class="logo-item p-3 bg-white dark:bg-slate-600 rounded-xl flex items-center justify-center shadow-sm">
-                <img src="https://7haym.github.io/james-amit-portfolio/logos/tools/Workplace_logo_PNG5.png" alt="Workplace" class="lazy-logo max-h-12">
-            </div>
-        </div>
-    </div>
+<!-- Header -->
+<header class="fixed w-full top-0 left-0 z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md shadow transition-all" id="site-header">
+<div class="container mx-auto px-4 py-3 flex items-center justify-between">
+<a aria-label="Home — James Amit Portfolio" class="flex items-center gap-3" href="#hero-and-about">
+<img alt="" class="rounded-full w-10 h-10 shadow-sm" loading="lazy" src="https://placehold.co/40x40/475569/E2E8F0?text=J"/>
+<span class="font-extrabold text-lg">James Amit</span>
+</a>
+<!-- Desktop nav -->
+<nav aria-label="Primary" class="hidden md:flex items-center gap-2">
+<div class="flex items-center gap-2" id="nav-links">
+<button class="nav-link px-4 py-2 rounded-xl text-sm font-medium hover:bg-blue-100/70 dark:hover:bg-slate-700" data-target="hero-and-about">About</button>
+<button class="nav-link px-4 py-2 rounded-xl text-sm font-medium hover:bg-blue-100/70 dark:hover:bg-slate-700" data-target="work">Work Experience</button>
+<button class="nav-link px-4 py-2 rounded-xl text-sm font-medium hover:bg-blue-100/70 dark:hover:bg-slate-700" data-target="portfolio">Portfolio</button>
+<button class="nav-link px-4 py-2 rounded-xl text-sm font-medium hover:bg-blue-100/70 dark:hover:bg-slate-700" data-target="teaching">Teaching</button>
+<button class="nav-link px-4 py-2 rounded-xl text-sm font-medium hover:bg-blue-100/70 dark:hover:bg-slate-700" data-target="certificates-and-resume">Certificates &amp; Resume</button>
+<button class="nav-link px-4 py-2 rounded-xl text-sm font-medium hover:bg-blue-100/70 dark:hover:bg-slate-700" data-target="connect-and-expertise">Connect &amp; Expertise</button>
+</div>
+<button aria-label="Toggle theme" aria-pressed="false" class="ml-3 p-2 rounded-full bg-gray-700 text-white hover:bg-gray-600" id="theme-toggle">
+<i class="fas"></i>
+</button>
+</nav>
+<!-- Mobile actions -->
+<div class="md:hidden flex items-center gap-2">
+<button aria-label="Toggle theme" aria-pressed="false" class="p-2 rounded-full bg-gray-700 text-white hover:bg-gray-600" id="theme-toggle-mobile">
+<i class="fas"></i>
+</button>
+<button aria-controls="mobile-menu" aria-expanded="false" aria-label="Open menu" class="p-2 rounded-lg border ml-1" id="mobile-menu-button">
+<i class="fas fa-bars"></i>
+</button>
+</div>
+</div>
+<!-- Mobile slide menu -->
+<div aria-hidden="true" class="mobile-menu fixed inset-y-0 right-0 w-11/12 max-w-xs bg-white dark:bg-slate-800 shadow-lg p-6 z-50 md:hidden" id="mobile-menu" role="menu">
+<div class="flex items-center justify-between mb-6">
+<div class="font-bold text-lg">Menu</div>
+<button aria-label="Close menu" class="p-2 rounded-md" id="mobile-menu-close"><i class="fas fa-times"></i></button>
+</div>
+<div class="flex flex-col gap-2">
+<button class="nav-link px-4 py-3 text-left rounded-lg text-base" data-target="hero-and-about">About</button>
+<button class="nav-link px-4 py-3 text-left rounded-lg text-base" data-target="work">Work Experience</button>
+<button class="nav-link px-4 py-3 text-left rounded-lg text-base" data-target="portfolio">Portfolio</button>
+<button class="nav-link px-4 py-3 text-left rounded-lg text-base" data-target="teaching">Teaching</button>
+<button class="nav-link px-4 py-3 text-left rounded-lg text-base" data-target="certificates-and-resume">Certificates &amp; Resume</button>
+<button class="nav-link px-4 py-3 text-left rounded-lg text-base" data-target="connect-and-expertise">Connect &amp; Expertise</button>
+</div>
+</div>
+</header>
+<!-- Page content wrapper -->
+<main class="mt-[96px] container mx-auto px-4 pb-16 flex-1" id="content-container">
+<!-- Hero & About -->
+<section class="main-content-section active" id="hero-and-about">
+<section class="hero-gradient rounded-b-3xl shadow-xl p-8 text-white" id="hero" style="background:linear-gradient(135deg,#475569,#1f2937);">
+<div class="md:flex md:items-center md:gap-10">
+<div class="flex-shrink-0 mx-auto md:mx-0">
+<img alt="James Amit portrait" class="w-48 h-48 object-cover rounded-full shadow-2xl border-4 border-white transform transition-transform duration-300 hover:scale-105" loading="lazy" src="https://placehold.co/200x200/475569/E2E8F0?text=James"/>
+</div>
+<div class="mt-6 md:mt-0 max-w-2xl">
+<h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-3 leading-tight">James Amit</h1>
+<p class="text-xl lg:text-2xl font-light text-slate-200 mb-4">Instructional Designer and Former Training Supervisor</p>
+<p class="text-lg leading-relaxed text-slate-300">A seasoned learning and development professional focused on transforming complex information into measurable, engaging learning experiences.</p>
+</div>
+</div>
 </section>
-
-    <!-- Modal (reusable) -->
-    <div id="modal" class="modal fixed inset-0 items-center justify-center z-[60] modal" role="dialog" aria-modal="true" aria-hidden="true">
-        <div class="modal-backdrop absolute inset-0"></div>
-        <div class="modal-panel relative bg-white dark:bg-slate-800 rounded-2xl shadow-2xl max-w-5xl w-[92%] max-h-[90vh] overflow-hidden p-3 z-10 open">
-            <button id="modal-close" class="absolute top-3 right-3 bg-gray-600 text-white rounded-full w-9 h-9 flex items-center justify-center" aria-label="Close dialog">
-                <i class="fas fa-times"></i>
-            </button>
-            <div id="modal-body" class="w-full h-[78vh] bg-gray-50 dark:bg-slate-700 rounded-xl overflow-auto">
-                <!-- JS inserts iframe or image content here -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-white text-center py-6">
-        <p class="text-sm">&copy; 2025 James Amit. All rights reserved.</p>
-    </footer>
-
-    <!-- Clean & readable JS -->
-    <script>
+<section class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl mt-10 p-6" id="about">
+<h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-slate-100">About Me</h2>
+<div class="space-y-4">
+<div class="relative w-full aspect-video rounded-xl overflow-hidden">
+<!-- Lazy YT: placeholder that loads iframe when clicked -->
+<button aria-label="Play introduction video" class="yt-placeholder w-full h-full block bg-gray-100 dark:bg-slate-700 relative flex items-center justify-center text-gray-700 dark:text-slate-200" data-yt="https://www.youtube.com/embed/dQw4w9WgXcQ">
+<img alt="Video thumbnail" class="absolute inset-0 w-full h-full object-cover" loading="lazy" src="https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg"/>
+<span class="relative z-10 bg-black/45 rounded-full p-4">
+<i class="fas fa-play text-white text-xl"></i>
+</span>
+</button>
+</div>
+<p class="text-lg text-gray-700 dark:text-slate-300">Welcome — I'm James Amit. In the video I share my journey in learning &amp; development, my instructional philosophy, and how I design for measurable outcomes.</p>
+</div>
+</section>
+</section>
+<!-- Work Experience -->
+<section class="main-content-section bg-white dark:bg-slate-800 rounded-2xl shadow-xl mt-10 p-6" id="work">
+<h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-slate-100">Work Experience</h2>
+<ul class="space-y-6 list-disc list-inside text-gray-700 dark:text-slate-300">
+<li>
+<strong>Training Supervisor</strong> <span class="text-sm text-gray-500 dark:text-slate-400">— Jan 2022 - Present</span>
+<p>Led a team of 5 trainers through the full training lifecycle for 200+ new hires annually; implemented onboarding strategies that reduced time-to-proficiency by 15%.</p>
+</li>
+<li>
+<strong>Instructional Designer</strong> <span class="text-sm text-gray-500 dark:text-slate-400">— Jun 2019 - Dec 2021</span>
+<p>Designed eLearning and blended learning programs, improving compliance scores by 20% through more engaging content and stronger SME collaboration.</p>
+</li>
+</ul>
+</section>
+<!-- Portfolio -->
+<section class="main-content-section bg-white dark:bg-slate-800 rounded-2xl shadow-xl mt-10 p-6" id="portfolio">
+<div class="flex items-center justify-between mb-4">
+<h2 class="text-2xl font-bold text-gray-900 dark:text-slate-100">Portfolio</h2>
+<input aria-label="Search projects" class="px-3 py-2 rounded-lg border bg-gray-100 dark:bg-slate-700 text-sm w-60" id="searchInput" placeholder="Search projects..." type="search"/>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="projectList">
+<!-- JS will render project cards here -->
+<p class="col-span-full text-center text-gray-500 dark:text-slate-400">Loading projects…</p>
+</div>
+</section>
+<!-- Teaching -->
+<section class="main-content-section bg-white dark:bg-slate-800 rounded-2xl shadow-xl mt-10 p-6" id="teaching">
+<h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-slate-100">Teaching Demos &amp; Videos</h2>
+<div class="grid md:grid-cols-2 gap-6">
+<article class="bg-white dark:bg-slate-700 p-4 rounded-xl shadow-md">
+<h3 class="font-semibold mb-2 text-gray-900 dark:text-slate-100">Introduction to Adult Learning Principles</h3>
+<div class="relative w-full aspect-video rounded-lg overflow-hidden mb-3">
+<button aria-label="Play Adult Learning video" class="yt-placeholder w-full h-full block bg-gray-100 dark:bg-slate-700 relative" data-yt="https://www.youtube.com/embed/dQw4w9WgXcQ">
+<img alt="Adult learning video thumbnail" class="absolute inset-0 w-full h-full object-cover" loading="lazy" src="https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg"/>
+<span class="relative z-10 bg-black/45 rounded-full p-3 absolute left-4 bottom-4">
+<i class="fas fa-play text-white"></i>
+</span>
+</button>
+</div>
+<p class="text-sm text-gray-600 dark:text-slate-300">Short overview of key adult learning principles for corporate training.</p>
+</article>
+<article class="bg-white dark:bg-slate-700 p-4 rounded-xl shadow-md">
+<h3 class="font-semibold mb-2 text-gray-900 dark:text-slate-100">Software Demo: Navigating Our CRM</h3>
+<div class="relative w-full aspect-video rounded-lg overflow-hidden mb-3">
+<button aria-label="Play CRM demo video" class="yt-placeholder w-full h-full block bg-gray-100 dark:bg-slate-700 relative" data-yt="https://www.youtube.com/embed/some_other_video_id">
+<img alt="CRM demo thumbnail" class="absolute inset-0 w-full h-full object-cover" loading="lazy" src="https://placehold.co/1280x720/6699CC/ffffff?text=CRM+Demo"/>
+<span class="relative z-10 bg-black/45 rounded-full p-3 absolute left-4 bottom-4">
+<i class="fas fa-play text-white"></i>
+</span>
+</button>
+</div>
+<p class="text-sm text-gray-600 dark:text-slate-300">Concise tutorial showing core CRM features. (Placeholder)</p>
+</article>
+</div>
+</section>
+<!-- Certificates & Resume -->
+<section class="main-content-section bg-white dark:bg-slate-800 rounded-2xl shadow-xl mt-10 p-6" id="certificates-and-resume">
+<h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-slate-100">Certificates &amp; Resume</h2>
+<div class="flex flex-wrap gap-3 mb-6">
+<button class="tab-btn px-4 py-2 rounded-xl bg-gray-100 dark:bg-slate-700" data-tab="certificates-tab">Certificates</button>
+<button class="tab-btn px-4 py-2 rounded-xl bg-gray-100 dark:bg-slate-700" data-tab="resume-tab">Resume</button>
+</div>
+<div class="tab-content bg-white dark:bg-slate-700 rounded-xl p-4 shadow-inner" id="certificates-tab">
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="certificateList">
+<p class="col-span-full text-center text-gray-500 dark:text-slate-300">Loading certificates…</p>
+</div>
+</div>
+<div class="tab-content hidden bg-white dark:bg-slate-700 rounded-xl p-4 shadow-inner" id="resume-tab">
+<div class="flex items-center justify-between mb-4">
+<p class="text-gray-900 dark:text-slate-100">Preview or download the resume</p>
+<a class="inline-flex items-center gap-2 bg-orange-600 text-white px-4 py-2 rounded-full font-semibold" href="#" id="viewResume">View Resume <i class="fas fa-eye"></i></a>
+</div>
+<div class="w-full aspect-[4/5] border-4 border-blue-600 dark:border-blue-400 rounded-xl overflow-hidden">
+<iframe class="w-full h-full" id="resumePreview" loading="lazy" src="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" title="Resume preview"></iframe>
+</div>
+</div>
+</section>
+<!-- Connect & Expertise -->
+<section class="main-content-section bg-white dark:bg-slate-800 rounded-2xl shadow-xl mt-10 p-6" id="connect-and-expertise">
+<h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-slate-100">Connect &amp; Expertise</h2>
+<div class="md:grid-cols-2 gap-6">
+<!-- Connect Card -->
+<div class="bg-white dark:bg-slate-700 p-6 rounded-2xl shadow-md">
+<h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-slate-100">Connect</h3>
+<p class="text-gray-600 dark:text-slate-300 mb-4">I’d love to hear from you — feel free to reach out through any of these channels.</p>
+<ul class="space-y-3 text-gray-700 dark:text-slate-300">
+<li class="flex items-center gap-3"><i class="fas fa-envelope text-blue-500"></i><a class="hover:underline" href="mailto:jamesbrian.amit@gmail.com">jamesbrian.amit@gmail.com</a></li>
+<li class="flex items-center gap-3"><i class="fas fa-phone-alt text-blue-500"></i><span>+1 (555) 123-4567</span></li>
+<li class="flex items-center gap-3"><i class="fab fa-linkedin text-blue-500"></i><a class="hover:underline" href="https://linkedin.com/in/amitjamesmadr" rel="noopener" target="_blank">linkedin.com/in/amitjamesmadr</a></li>
+</ul>
+</div>
+<!-- Companies Card -->
+<div class="bg-white dark:bg-slate-700 p-6 rounded-2xl shadow-md">
+<h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-slate-100">Companies</h3>
+<p class="text-gray-600 dark:text-slate-300 mb-4">Organizations I’ve worked with and contributed to over the years.</p>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+<div class="logo-item bg-white dark:bg-slate-600 rounded-xl p-3 flex items-center justify-center shadow-sm">
+<img alt="Acquire Intelligence" class="lazy-logo max-h-12" src="https://7haym.github.io/james-amit-portfolio/Logos/Companies/Acquire_Intelligence_logo.png"/>
+</div>
+<div class="logo-item bg-white dark:bg-slate-600 rounded-xl p-3 flex items-center justify-center shadow-sm">
+<img alt="Concentrix" class="lazy-logo max-h-12" src="https://7haym.github.io/james-amit-portfolio/Logos/Companies/Concentrix_logo.svg.png"/>
+</div>
+<div class="logo-item bg-white dark:bg-slate-600 rounded-xl p-3 flex items-center justify-center shadow-sm">
+<img alt="Hexaware" class="lazy-logo max-h-12" src="https://7haym.github.io/james-amit-portfolio/Logos/Companies/Hexaware_logo.png"/>
+</div>
+<div class="logo-item bg-white dark:bg-slate-600 rounded-xl p-3 flex items-center justify-center shadow-sm">
+<img alt="ePLDT" class="lazy-logo max-h-12" src="https://7haym.github.io/james-amit-portfolio/Logos/Companies/ePLDT-logo.png"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Tools Card -->
+<div class="bg-white dark:bg-slate-700 p-6 rounded-2xl shadow-md mt-6">
+<h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-slate-100">Tools</h3>
+<p class="text-gray-600 dark:text-slate-300 mb-4">Applications and platforms I regularly use to design, deliver, and manage learning experiences.</p>
+<div class="relative overflow-hidden">
+<div class="flex gap-6 transition-transform duration-700 ease-in-out" id="carousel">
+<div class="tool-card"><div class="logo-item p-3 dark:bg-slate-600 flex items-center justify-center shadow-sm">
+<img alt="Articulate 360" class="lazy-logo max-h-20" src="https://7haym.github.io/james-amit-portfolio/Logos/Tools/Articulate%20360.png"/>
+</div></div><div class="tool-card"><div class="logo-item p-3 dark:bg-slate-600 flex items-center justify-center shadow-sm">
+<img alt="Canva" class="lazy-logo max-h-20" src="https://7haym.github.io/james-amit-portfolio/Logos/Tools/Canva_logo_PNG12.png"/>
+</div></div><div class="tool-card"><div class="logo-item p-3 dark:bg-slate-600 flex items-center justify-center shadow-sm">
+<img alt="CapCut" class="lazy-logo max-h-20" src="https://7haym.github.io/james-amit-portfolio/Logos/Tools/CapCut-Logo.png"/>
+</div></div><div class="tool-card"><div class="logo-item p-3 dark:bg-slate-600 flex items-center justify-center shadow-sm">
+<img alt="Confluence" class="lazy-logo max-h-20" src="https://7haym.github.io/james-amit-portfolio/Logos/Tools/Confluence-Logo-PNG-001.png"/>
+</div></div><div class="tool-card"><div class="logo-item p-3 dark:bg-slate-600 flex items-center justify-center shadow-sm">
+<img alt="Cornerstone OnDemand" class="lazy-logo max-h-20" src="https://7haym.github.io/james-amit-portfolio/Logos/Tools/Cornerstone_OnDemand_logo.svg.png"/>
+</div></div><div class="tool-card"><div class="logo-item p-3 dark:bg-slate-600 flex items-center justify-center shadow-sm">
+<img alt="Genially" class="lazy-logo max-h-20" src="https://7haym.github.io/james-amit-portfolio/Logos/Tools/Genially-Logo-Vector.svg-.png"/>
+</div></div><div class="tool-card"><div class="logo-item p-3 dark:bg-slate-600 flex items-center justify-center shadow-sm">
+<img alt="Google Workspace" class="lazy-logo max-h-20" src="https://7haym.github.io/james-amit-portfolio/Logos/Tools/Google-Workspace-PNG_004.png"/>
+</div></div><div class="tool-card"><div class="logo-item p-3 dark:bg-slate-600 flex items-center justify-center shadow-sm">
+<img alt="Lightworks" class="lazy-logo max-h-20" src="https://7haym.github.io/james-amit-portfolio/Logos/Tools/Lightworks_logo.png"/>
+</div></div><div class="tool-card"><div class="logo-item p-3 dark:bg-slate-600 flex items-center justify-center shadow-sm">
+<img alt="Mentimeter" class="lazy-logo max-h-20" src="https://7haym.github.io/james-amit-portfolio/Logos/Tools/Mentimeter-Logo-Vector.svg-.png"/>
+</div></div><div class="tool-card"><div class="logo-item p-3 dark:bg-slate-600 flex items-center justify-center shadow-sm">
+<img alt="Microsoft Office" class="lazy-logo max-h-20" src="https://7haym.github.io/james-amit-portfolio/Logos/Tools/Microsoft_Office_logo_PNG2.png"/>
+</div></div><div class="tool-card"><div class="logo-item p-3 dark:bg-slate-600 flex items-center justify-center shadow-sm">
+<img alt="Moodle" class="lazy-logo max-h-20" src="https://7haym.github.io/james-amit-portfolio/Logos/Tools/Moodle-Logo.wine.png"/>
+</div></div><div class="tool-card"><div class="logo-item p-3 dark:bg-slate-600 flex items-center justify-center shadow-sm">
+<img alt="Photoshop" class="lazy-logo max-h-20" src="https://7haym.github.io/james-amit-portfolio/Logos/Tools/Photoshop-logo-500x281.png"/>
+</div></div><div class="tool-card"><div class="logo-item p-3 dark:bg-slate-600 flex items-center justify-center shadow-sm">
+<img alt="Workplace" class="lazy-logo max-h-20" src="https://7haym.github.io/james-amit-portfolio/Logos/Tools/Workplace_logo_PNG5.png"/>
+</div></div></div>
+<button class="nav-btn left-0" id="prev">←</button>
+<button class="nav-btn right-0" id="next">→</button>
+</div>
+</div>
+</section>
+<!-- Modal (reusable) -->
+<div aria-hidden="true" aria-modal="true" class="modal fixed inset-0 items-center justify-center z-[60] modal" id="modal" role="dialog">
+<div class="modal-backdrop absolute inset-0"></div>
+<div class="modal-panel relative bg-white dark:bg-slate-800 rounded-2xl shadow-2xl max-w-5xl w-[92%] max-h-[90vh] overflow-hidden p-3 z-10 open">
+<button aria-label="Close dialog" class="absolute top-3 right-3 bg-gray-600 text-white rounded-full w-9 h-9 flex items-center justify-center" id="modal-close">
+<i class="fas fa-times"></i>
+</button>
+<div class="w-full h-[78vh] bg-gray-50 dark:bg-slate-700 rounded-xl overflow-auto" id="modal-body">
+<!-- JS inserts iframe or image content here -->
+</div>
+</div>
+</div>
+<!-- Footer -->
+<footer class="bg-gray-900 text-white text-center py-6">
+<p class="text-sm">© 2025 James Amit. All rights reserved.</p>
+</footer>
+<!-- Clean & readable JS -->
+<script>
 (function () {
     // ---------- Utilities ----------
     const $ = (sel, root = document) => root.querySelector(sel);
@@ -629,5 +649,69 @@
 
     })();
     </script>
-</body>
+</main><script>
+const carousel = document.getElementById('carousel');
+let items = carousel.children;
+const step = 270;
+let offset = 0;
+let autoplayInterval;
+let startX = 0;
+let isDragging = false;
+
+const firstClone = items[0].cloneNode(true);
+const lastClone = items[items.length - 1].cloneNode(true);
+carousel.appendChild(firstClone);
+carousel.insertBefore(lastClone, items[0]);
+
+items = carousel.children;
+offset = -step;
+carousel.style.transform = `translateX(${offset}px)`;
+highlightCenter();
+
+function moveCarousel(direction) {
+    offset += direction * -step;
+    carousel.style.transition = "transform 0.7s ease-in-out";
+    carousel.style.transform = `translateX(${offset}px)`;
+
+    carousel.addEventListener("transitionend", () => {
+        if (offset <= -(step * (items.length - 1))) {
+            carousel.style.transition = "none";
+            offset = -step;
+            carousel.style.transform = `translateX(${offset}px)`;
+        } else if (offset >= 0) {
+            carousel.style.transition = "none";
+            offset = -step * (items.length - 2);
+            carousel.style.transform = `translateX(${offset}px)`;
+        }
+        highlightCenter();
+    }, { once: true });
+}
+
+function highlightCenter() {
+    [...items].forEach(item => item.classList.remove("focused"));
+    const centerIndex = Math.round(Math.abs(offset) / step) + 1;
+    if (items[centerIndex]) items[centerIndex].classList.add("focused");
+}
+
+document.getElementById('next').addEventListener('click', () => moveCarousel(1));
+document.getElementById('prev').addEventListener('click', () => moveCarousel(-1));
+
+carousel.addEventListener("touchstart", (e) => {
+    startX = e.touches[0].clientX;
+    isDragging = true;
+});
+carousel.addEventListener("touchmove", (e) => {
+    if (!isDragging) return;
+    const diff = e.touches[0].clientX - startX;
+    if (diff > 50) { moveCarousel(-1); isDragging = false; }
+    else if (diff < -50) { moveCarousel(1); isDragging = false; }
+});
+carousel.addEventListener("touchend", () => isDragging = false);
+
+function startAutoplay() { autoplayInterval = setInterval(() => moveCarousel(1), 3000); }
+function stopAutoplay() { clearInterval(autoplayInterval); }
+carousel.parentElement.addEventListener("mouseenter", stopAutoplay);
+carousel.parentElement.addEventListener("mouseleave", startAutoplay);
+startAutoplay();
+</script></body>
 </html>
