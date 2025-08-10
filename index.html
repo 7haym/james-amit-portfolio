@@ -1,12 +1,10 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <title>James Amit — Instructional Designer</title>
 <meta content="James Amit — Instructional Designer. Portfolio, work experience, teaching demos, certificates, and ways to connect." name="description"/>
-<!-- Prevent dark-mode flash: set theme before paint -->
 <script>
         (function() {
             try {
@@ -17,11 +15,8 @@
             } catch (e) { /* ignore */ }
         })();
     </script>
-<!-- Tailwind via CDN -->
 <script src="https://cdn.tailwindcss.com"></script>
-<!-- Inter font -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
-<!-- Font Awesome -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
 <style>
         :root { --transition-fast: 180ms; --transition-medium: 300ms; }
@@ -102,14 +97,12 @@
 }
 </style></head>
 <body class="bg-white text-gray-800 dark:bg-slate-900 dark:text-slate-200">
-<!-- Header -->
 <header class="fixed w-full top-0 left-0 z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md shadow transition-all" id="site-header">
 <div class="container mx-auto px-4 py-3 flex items-center justify-between">
 <a aria-label="Home — James Amit Portfolio" class="flex items-center gap-3" href="#hero-and-about">
 <img alt="" class="rounded-full w-10 h-10 shadow-sm" loading="lazy" src="https://placehold.co/40x40/475569/E2E8F0?text=J"/>
 <span class="font-extrabold text-lg">James Amit</span>
 </a>
-<!-- Desktop nav -->
 <nav aria-label="Primary" class="hidden md:flex items-center gap-2">
 <div class="flex items-center gap-2" id="nav-links">
 <button class="nav-link px-4 py-2 rounded-xl text-sm font-medium hover:bg-blue-100/70 dark:hover:bg-slate-700" data-target="hero-and-about">About</button>
@@ -123,7 +116,6 @@
 <i class="fas"></i>
 </button>
 </nav>
-<!-- Mobile actions -->
 <div class="md:hidden flex items-center gap-2">
 <button aria-label="Toggle theme" aria-pressed="false" class="p-2 rounded-full bg-gray-700 text-white hover:bg-gray-600" id="theme-toggle-mobile">
 <i class="fas"></i>
@@ -133,7 +125,6 @@
 </button>
 </div>
 </div>
-<!-- Mobile slide menu -->
 <div aria-hidden="true" class="mobile-menu fixed inset-y-0 right-0 w-11/12 max-w-xs bg-white dark:bg-slate-800 shadow-lg p-6 z-50 md:hidden" id="mobile-menu" role="menu">
 <div class="flex items-center justify-between mb-6">
 <div class="font-bold text-lg">Menu</div>
@@ -149,9 +140,7 @@
 </div>
 </div>
 </header>
-<!-- Page content wrapper -->
 <main class="mt-[96px] container mx-auto px-4 pb-16 flex-1" id="content-container">
-<!-- Hero & About -->
 <section class="main-content-section active" id="hero-and-about">
 <section class="hero-gradient rounded-b-3xl shadow-xl p-8 text-white" id="hero" style="background:linear-gradient(135deg,#475569,#1f2937);">
 <div class="md:flex md:items-center md:gap-10">
@@ -165,11 +154,10 @@
 </div>
 </div>
 </section>
-<section class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl mt-10 p-6" id="about">
+<section class="bg-white dark:bg-slate-700 rounded-2xl shadow-xl mt-10 p-6" id="about">
 <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-slate-100">About Me</h2>
 <div class="space-y-4">
 <div class="relative w-full aspect-video rounded-xl overflow-hidden">
-<!-- Lazy YT: placeholder that loads iframe when clicked -->
 <button aria-label="Play introduction video" class="yt-placeholder w-full h-full block bg-gray-100 dark:bg-slate-700 relative flex items-center justify-center text-gray-700 dark:text-slate-200" data-yt="https://www.youtube.com/embed/dQw4w9WgXcQ">
 <img alt="Video thumbnail" class="absolute inset-0 w-full h-full object-cover" loading="lazy" src="https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg"/>
 <span class="relative z-10 bg-black/45 rounded-full p-4">
@@ -180,120 +168,24 @@
 <p class="text-lg text-gray-700 dark:text-slate-300">Welcome — I'm James Amit. In the video I share my journey in learning &amp; development, my instructional philosophy, and how I design for measurable outcomes.</p>
 </div>
 </section>
-</section>
-<!-- Work Experience -->
-<section class="main-content-section bg-white dark:bg-slate-800 rounded-2xl shadow-xl mt-10 p-6" id="work">
-<h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-slate-100">Work Experience</h2>
-<ul class="space-y-6 list-disc list-inside text-gray-700 dark:text-slate-300">
-<li>
-<strong>Training Supervisor</strong> <span class="text-sm text-gray-500 dark:text-slate-400">— Jan 2022 - Present</span>
-<p>Led a team of 5 trainers through the full training lifecycle for 200+ new hires annually; implemented onboarding strategies that reduced time-to-proficiency by 15%.</p>
-</li>
-<li>
-<strong>Instructional Designer</strong> <span class="text-sm text-gray-500 dark:text-slate-400">— Jun 2019 - Dec 2021</span>
-<p>Designed eLearning and blended learning programs, improving compliance scores by 20% through more engaging content and stronger SME collaboration.</p>
-</li>
-</ul>
-</section>
-<!-- Portfolio -->
-<section class="main-content-section bg-white dark:bg-slate-800 rounded-2xl shadow-xl mt-10 p-6" id="portfolio">
-<div class="flex items-center justify-between mb-4">
-<h2 class="text-2xl font-bold text-gray-900 dark:text-slate-100">Portfolio</h2>
-<input aria-label="Search projects" class="px-3 py-2 rounded-lg border bg-gray-100 dark:bg-slate-700 text-sm w-60" id="searchInput" placeholder="Search projects..." type="search"/>
+<div class="bg-white dark:bg-slate-700 p-6 rounded-2xl shadow-md mt-6">
+<h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-slate-100">Companies</h3>
+<p class="text-gray-600 dark:text-slate-300 mb-4">Organizations I’ve worked with and contributed to over the years.</p>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+<div class="logo-item flex items-center justify-center rounded-xl p-3 shadow-sm">
+<img alt="Acquire Intelligence" class="lazy-logo max-h-40" src="https://7haym.github.io/james-amit-portfolio/Logos/Companies/Acquire_Intelligence_logo.png"/>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="projectList">
-<!-- JS will render project cards here -->
-<p class="col-span-full text-center text-gray-500 dark:text-slate-400">Loading projects…</p>
+<div class="logo-item flex items-center justify-center rounded-xl p-3 shadow-sm">
+<img alt="Concentrix" class="lazy-logo max-h-40" src="https://7haym.github.io/james-amit-portfolio/Logos/Companies/Concentrix_logo.svg.png"/>
 </div>
-</section>
-<!-- Teaching -->
-<section class="main-content-section bg-white dark:bg-slate-800 rounded-2xl shadow-xl mt-10 p-6" id="teaching">
-<h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-slate-100">Teaching Demos &amp; Videos</h2>
-<div class="grid md:grid-cols-2 gap-6">
-<article class="bg-white dark:bg-slate-700 p-4 rounded-xl shadow-md">
-<h3 class="font-semibold mb-2 text-gray-900 dark:text-slate-100">Introduction to Adult Learning Principles</h3>
-<div class="relative w-full aspect-video rounded-lg overflow-hidden mb-3">
-<button aria-label="Play Adult Learning video" class="yt-placeholder w-full h-full block bg-gray-100 dark:bg-slate-700 relative" data-yt="https://www.youtube.com/embed/dQw4w9WgXcQ">
-<img alt="Adult learning video thumbnail" class="absolute inset-0 w-full h-full object-cover" loading="lazy" src="https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg"/>
-<span class="relative z-10 bg-black/45 rounded-full p-3 absolute left-4 bottom-4">
-<i class="fas fa-play text-white"></i>
-</span>
-</button>
+<div class="logo-item flex items-center justify-center rounded-xl p-3 shadow-sm">
+<img alt="Hexaware" class="lazy-logo max-h-40" src="https://7haym.github.io/james-amit-portfolio/Logos/Companies/Hexaware_logo.png"/>
 </div>
-<p class="text-sm text-gray-600 dark:text-slate-300">Short overview of key adult learning principles for corporate training.</p>
-</article>
-<article class="bg-white dark:bg-slate-700 p-4 rounded-xl shadow-md">
-<h3 class="font-semibold mb-2 text-gray-900 dark:text-slate-100">Software Demo: Navigating Our CRM</h3>
-<div class="relative w-full aspect-video rounded-lg overflow-hidden mb-3">
-<button aria-label="Play CRM demo video" class="yt-placeholder w-full h-full block bg-gray-100 dark:bg-slate-700 relative" data-yt="https://www.youtube.com/embed/some_other_video_id">
-<img alt="CRM demo thumbnail" class="absolute inset-0 w-full h-full object-cover" loading="lazy" src="https://placehold.co/1280x720/6699CC/ffffff?text=CRM+Demo"/>
-<span class="relative z-10 bg-black/45 rounded-full p-3 absolute left-4 bottom-4">
-<i class="fas fa-play text-white"></i>
-</span>
-</button>
-</div>
-<p class="text-sm text-gray-600 dark:text-slate-300">Concise tutorial showing core CRM features. (Placeholder)</p>
-</article>
-</div>
-</section>
-<!-- Certificates & Resume -->
-<section class="main-content-section bg-white dark:bg-slate-800 rounded-2xl shadow-xl mt-10 p-6" id="certificates-and-resume">
-<h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-slate-100">Certificates &amp; Resume</h2>
-<div class="flex flex-wrap gap-3 mb-6">
-<button class="tab-btn px-4 py-2 rounded-xl bg-gray-100 dark:bg-slate-700" data-tab="certificates-tab">Certificates</button>
-<button class="tab-btn px-4 py-2 rounded-xl bg-gray-100 dark:bg-slate-700" data-tab="resume-tab">Resume</button>
-</div>
-<div class="tab-content bg-white dark:bg-slate-700 rounded-xl p-4 shadow-inner" id="certificates-tab">
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="certificateList">
-<p class="col-span-full text-center text-gray-500 dark:text-slate-300">Loading certificates…</p>
+<div class="logo-item flex items-center justify-center rounded-xl p-3 shadow-sm">
+<img alt="ePLDT" class="lazy-logo max-h-40" src="https://7haym.github.io/james-amit-portfolio/Logos/Companies/ePLDT-logo.png"/>
 </div>
 </div>
-<div class="tab-content hidden bg-white dark:bg-slate-700 rounded-xl p-4 shadow-inner" id="resume-tab">
-<div class="flex items-center justify-between mb-4">
-<p class="text-gray-900 dark:text-slate-100">Preview or download the resume</p>
-<a class="inline-flex items-center gap-2 bg-orange-600 text-white px-4 py-2 rounded-full font-semibold" href="#" id="viewResume">View Resume <i class="fas fa-eye"></i></a>
 </div>
-<div class="w-full aspect-[4/5] border-4 border-blue-600 dark:border-blue-400 rounded-xl overflow-hidden">
-<iframe class="w-full h-full" id="resumePreview" loading="lazy" src="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" title="Resume preview"></iframe>
-</div>
-</div>
-</section>
-<section class="main-content-section bg-white dark:bg-slate-800 rounded-2xl shadow-xl mt-10 p-6" id="connect-and-expertise">
-  <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-slate-100">Connect &amp; Expertise</h2>
-  
-  <!-- Connect Card -->
-  <div class="bg-white dark:bg-slate-700 p-6 rounded-2xl shadow-md mb-8">
-    <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-slate-100">Connect</h3>
-    <p class="text-gray-600 dark:text-slate-300 mb-4">
-      I’d love to hear from you — feel free to reach out through any of these channels.
-    </p>
-    <ul class="space-y-3 text-gray-700 dark:text-slate-300">
-      <li class="flex items-center gap-3"><i class="fas fa-envelope text-blue-500"></i><a class="hover:underline" href="mailto:jamesbrian.amit@gmail.com">jamesbrian.amit@gmail.com</a></li>
-      <li class="flex items-center gap-3"><i class="fas fa-phone-alt text-blue-500"></i><span>+1 (555) 123-4567</span></li>
-      <li class="flex items-center gap-3"><i class="fab fa-linkedin text-blue-500"></i><a class="hover:underline" href="https://linkedin.com/in/amitjamesmadr" target="_blank" rel="noopener">linkedin.com/in/amitjamesmadr</a></li>
-    </ul>
-  </div>
-
-  <!-- Companies Card -->
-  <div class="bg-white dark:bg-slate-700 p-6 rounded-2xl shadow-md">
-    <h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-slate-100">Companies</h3>
-    <p class="text-gray-600 dark:text-slate-300 mb-4">Organizations I’ve worked with and contributed to over the years.</p>
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-      <div class="logo-item flex items-center justify-center rounded-xl p-3 shadow-sm">
-        <img alt="Acquire Intelligence" class="lazy-logo max-h-40" src="https://7haym.github.io/james-amit-portfolio/Logos/Companies/Acquire_Intelligence_logo.png"/>
-      </div>
-      <div class="logo-item flex items-center justify-center rounded-xl p-3 shadow-sm">
-        <img alt="Concentrix" class="lazy-logo max-h-40" src="https://7haym.github.io/james-amit-portfolio/Logos/Companies/Concentrix_logo.svg.png"/>
-      </div>
-      <div class="logo-item flex items-center justify-center rounded-xl p-3 shadow-sm">
-        <img alt="Hexaware" class="lazy-logo max-h-40" src="https://7haym.github.io/james-amit-portfolio/Logos/Companies/Hexaware_logo.png"/>
-      </div>
-      <div class="logo-item flex items-center justify-center rounded-xl p-3 shadow-sm">
-        <img alt="ePLDT" class="lazy-logo max-h-40" src="https://7haym.github.io/james-amit-portfolio/Logos/Companies/ePLDT-logo.png"/>
-      </div>
-    </div>
-  </div>
-<!-- Tools Card -->
 <div class="bg-white dark:bg-slate-700 p-6 rounded-2xl shadow-md mt-6">
 <h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-slate-100">Tools</h3>
 <p class="text-gray-600 dark:text-slate-300 mb-4">Applications and platforms I regularly use to design, deliver, and manage learning experiences.</p>
@@ -331,7 +223,145 @@
 </div>
 </div>
 </section>
-<!-- Modal (reusable) -->
+<section class="main-content-section bg-white dark:bg-slate-800 rounded-2xl shadow-xl mt-10 p-6" id="work">
+<h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-slate-100">Work Experience</h2>
+<ul class="space-y-6 list-disc list-inside text-gray-700 dark:text-slate-300">
+<li>
+<strong>Instructional Designer</strong> <span class="text-sm text-gray-500 dark:text-slate-400">— Feb 2025 - Present</span>
+<p>Designing and Developing curricula for complex systems and procedures related to telecommunications infrastructure, energy distribution, and gas pipeline operations.</p>
+</li>
+<li>
+<strong>Training Lead</strong> <span class="text-sm text-gray-500 dark:text-slate-400">— Sep 2024 - Feb 2025</span>
+<p>Demonstrated strong project management skills by leading the development of a live workbook, improving team efficiency and resulting in a 5% improvement in operational performance.
+Exhibited excellent collaboration and communication skills by liaising with the Assistant Manager to plan and execute successful training bootcamps. Proven ability to analyze existing training materials and develop innovative solutions to enhance learner outcomes. Leading the team in program engagement and development.</p>
+</li>
+<li>
+<strong>Training Consultant (Project-based)</strong> <span class="text-sm text-gray-500 dark:text-slate-400">— May - July 2024</span>
+<p>Created a SessionLab library featuring icebreakers and wellness activities to enhance participant engagement. Designed the Work-Love Language test sheet to promote effective communication within teams. Authored English 101 training modules to improve communication skills. Developed Training Fundamentals curriculum to equip existing trainers with essential facilitation skills. Conducted resource improvement and feedback sessions for existing trainers, fostering continuous development. Facilitated training workshops, providing trainers with practical strategies and techniques. Completed and refined pending documentation for an existing DICT project. Participated in the planning and execution of the M365-FLI Caravan, contributing to successful program rollout. Liaised with external training providers, collaborating on the effective delivery of Microsoft M365, Google Workspace, and Contact Center as a Service (CCaaS) training programs.</p>
+</li>
+<li>
+<strong>Senior Trainer I</strong> <span class="text-sm text-gray-500 dark:text-slate-400">—  April 2022  to May 2024</span>
+<p>Developed strategic plans for all training needs, ensuring alignment with operation objectives and client needs. Supervised and coached a team of trainers, providing ongoing guidance, feedback, and professional development opportunities. Served as the Point of Contact (POC) for two Lines of Business (LOBs), effectively managing communication and collaboration across different teams. Led the development of the Agent Lifecycle Playbook reports, providing a comprehensive framework to track and measure trainee progress. Spearheaded the creation of a training simulator, an innovative tool to provide realistic scenarios and practice opportunities for social media campaign implementation. Designed a Nesting performance evaluation system, providing a multi-layered approach to assess individual and team effectiveness, ensuring immediate positive impact to Operations metric. Played a pioneering role as a Trainer II for Social Media Campaigns, spearheading training initiatives across all four lines of business within the company. Responsible for creating a wide range of training resources including Workplan, trackers, PIP materials and more. Successfully conducted over 20 new hire training classes, achieving average throughput rate of 97%. Mentored Program Ready Trainers (PRTs) through , providing guidance and support in developing their training skills and certified them through Observation, Co-Faci, Solo. Monitor trainee’s 30,60,90 or PAMM performance and provide effective approach to the Team Leaders to address weaknesses.</p>
+</li>
+</ul>
+</section>
+<section class="main-content-section bg-white dark:bg-slate-800 rounded-2xl shadow-xl mt-10 p-6" id="portfolio">
+<div class="flex items-center justify-between mb-4">
+<h2 class="text-2xl font-bold text-gray-900 dark:text-slate-100">Portfolio</h2>
+<input aria-label="Search projects" class="px-3 py-2 rounded-lg border bg-gray-100 dark:bg-slate-700 text-sm w-60" id="searchInput" placeholder="Search projects..." type="search"/>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="projectList">
+<p class="col-span-full text-center text-gray-500 dark:text-slate-400">Loading projects…</p>
+</div>
+</section>
+<section class="main-content-section bg-white dark:bg-slate-800 rounded-2xl shadow-xl mt-10 p-6" id="teaching">
+<h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-slate-100">Teaching Demos &amp; Videos</h2>
+<div class="grid md:grid-cols-2 gap-6">
+<article class="bg-white dark:bg-slate-700 p-4 rounded-xl shadow-md">
+<h3 class="font-semibold mb-2 text-gray-900 dark:text-slate-100">Introduction to Adult Learning Principles</h3>
+<div class="relative w-full aspect-video rounded-lg overflow-hidden mb-3">
+<button aria-label="Play Adult Learning video" class="yt-placeholder w-full h-full block bg-gray-100 dark:bg-slate-700 relative" data-yt="https://www.youtube.com/embed/dQw4w9WgXcQ">
+<img alt="Adult learning video thumbnail" class="absolute inset-0 w-full h-full object-cover" loading="lazy" src="https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg"/>
+<span class="relative z-10 bg-black/45 rounded-full p-3 absolute left-4 bottom-4">
+<i class="fas fa-play text-white"></i>
+</span>
+</button>
+</div>
+<p class="text-sm text-gray-600 dark:text-slate-300">Short overview of key adult learning principles for corporate training.</p>
+</article>
+<article class="bg-white dark:bg-slate-700 p-4 rounded-xl shadow-md">
+<h3 class="font-semibold mb-2 text-gray-900 dark:text-slate-100">Software Demo: Navigating Our CRM</h3>
+<div class="relative w-full aspect-video rounded-lg overflow-hidden mb-3">
+<button aria-label="Play CRM demo video" class="yt-placeholder w-full h-full block bg-gray-100 dark:bg-slate-700 relative" data-yt="https://www.youtube.com/embed/some_other_video_id">
+<img alt="CRM demo thumbnail" class="absolute inset-0 w-full h-full object-cover" loading="lazy" src="https://placehold.co/1280x720/6699CC/ffffff?text=CRM+Demo"/>
+<span class="relative z-10 bg-black/45 rounded-full p-3 absolute left-4 bottom-4">
+<i class="fas fa-play text-white"></i>
+</span>
+</button>
+</div>
+<p class="text-sm text-gray-600 dark:text-slate-300">Concise tutorial showing core CRM features. (Placeholder)</p>
+</article>
+</div>
+</section>
+<section class="main-content-section bg-white dark:bg-slate-800 rounded-2xl shadow-xl mt-10 p-6" id="certificates-and-resume">
+<h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-slate-100">Certificates &amp; Resume</h2>
+<div class="flex flex-wrap gap-3 mb-6">
+<button class="tab-btn px-4 py-2 rounded-xl bg-gray-100 dark:bg-slate-700" data-tab="certificates-tab">Certificates</button>
+<button class="tab-btn px-4 py-2 rounded-xl bg-gray-100 dark:bg-slate-700" data-tab="resume-tab">Resume</button>
+</div>
+<div class="tab-content bg-white dark:bg-slate-700 rounded-xl p-4 shadow-inner" id="certificates-tab">
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="certificateList">
+<p class="col-span-full text-center text-gray-500 dark:text-slate-300">Loading certificates…</p>
+</div>
+</div>
+<div class="tab-content hidden bg-white dark:bg-slate-700 rounded-xl p-4 shadow-inner" id="resume-tab">
+<div class="flex items-center justify-between mb-4">
+<p class="text-gray-900 dark:text-slate-100">Preview or download the resume</p>
+<a class="inline-flex items-center gap-2 bg-orange-600 text-white px-4 py-2 rounded-full font-semibold" href="#" id="viewResume">View Resume <i class="fas fa-eye"></i></a>
+</div>
+<div class="w-full aspect-[4/5] border-4 border-blue-600 dark:border-blue-400 rounded-xl overflow-hidden">
+<iframe class="w-full h-full" id="resumePreview" loading="lazy" src="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" title="Resume preview"></iframe>
+</div>
+</div>
+</section>
+<section class="main-content-section bg-white dark:bg-slate-800 rounded-2xl shadow-xl mt-10 p-6" id="connect-and-expertise">
+  <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-slate-100">Connect &amp; Expertise</h2>
+  
+  <div class="grid grid-cols-1 gap-8">
+      <div class="bg-white dark:bg-slate-700 p-6 rounded-2xl shadow-md">
+        <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-slate-100">Connect</h3>
+        <p class="text-gray-600 dark:text-slate-300 mb-4">
+          I’d love to hear from you — feel free to reach out through any of these channels.
+        </p>
+        <ul class="space-y-3 text-gray-700 dark:text-slate-300">
+          <li class="flex items-center gap-3"><i class="fas fa-envelope text-blue-500"></i><a class="hover:underline" href="mailto:jamesbrian.amit@gmail.com">jamesbrian.amit@gmail.com</a></li>
+          <li class="flex items-center gap-3"><i class="fas fa-phone-alt text-blue-500"></i><span>+1 (555) 123-4567</span></li>
+          <li class="flex items-center gap-3"><i class="fab fa-linkedin text-blue-500"></i><a class="hover:underline" href="https://linkedin.com/in/amitjamesmadr" target="_blank" rel="noopener">linkedin.com/in/amitjamesmadr</a></li>
+        </ul>
+      </div>
+      <div class="bg-white dark:bg-slate-700 p-6 rounded-2xl shadow-md">
+        <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-slate-100">Expertise</h3>
+        <ul class="space-y-4 text-gray-700 dark:text-slate-300">
+          <li class="flex items-start gap-3">
+            <i class="fas fa-chalkboard-teacher text-blue-500 mt-1"></i>
+            <div>
+              <strong class="text-gray-900 dark:text-slate-100">Curriculum Development &amp; Instructional Design:</strong>
+              <p class="text-sm">I design and develop engaging and effective learning materials, including curricula, lesson plans, and training modules. My expertise spans creating content for traditional, e-learning, and blended learning environments.</p>
+            </div>
+          </li>
+          <li class="flex items-start gap-3">
+            <i class="fas fa-desktop text-blue-500 mt-1"></i>
+            <div>
+              <strong class="text-gray-900 dark:text-slate-100">Learning &amp; Development Software:</strong>
+              <p class="text-sm">I am proficient in using tools to create interactive and impactful learning experiences. This includes expertise in the Articulate 360 suite, including Storyline, as well as other professional software like Adobe Photoshop and the Microsoft Office Suite.</p>
+            </div>
+          </li>
+          <li class="flex items-start gap-3">
+            <i class="fas fa-users-class text-blue-500 mt-1"></i>
+            <div>
+              <strong class="text-gray-900 dark:text-slate-100">Training &amp; Facilitation:</strong>
+              <p class="text-sm">I excel at leading and facilitating group sessions, ensuring a dynamic and productive learning atmosphere. This is complemented by my skills in coaching and mentoring individuals to achieve their professional and personal goals.</p>
+            </div>
+          </li>
+          <li class="flex items-start gap-3">
+            <i class="fas fa-clock text-blue-500 mt-1"></i>
+            <div>
+              <strong class="text-gray-900 dark:text-slate-100">Classroom &amp; Time Management:</strong>
+              <p class="text-sm">My strong organizational skills allow for effective classroom management and efficient time management, ensuring all learning objectives are met in a structured and timely manner.</p>
+            </div>
+          </li>
+          <li class="flex items-start gap-3">
+            <i class="fas fa-clipboard-check text-blue-500 mt-1"></i>
+            <div>
+              <strong class="text-gray-900 dark:text-slate-100">Assessment &amp; Evaluation:</strong>
+              <p class="text-sm">I am experienced in creating and implementing robust assessment and evaluation strategies to measure learning outcomes and improve program effectiveness.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+  </div>
+
+</section>
 <div aria-hidden="true" aria-modal="true" class="modal fixed inset-0 items-center justify-center z-[60] modal" id="modal" role="dialog">
 <div class="modal-backdrop absolute inset-0"></div>
 <div class="modal-panel relative bg-white dark:bg-slate-800 rounded-2xl shadow-2xl max-w-5xl w-[92%] max-h-[90vh] overflow-hidden p-3 z-10 open">
@@ -339,15 +369,12 @@
 <i class="fas fa-times"></i>
 </button>
 <div class="w-full h-[78vh] bg-gray-50 dark:bg-slate-700 rounded-xl overflow-auto" id="modal-body">
-<!-- JS inserts iframe or image content here -->
 </div>
 </div>
 </div>
-<!-- Footer -->
 <footer class="bg-gray-900 text-white text-center py-6">
 <p class="text-sm">© 2025 James Amit. All rights reserved.</p>
 </footer>
-<!-- Clean & readable JS -->
 <script>
 (function () {
     // ---------- Utilities ----------
