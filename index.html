@@ -260,7 +260,7 @@ Exhibited excellent collaboration and communication skills by liaising with the 
 <h3 class="font-semibold mb-2 text-gray-900 dark:text-slate-100">Cultural Dimensions</h3>
 <div class="relative w-full aspect-video rounded-lg overflow-hidden mb-3">
 <button aria-label="Play Cultural Dimensions video" class="yt-placeholder w-full h-full block bg-gray-100 dark:bg-slate-700 relative" data-yt="https://drive.google.com/file/d/1vhh2bbHsaZzgqoSLNJEu1fGuvEbZrPUW/view?usp=sharing">
-<img alt="Cultural Dimensions video thumbnail" class="absolute inset-0 w-full h-full object-cover" loading="lazy" src="https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg"/>
+<img alt="Cultural Dimensions video thumbnail" class="absolute inset-0 w-full h-full object-cover" loading="lazy" src="https://drive.google.com/file/d/1V2zK9mdtf9rUSeFVsuUuMIBDCOOjBmOl/view?usp=sharing"/>
 <span class="relative z-10 bg-black/45 rounded-full p-3 absolute left-4 bottom-4">
 <i class="fas fa-play text-white"></i>
 </span>
@@ -269,16 +269,40 @@ Exhibited excellent collaboration and communication skills by liaising with the 
 <p class="text-sm text-gray-600 dark:text-slate-300">One of the videos I created as part of our Foundation Training. This video prepare learners to understand Australian Culture.</p>
 </article>
 <article class="bg-white dark:bg-slate-700 p-4 rounded-xl shadow-md">
-<h3 class="font-semibold mb-2 text-gray-900 dark:text-slate-100">Active Listening Ep. 6</h3>
+<h3 class="font-semibold mb-2 text-gray-900 dark:text-slate-100">Heightened Focus</h3>
 <div class="relative w-full aspect-video rounded-lg overflow-hidden mb-3">
-<button aria-label="Play CRM demo video" class="yt-placeholder w-full h-full block bg-gray-100 dark:bg-slate-700 relative" data-yt="https://drive.google.com/drive/u/2/folders/1dcucLf2W-2xuE7o5B1M7LHw0DiLvhKRw">
-<img alt="CRM demo thumbnail" class="absolute inset-0 w-full h-full object-cover" loading="lazy" src="https://placehold.co/1280x720/6699CC/ffffff?text=CRM+Demo"/>
+<button aria-label="Play Heightened Focus video" class="yt-placeholder w-full h-full block bg-gray-100 dark:bg-slate-700 relative" data-yt="https://drive.google.com/file/d/1-mVeeRgqcHQfzpn7C7TBholABwEJG8_g/view?usp=sharing">
+<img alt="Heightened Focus video thumbnail" class="absolute inset-0 w-full h-full object-cover" loading="lazy" src="https://drive.google.com/file/d/1V2zK9mdtf9rUSeFVsuUuMIBDCOOjBmOl/view?usp=sharing"/>
 <span class="relative z-10 bg-black/45 rounded-full p-3 absolute left-4 bottom-4">
 <i class="fas fa-play text-white"></i>
 </span>
 </button>
 </div>
-<p class="text-sm text-gray-600 dark:text-slate-300">Concise tutorial showing core CRM features. (Placeholder)</p>
+<p class="text-sm text-gray-600 dark:text-slate-300">This video is one of the episodes I created for my Hightened Focus course series.</p>
+</article>
+<article class="bg-white dark:bg-slate-700 p-4 rounded-xl shadow-md">
+<h3 class="font-semibold mb-2 text-gray-900 dark:text-slate-100">Active Listening Ep. 6</h3>
+<div class="relative w-full aspect-video rounded-lg overflow-hidden mb-3">
+<button aria-label="Play Active Listening  video" class="yt-placeholder w-full h-full block bg-gray-100 dark:bg-slate-700 relative" data-yt="https://drive.google.com/file/d/1CFZRxxOVru1Ia8r2RsCywvLhTOeDWDCm/view?usp=sharing">
+<img alt="Active Listening  thumbnail" class="absolute inset-0 w-full h-full object-cover" loading="lazy" src="https://placehold.co/1280x720/6699CC/ffffff?text=CRM+Demo"/>
+<span class="relative z-10 bg-black/45 rounded-full p-3 absolute left-4 bottom-4">
+<i class="fas fa-play text-white"></i>
+</span>
+</button>
+</div>
+<p class="text-sm text-gray-600 dark:text-slate-300">This video is one of the episodes I created for my Active Listening course series.</p>
+</article>
+<article class="bg-white dark:bg-slate-700 p-4 rounded-xl shadow-md">
+<h3 class="font-semibold mb-2 text-gray-900 dark:text-slate-100">Product Feature</h3>
+<div class="relative w-full aspect-video rounded-lg overflow-hidden mb-3">
+<button aria-label="Play Product Feature video" class="yt-placeholder w-full h-full block bg-gray-100 dark:bg-slate-700 relative" data-yt="https://drive.google.com/file/d/1gdwRFQBr1QVhqCIyac52OmJxJ7utc4T4/view?usp=sharing">
+<img alt="Product Feature video thumbnail" class="absolute inset-0 w-full h-full object-cover" loading="lazy" src="https://drive.google.com/file/d/1V2zK9mdtf9rUSeFVsuUuMIBDCOOjBmOl/view?usp=sharing"/>
+<span class="relative z-10 bg-black/45 rounded-full p-3 absolute left-4 bottom-4">
+<i class="fas fa-play text-white"></i>
+</span>
+</button>
+</div>
+<p class="text-sm text-gray-600 dark:text-slate-300">This is a sample of the product video update we created in a marketing design to hype team members and encourage them to educate customers about its benefits.</p>
 </article>
 </div>
 </section>
@@ -457,7 +481,17 @@ Exhibited excellent collaboration and communication skills by liaising with the 
             if (ytBtn && ytBtn.dataset.yt) {
                 const url = ytBtn.dataset.yt;
                 const iframe = document.createElement('iframe');
-                iframe.src = url + '?autoplay=1';
+                let src = url;
+
+            if (url.includes("youtube.com")) {
+                src += "?autoplay=1";
+            }
+            else if (url.includes("drive.google.com/file")) {
+                src = url.replace("/view", "/preview");
+            }
+            
+            iframe.src = src;
+              
                 iframe.className = 'w-full h-full';
                 iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
                 iframe.setAttribute('allowfullscreen', '');
