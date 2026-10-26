@@ -47,6 +47,7 @@
     box-shadow: 8px 8px 0px rgba(0,0,0,0.8);
     overflow: hidden;
     user-select: none;
+    container-type: inline-size;
   }
 
   video {
@@ -58,23 +59,23 @@
 
   .menu-toggle-btn {
     position: absolute;
-    top: 16px;
-    right: 16px;
+    top: 12px;
+    right: 12px;
     z-index: 30;
     background: var(--accent-yellow);
     color: var(--ink);
     border: 2px solid var(--ink);
     box-shadow: 3px 3px 0px var(--ink);
-    padding: 8px 14px;
+    padding: 6px 12px;
     font-family: var(--font-mono);
-    font-size: 0.72rem;
+    font-size: clamp(0.6rem, 1.2vw, 0.72rem);
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.06em;
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     transition: transform 0.15s, box-shadow 0.15s, background-color 0.15s;
   }
 
@@ -87,13 +88,13 @@
   .menu-drawer {
     position: absolute;
     inset: 0;
-    background: rgba(20, 19, 17, 0.94);
+    background: rgba(20, 19, 17, 0.95);
     backdrop-filter: blur(8px);
     z-index: 20;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 24px;
+    padding: clamp(10px, 2.5vw, 20px);
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.25s ease;
@@ -109,54 +110,75 @@
     justify-content: space-between;
     align-items: center;
     border-bottom: 2px solid rgba(244, 239, 230, 0.2);
-    padding-bottom: 12px;
+    padding-bottom: 8px;
+    margin-bottom: 8px;
+    flex-shrink: 0;
   }
 
   .drawer-title {
     font-family: var(--font-heading);
-    font-size: 1.25rem;
+    font-size: clamp(0.95rem, 2.2vw, 1.3rem);
     color: var(--bg-paper);
   }
 
   .progress-badge {
     font-family: var(--font-mono);
-    font-size: 0.7rem;
+    font-size: clamp(0.58rem, 1vw, 0.7rem);
     background: var(--accent-mint);
     color: var(--ink);
-    padding: 4px 8px;
+    padding: 2px 6px;
     border: 1px solid var(--ink);
     font-weight: bold;
   }
 
+  /* Question Grid: Responsive Scrollable Area */
   .questions-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-    margin: 16px 0;
+    gap: 8px;
+    overflow-y: auto;
+    padding-right: 4px;
+    flex: 1;
+    margin-bottom: 8px;
   }
 
-  @media (max-width: 600px) {
-    .questions-grid { grid-template-columns: 1fr; gap: 8px; }
-    .menu-drawer { padding: 14px; }
+  /* Custom Scrollbar for Drawer */
+  .questions-grid::-webkit-scrollbar {
+    width: 5px;
+  }
+  .questions-grid::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+  }
+  .questions-grid::-webkit-scrollbar-thumb {
+    background: var(--accent-yellow);
+    border-radius: 2px;
+  }
+
+  @container (max-width: 520px) {
+    .questions-grid {
+      grid-template-columns: 1fr;
+      gap: 6px;
+    }
   }
 
   .q-card {
     background: var(--dark-card);
     border: 2px solid rgba(244, 239, 230, 0.2);
-    padding: 12px 14px;
+    padding: clamp(8px, 1.5vw, 12px);
     cursor: pointer;
     text-align: left;
     transition: all 0.2s ease;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     position: relative;
     color: #F4EFE6;
+    min-height: 52px;
   }
 
   .q-card:hover {
     border-color: var(--accent-yellow);
-    transform: translateY(-2px);
+    transform: translateY(-1px);
   }
 
   .q-card.active {
@@ -167,35 +189,56 @@
   .q-card.completed::after {
     content: "✓ WATCHED";
     position: absolute;
-    top: 8px;
-    right: 8px;
+    top: 6px;
+    right: 6px;
     font-family: var(--font-mono);
-    font-size: 0.6rem;
+    font-size: clamp(0.5rem, 0.8vw, 0.6rem);
     background: var(--accent-mint);
     color: var(--ink);
-    padding: 2px 5px;
+    padding: 1px 4px;
     font-weight: bold;
   }
 
   .q-tag {
     font-family: var(--font-mono);
-    font-size: 0.68rem;
+    font-size: clamp(0.58rem, 1vw, 0.68rem);
     color: var(--accent-yellow);
     text-transform: uppercase;
-    margin-bottom: 4px;
+    margin-bottom: 2px;
   }
 
   .q-text {
     font-family: var(--font-body);
-    font-size: 0.85rem;
+    font-size: clamp(0.72rem, 1.2vw, 0.85rem);
     font-weight: 500;
-    line-height: 1.3;
+    line-height: 1.25;
+    padding-right: 45px;
   }
 
   .drawer-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    border-top: 1px solid rgba(244, 239, 230, 0.15);
+    padding-top: 8px;
+  }
+
+  .bg-vol-control {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-mono);
+    font-size: clamp(0.58rem, 1vw, 0.68rem);
+    color: #A79F8F;
+  }
+
+  .bg-vol-slider {
+    width: clamp(50px, 10vw, 80px);
+    height: 4px;
+    accent-color: var(--accent-yellow);
+    cursor: pointer;
   }
 
   .title-btn {
@@ -203,8 +246,8 @@
     border: 1px solid rgba(244, 239, 230, 0.4);
     color: #F4EFE6;
     font-family: var(--font-mono);
-    font-size: 0.7rem;
-    padding: 6px 12px;
+    font-size: clamp(0.58rem, 1vw, 0.7rem);
+    padding: 4px 8px;
     cursor: pointer;
   }
 
@@ -219,10 +262,10 @@
     left: 0;
     right: 0;
     background: linear-gradient(transparent, rgba(0,0,0,0.85));
-    padding: 20px 16px 12px;
+    padding: 16px 12px 8px;
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     z-index: 10;
     opacity: 0;
     transition: opacity 0.3s;
@@ -237,13 +280,13 @@
     background: none;
     border: none;
     color: #FFF;
-    font-size: 1.1rem;
+    font-size: 1rem;
     cursor: pointer;
   }
 
   .progress-bar-container {
     flex: 1;
-    height: 6px;
+    height: 5px;
     background: rgba(255, 255, 255, 0.3);
     cursor: pointer;
     position: relative;
@@ -263,7 +306,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 24px;
+    padding: 16px;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease;
@@ -278,28 +321,28 @@
     background: var(--bg-paper);
     color: var(--ink);
     border: 2px solid var(--ink);
-    box-shadow: 8px 8px 0px var(--accent-orange);
-    padding: 28px;
-    max-width: 460px;
+    box-shadow: 6px 6px 0px var(--accent-orange);
+    padding: clamp(16px, 3vw, 24px);
+    max-width: 440px;
     text-align: center;
     transform: rotate(-0.5deg);
   }
 
   .modal-card h3 {
     font-family: var(--font-heading);
-    font-size: 1.8rem;
-    margin-bottom: 10px;
+    font-size: clamp(1.3rem, 3vw, 1.7rem);
+    margin-bottom: 8px;
   }
 
   .modal-card p {
-    font-size: 0.95rem;
+    font-size: clamp(0.8rem, 1.5vw, 0.92rem);
     color: #5d564a;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
   }
 
   .modal-btn-group {
     display: flex;
-    gap: 10px;
+    gap: 8px;
     justify-content: center;
     flex-wrap: wrap;
   }
@@ -307,8 +350,8 @@
   .btn {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 12px 18px;
+    gap: 6px;
+    padding: 10px 16px;
     border: 2px solid var(--ink);
     font-weight: 600;
     text-decoration: none;
@@ -316,19 +359,18 @@
     background: var(--bg-paper);
     color: var(--ink);
     box-shadow: 3px 3px 0px var(--ink);
-    font-size: 0.85rem;
+    font-size: clamp(0.75rem, 1.2vw, 0.85rem);
     font-family: var(--font-body);
   }
 
   .btn.li { background: #0a66c2; color: #fff; }
-  .btn.hot { background: var(--accent-orange); color: #fff; }
   .btn:hover { transform: translate(1px, 1px); box-shadow: 2px 2px 0px var(--ink); }
 </style>
 </head>
 <body>
 
 <div class="embedded-video-widget" id="videoWidget">
-  <!-- Title / Dashboard video (videos/00.mp4) plays on load -->
+  <!-- Title video plays on start -->
   <video id="mainVideo" playsinline muted loop src="videos/00.mp4"></video>
   <audio id="bgMusic" src="videos/bg.mp3" loop></audio>
 
@@ -342,6 +384,7 @@
       <div class="progress-badge" id="progressBadge">PROGRESS: 0/4</div>
     </div>
 
+    <!-- Scrollable Questions Container -->
     <div class="questions-grid">
       <div class="q-card" data-q="1">
         <div class="q-tag">Question 01</div>
@@ -362,8 +405,13 @@
     </div>
 
     <div class="drawer-footer">
-      <button class="title-btn" id="resetTitleBtn">↺ Return to Title Screen</button>
-      <span style="font-family: var(--font-mono); font-size: 0.65rem; color: #A79F8F;">Click a question to play</span>
+      <button class="title-btn" id="resetTitleBtn">↺ Title Screen</button>
+      
+      <!-- BGM Volume Controls -->
+      <div class="bg-vol-control">
+        <span>🎵 BGM</span>
+        <input type="range" id="bgVolumeSlider" class="bg-vol-slider" min="0" max="1" step="0.05" value="0.4">
+      </div>
     </div>
   </div>
 
@@ -391,6 +439,7 @@
   const videoWidget = document.getElementById('videoWidget');
   const mainVideo = document.getElementById('mainVideo');
   const bgMusic = document.getElementById('bgMusic');
+  const bgVolumeSlider = document.getElementById('bgVolumeSlider');
   const menuToggleBtn = document.getElementById('menuToggleBtn');
   const menuDrawer = document.getElementById('menuDrawer');
   const resetTitleBtn = document.getElementById('resetTitleBtn');
@@ -403,18 +452,25 @@
   const replayBtn = document.getElementById('replayBtn');
   const qCards = document.querySelectorAll('.q-card');
 
-  let currentVideoIndex = 0; // 0 = Title video (00.mp4)
+  let currentVideoIndex = 0; // 0 = Title Video (00.mp4)
   const completedQuestions = new Set();
+  let userBGMVolume = 0.4;
 
-  // Background music setup & browser playback consent check
-  bgMusic.volume = 0.4;
+  // Initial sound setup
+  bgMusic.volume = userBGMVolume;
   bgMusic.play().catch(() => {
     document.addEventListener('click', () => bgMusic.play(), { once: true });
   });
 
-  // Smooth audio ducking when QA videos play
+  // Dynamic Volume Control Slider
+  bgVolumeSlider.addEventListener('input', (e) => {
+    userBGMVolume = parseFloat(e.target.value);
+    adjustAudioDucking(currentVideoIndex !== 0);
+  });
+
+  // Audio ducking calculation based on user's volume setting
   function adjustAudioDucking(isQAActive) {
-    const targetVolume = isQAActive ? 0.08 : 0.4;
+    const targetVolume = isQAActive ? userBGMVolume * 0.2 : userBGMVolume;
     let fadeInterval = setInterval(() => {
       if (Math.abs(bgMusic.volume - targetVolume) < 0.02) {
         bgMusic.volume = targetVolume;
@@ -424,7 +480,7 @@
       } else {
         bgMusic.volume -= 0.02;
       }
-    }, 50);
+    }, 40);
   }
 
   function playVideoSource(index) {
@@ -488,7 +544,7 @@
       if (completedQuestions.size === 4) {
         setTimeout(() => {
           completionModal.classList.add('active');
-        }, 500);
+        }, 400);
       } else {
         menuDrawer.classList.add('open');
       }
