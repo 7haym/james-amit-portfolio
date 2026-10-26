@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>James Amit — Interactive Video Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,800;1,9..144,400&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg-paper: #F4EFE6;
+    --ink: #16130F;
+    --accent-orange: #FF4D2E;
+    --accent-blue: #2B4CFF;
+    --accent-yellow: #FFC93C;
+    --accent-mint: #8FE3C0;
+    --accent-pink: #FFB3C7;
+    --dark-container: #141311;
+    --dark-card: #1D1B17;
+    
+    --font-heading: 'Fraunces', Georgia, serif;
+    --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-mono: 'Space Mono', monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background-color: var(--dark-container);
+    color: #F4EFE6;
+    font-family: var(--font-body);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 10px;
+  }
+
+  .embedded-video-widget {
+    position: relative;
+    width: 100%;
+    max-width: 960px;
+    aspect-ratio: 16 / 9;
+    background-color: #000;
+    border: 2px solid var(--ink);
+    box-shadow: 8px 8px 0px rgba(0,0,0,0.8);
+    overflow: hidden;
+    user-select: none;
+  }
+
+  video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .menu-toggle-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 30;
+    background: var(--accent-yellow);
+    color: var(--ink);
+    border: 2px solid var(--ink);
+    box-shadow: 3px 3px 0px var(--ink);
+    padding: 8px 14px;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.15s, box-shadow 0.15s, background-color 0.15s;
+  }
+
+  .menu-toggle-btn:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0px var(--ink);
+    background: #ffdb70;
+  }
+
+  .menu-drawer {
+    position: absolute;
+    inset: 0;
+    background: rgba(20, 19, 17, 0.94);
+    backdrop-filter: blur(8px);
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 24px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+  }
+
+  .menu-drawer.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .drawer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid rgba(244, 239, 230, 0.2);
+    padding-bottom: 12px;
+  }
+
+  .drawer-title {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    color: var(--bg-paper);
+  }
+
+  .progress-badge {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    background: var(--accent-mint);
+    color: var(--ink);
+    padding: 4px 8px;
+    border: 1px solid var(--ink);
+    font-weight: bold;
+  }
+
+  .questions-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  @media (max-width: 600px) {
+    .questions-grid { grid-template-columns: 1fr; gap: 8px; }
+    .menu-drawer { padding: 14px; }
+  }
+
+  .q-card {
+    background: var(--dark-card);
+    border: 2px solid rgba(244, 239, 230, 0.2);
+    padding: 12px 14px;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    color: #F4EFE6;
+  }
+
+  .q-card:hover {
+    border-color: var(--accent-yellow);
+    transform: translateY(-2px);
+  }
+
+  .q-card.active {
+    border-color: var(--accent-orange);
+    background: #26221c;
+  }
+
+  .q-card.completed::after {
+    content: "✓ WATCHED";
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    background: var(--accent-mint);
+    color: var(--ink);
+    padding: 2px 5px;
+    font-weight: bold;
+  }
+
+  .q-tag {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--accent-yellow);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .q-text {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 500;
+    line-height: 1.3;
+  }
+
+  .drawer-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .title-btn {
+    background: transparent;
+    border: 1px solid rgba(244, 239, 230, 0.4);
+    color: #F4EFE6;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    padding: 6px 12px;
+    cursor: pointer;
+  }
+
+  .title-btn:hover {
+    border-color: #FFF;
+    background: rgba(255,255,255,0.1);
+  }
+
+  .controls-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.85));
+    padding: 20px 16px 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 10;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .embedded-video-widget:hover .controls-bar,
+  .controls-bar.active {
+    opacity: 1;
+  }
+
+  .ctrl-btn {
+    background: none;
+    border: none;
+    color: #FFF;
+    font-size: 1.1rem;
+    cursor: pointer;
+  }
+
+  .progress-bar-container {
+    flex: 1;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    position: relative;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: var(--accent-orange);
+    width: 0%;
+  }
+
+  .completion-modal {
+    position: absolute;
+    inset: 0;
+    background: rgba(20, 19, 17, 0.95);
+    z-index: 40;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .completion-modal.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .modal-card {
+    background: var(--bg-paper);
+    color: var(--ink);
+    border: 2px solid var(--ink);
+    box-shadow: 8px 8px 0px var(--accent-orange);
+    padding: 28px;
+    max-width: 460px;
+    text-align: center;
+    transform: rotate(-0.5deg);
+  }
+
+  .modal-card h3 {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+  }
+
+  .modal-card p {
+    font-size: 0.95rem;
+    color: #5d564a;
+    margin-bottom: 20px;
+  }
+
+  .modal-btn-group {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 18px;
+    border: 2px solid var(--ink);
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    background: var(--bg-paper);
+    color: var(--ink);
+    box-shadow: 3px 3px 0px var(--ink);
+    font-size: 0.85rem;
+    font-family: var(--font-body);
+  }
+
+  .btn.li { background: #0a66c2; color: #fff; }
+  .btn.hot { background: var(--accent-orange); color: #fff; }
+  .btn:hover { transform: translate(1px, 1px); box-shadow: 2px 2px 0px var(--ink); }
+</style>
+</head>
+<body>
+
+<div class="embedded-video-widget" id="videoWidget">
+  <!-- Title / Dashboard video (videos/00.mp4) plays on load -->
+  <video id="mainVideo" playsinline muted loop src="videos/00.mp4"></video>
+  <audio id="bgMusic" src="videos/bg.mp3" loop></audio>
+
+  <button class="menu-toggle-btn" id="menuToggleBtn">
+    <span>☰ Select Question</span>
+  </button>
+
+  <div class="menu-drawer" id="menuDrawer">
+    <div class="drawer-header">
+      <div class="drawer-title">Interactive Q&amp;A Dashboard</div>
+      <div class="progress-badge" id="progressBadge">PROGRESS: 0/4</div>
+    </div>
+
+    <div class="questions-grid">
+      <div class="q-card" data-q="1">
+        <div class="q-tag">Question 01</div>
+        <div class="q-text">What is ADDIE, and when should you use it?</div>
+      </div>
+      <div class="q-card" data-q="2">
+        <div class="q-tag">Question 02</div>
+        <div class="q-text">How do you know if a problem actually requires training?</div>
+      </div>
+      <div class="q-card" data-q="3">
+        <div class="q-tag">Question 03</div>
+        <div class="q-text">How do you turn complex info into engaging microlearning?</div>
+      </div>
+      <div class="q-card" data-q="4">
+        <div class="q-tag">Question 04</div>
+        <div class="q-text">How do you measure if training improves employee performance?</div>
+      </div>
+    </div>
+
+    <div class="drawer-footer">
+      <button class="title-btn" id="resetTitleBtn">↺ Return to Title Screen</button>
+      <span style="font-family: var(--font-mono); font-size: 0.65rem; color: #A79F8F;">Click a question to play</span>
+    </div>
+  </div>
+
+  <div class="controls-bar" id="controlsBar">
+    <button class="ctrl-btn" id="playPauseBtn">▶</button>
+    <div class="progress-bar-container" id="progressBarContainer">
+      <div class="progress-bar-fill" id="progressBarFill"></div>
+    </div>
+    <button class="ctrl-btn" id="muteBtn">🔊</button>
+  </div>
+
+  <div class="completion-modal" id="completionModal">
+    <div class="modal-card">
+      <h3>That's a wrap! 🎬</h3>
+      <p>Thanks for watching all four answers! Interested in discussing instructional design, telecommunications training, or custom learning projects?</p>
+      <div class="modal-btn-group">
+        <a class="btn li" href="https://www.linkedin.com/in/amitjamesmadr/" target="_blank" rel="noopener">Message me on LinkedIn ↗</a>
+        <button class="btn" id="replayBtn">Replay Videos</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const videoWidget = document.getElementById('videoWidget');
+  const mainVideo = document.getElementById('mainVideo');
+  const bgMusic = document.getElementById('bgMusic');
+  const menuToggleBtn = document.getElementById('menuToggleBtn');
+  const menuDrawer = document.getElementById('menuDrawer');
+  const resetTitleBtn = document.getElementById('resetTitleBtn');
+  const playPauseBtn = document.getElementById('playPauseBtn');
+  const progressBarContainer = document.getElementById('progressBarContainer');
+  const progressBarFill = document.getElementById('progressBarFill');
+  const muteBtn = document.getElementById('muteBtn');
+  const progressBadge = document.getElementById('progressBadge');
+  const completionModal = document.getElementById('completionModal');
+  const replayBtn = document.getElementById('replayBtn');
+  const qCards = document.querySelectorAll('.q-card');
+
+  let currentVideoIndex = 0; // 0 = Title video (00.mp4)
+  const completedQuestions = new Set();
+
+  // Background music setup & browser playback consent check
+  bgMusic.volume = 0.4;
+  bgMusic.play().catch(() => {
+    document.addEventListener('click', () => bgMusic.play(), { once: true });
+  });
+
+  // Smooth audio ducking when QA videos play
+  function adjustAudioDucking(isQAActive) {
+    const targetVolume = isQAActive ? 0.08 : 0.4;
+    let fadeInterval = setInterval(() => {
+      if (Math.abs(bgMusic.volume - targetVolume) < 0.02) {
+        bgMusic.volume = targetVolume;
+        clearInterval(fadeInterval);
+      } else if (bgMusic.volume < targetVolume) {
+        bgMusic.volume += 0.02;
+      } else {
+        bgMusic.volume -= 0.02;
+      }
+    }, 50);
+  }
+
+  function playVideoSource(index) {
+    currentVideoIndex = index;
+    const formattedIndex = String(index).padStart(2, '0');
+    mainVideo.src = `videos/${formattedIndex}.mp4`;
+
+    if (index === 0) {
+      mainVideo.loop = true;
+      mainVideo.muted = true;
+      adjustAudioDucking(false);
+    } else {
+      mainVideo.loop = false;
+      mainVideo.muted = false;
+      adjustAudioDucking(true);
+    }
+
+    mainVideo.play().catch(err => console.log('Autoplay restricted:', err));
+    updateActiveCard();
+  }
+
+  function updateActiveCard() {
+    qCards.forEach(card => {
+      const qNum = parseInt(card.dataset.q);
+      card.classList.toggle('active', qNum === currentVideoIndex);
+    });
+  }
+
+  menuToggleBtn.addEventListener('click', () => {
+    menuDrawer.classList.toggle('open');
+  });
+
+  qCards.forEach(card => {
+    card.addEventListener('click', () => {
+      const qNum = parseInt(card.dataset.q);
+      playVideoSource(qNum);
+      menuDrawer.classList.remove('open');
+    });
+  });
+
+  resetTitleBtn.addEventListener('click', () => {
+    playVideoSource(0);
+    menuDrawer.classList.remove('open');
+  });
+
+  mainVideo.addEventListener('timeupdate', () => {
+    if (mainVideo.duration) {
+      const pct = (mainVideo.currentTime / mainVideo.duration) * 100;
+      progressBarFill.style.width = pct + '%';
+    }
+  });
+
+  mainVideo.addEventListener('ended', () => {
+    if (currentVideoIndex > 0) {
+      completedQuestions.add(currentVideoIndex);
+      const card = document.querySelector(`.q-card[data-q="${currentVideoIndex}"]`);
+      if (card) card.classList.add('completed');
+
+      progressBadge.textContent = `PROGRESS: ${completedQuestions.size}/4`;
+
+      if (completedQuestions.size === 4) {
+        setTimeout(() => {
+          completionModal.classList.add('active');
+        }, 500);
+      } else {
+        menuDrawer.classList.add('open');
+      }
+    }
+  });
+
+  playPauseBtn.addEventListener('click', () => {
+    if (mainVideo.paused) {
+      mainVideo.play();
+      playPauseBtn.textContent = '⏸';
+    } else {
+      mainVideo.pause();
+      playPauseBtn.textContent = '▶';
+    }
+  });
+
+  progressBarContainer.addEventListener('click', (e) => {
+    const rect = progressBarContainer.getBoundingClientRect();
+    const pos = (e.clientX - rect.left) / rect.width;
+    mainVideo.currentTime = pos * mainVideo.duration;
+  });
+
+  muteBtn.addEventListener('click', () => {
+    mainVideo.muted = !mainVideo.muted;
+    muteBtn.textContent = mainVideo.muted ? '🔇' : '🔊';
+  });
+
+  replayBtn.addEventListener('click', () => {
+    completionModal.classList.remove('active');
+    playVideoSource(0);
+    menuDrawer.classList.add('open');
+  });
+</script>
+
+</body>
+</html>
