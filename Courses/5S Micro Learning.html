@@ -23,20 +23,20 @@
           colors: {
             paper: '#f7f4eb',
             'paper-card': '#ede7d7',
-            ink: '#1a1a1a',
+            ink: '#111827',
             pixel: {
-              red: '#ff3838',
-              yellow: '#ffb800',
-              green: '#00e676',
-              blue: '#2979ff',
-              purple: '#d500f9',
-              orange: '#ff9100'
+              red: '#dc2626',
+              yellow: '#d97706',
+              green: '#059669',
+              blue: '#2563eb',
+              purple: '#9333ea',
+              orange: '#ea580c'
             },
             dark: {
-              bg: '#121212',
-              card: '#1e1e1e',
-              ink: '#f7f4eb',
-              border: '#333333'
+              bg: '#0f172a',
+              card: '#1e293b',
+              ink: '#f8f9fa',
+              border: '#334155'
             }
           },
           fontFamily: {
@@ -45,11 +45,11 @@
             body: ['Inter', 'sans-serif']
           },
           boxShadow: {
-            'pixel': '4px 4px 0px #1a1a1a',
-            'pixel-sm': '2px 2px 0px #1a1a1a',
-            'pixel-lg': '6px 6px 0px #1a1a1a',
-            'pixel-dark': '4px 4px 0px #f7f4eb',
-            'pixel-dark-sm': '2px 2px 0px #f7f4eb'
+            'pixel': '4px 4px 0px #111827',
+            'pixel-sm': '2px 2px 0px #111827',
+            'pixel-lg': '6px 6px 0px #111827',
+            'pixel-dark': '4px 4px 0px #f8f9fa',
+            'pixel-dark-sm': '2px 2px 0px #f8f9fa'
           }
         }
       }
@@ -57,25 +57,27 @@
   </script>
 
   <style>
-    /* MANDATORY ACCESSIBILITY RULE: MINIMUM 20PX FOR ALL TEXT */
+    /* MANDATORY ACCESSIBILITY & CONTRAST RULES */
     html, body {
       font-family: 'Inter', sans-serif;
       font-size: 20px;
       line-height: 1.6;
       background-color: #f7f4eb;
-      color: #1a1a1a;
+      color: #111827;
       transition: background-color 0.2s ease, color 0.2s ease;
-      image-rendering: pixelated;
     }
 
     .dark body {
-      background-color: #121212;
-      color: #f7f4eb;
+      background-color: #0f172a;
+      color: #f8f9fa;
     }
 
-    /* Force baseline minimum font sizes */
     p, li, button, input, select, textarea, label, span, div, kbd {
       font-size: clamp(20px, 2.2vw, 24px);
+    }
+
+    .dark p, .dark li, .dark label, .dark span, .dark div {
+      color: #f1f5f9;
     }
 
     .font-pixel {
@@ -85,33 +87,26 @@
 
     .font-arcade {
       font-family: 'Press Start 2P', monospace;
-      font-size: clamp(16px, 2vw, 22px);
+      font-size: clamp(14px, 1.8vw, 20px);
       line-height: 1.4;
     }
 
     /* Pixel Borders & Shadows */
     .border-pixel {
-      border: 4px solid #1a1a1a;
+      border: 4px solid #111827;
     }
     .dark .border-pixel {
-      border: 4px solid #f7f4eb;
+      border: 4px solid #f8f9fa;
     }
 
     .shadow-pixel {
-      box-shadow: 4px 4px 0px #1a1a1a;
+      box-shadow: 4px 4px 0px #111827;
     }
     .dark .shadow-pixel {
-      box-shadow: 4px 4px 0px #f7f4eb;
+      box-shadow: 4px 4px 0px #334155;
     }
 
-    .shadow-pixel-lg {
-      box-shadow: 8px 8px 0px #1a1a1a;
-    }
-    .dark .shadow-pixel-lg {
-      box-shadow: 8px 8px 0px #f7f4eb;
-    }
-
-    /* Optional Scanlines CRT Effect */
+    /* Scanlines CRT Effect */
     .scanlines::before {
       content: " ";
       display: block;
@@ -124,7 +119,6 @@
       opacity: 0.6;
     }
 
-    /* Pulse & Pixel Animations */
     @keyframes blink {
       0%, 100% { opacity: 1; }
       50% { opacity: 0; }
@@ -141,81 +135,69 @@
       animation: bounce-pixel 0.6s infinite ease-in-out;
     }
 
-    /* Print styling for Pixel Certificate */
     @media print {
-      body * {
-        visibility: hidden;
-      }
-      #printable-certificate, #printable-certificate * {
-        visibility: visible;
-      }
+      body * { visibility: hidden; }
+      #printable-certificate, #printable-certificate * { visibility: visible; }
       #printable-certificate {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        border: 6px solid #1a1a1a !important;
-        box-shadow: none !important;
-        background: #fff !important;
-        color: #000 !important;
+        position: absolute; left: 0; top: 0; width: 100%;
+        border: 6px solid #111827 !important;
+        box-shadow: none !important; background: #fff !important; color: #000 !important;
       }
-      .no-print {
-        display: none !important;
-      }
+      .no-print { display: none !important; }
     }
   </style>
 </head>
-<body id="game-body" class="min-h-screen flex flex-col justify-between selection:bg-pixel-yellow selection:text-ink">
+<body id="game-body" class="min-h-screen flex flex-col justify-between selection:bg-amber-400 selection:text-slate-900">
 
   <!-- ARCADE HEADER / STATUS BAR -->
-  <header class="sticky top-0 z-50 bg-paper dark:bg-dark-bg border-b-4 border-ink dark:border-dark-border px-4 py-3 shadow-md transition-colors">
+  <header class="sticky top-0 z-50 bg-paper dark:bg-dark-bg border-b-4 border-slate-900 dark:border-slate-700 px-4 py-3 shadow-md transition-colors">
     <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-3">
       
       <!-- Logo & Arcade Title -->
       <div class="flex items-center space-x-3">
-        <span class="bg-pixel-yellow text-ink border-4 border-ink px-3 py-1 font-arcade font-bold text-sm sm:text-base shadow-pixel">
+        <span class="bg-amber-400 text-slate-900 border-4 border-slate-900 px-3 py-1 font-arcade font-bold text-xs sm:text-sm shadow-pixel">
           <i class="fa-solid fa-gamepad mr-1"></i> 5S QUEST
         </span>
-        <h1 class="font-arcade text-xs sm:text-sm tracking-tight hidden lg:block text-pixel-red">
+        <h1 class="font-arcade text-xs sm:text-sm tracking-tight hidden lg:block text-red-600 dark:text-red-400">
           CHAOS SLAYER
         </h1>
       </div>
 
       <!-- Live Score, Timer & Sound Controls -->
       <div class="flex items-center space-x-3 font-pixel">
-        <div class="bg-paper-card dark:bg-dark-card border-3 border-ink dark:border-dark-border px-3 py-1 rounded shadow-pixel flex items-center gap-2">
-          <i class="fa-solid fa-trophy text-pixel-yellow"></i>
-          <span>XP: <strong id="score-display" class="text-pixel-blue dark:text-pixel-yellow font-bold">0</strong></span>
+        <div class="bg-paper-card dark:bg-dark-card border-3 border-slate-900 dark:border-slate-700 px-3 py-1 rounded shadow-pixel flex items-center gap-2">
+          <i class="fa-solid fa-trophy text-amber-500"></i>
+          <span>XP: <strong id="score-display" class="text-blue-600 dark:text-amber-400 font-bold">0</strong></span>
         </div>
 
-        <div class="bg-paper-card dark:bg-dark-card border-3 border-ink dark:border-dark-border px-3 py-1 rounded shadow-pixel flex items-center gap-2">
-          <i class="fa-solid fa-hourglass-half text-pixel-red"></i>
+        <div class="bg-paper-card dark:bg-dark-card border-3 border-slate-900 dark:border-slate-700 px-3 py-1 rounded shadow-pixel flex items-center gap-2">
+          <i class="fa-solid fa-hourglass-half text-red-600 dark:text-red-400"></i>
           <span id="timer-display" class="font-bold">15:00</span>
         </div>
 
         <!-- SFX Toggle Button -->
-        <button id="sfx-toggle" onclick="toggleAudio()" class="p-2 border-3 border-ink dark:border-dark-border rounded bg-paper-card dark:bg-dark-card hover:bg-pixel-yellow hover:text-ink transition shadow-pixel" title="Toggle 8-Bit Audio SFX">
-          <i id="sfx-icon" class="fa-solid fa-volume-high text-pixel-green"></i>
+        <button id="sfx-toggle" onclick="toggleAudio()" class="p-2 border-3 border-slate-900 dark:border-slate-700 rounded bg-paper-card dark:bg-dark-card hover:bg-amber-400 hover:text-slate-900 transition shadow-pixel" title="Toggle 8-Bit Audio SFX">
+          <i id="sfx-icon" class="fa-solid fa-volume-high text-emerald-600 dark:text-emerald-400"></i>
         </button>
 
         <!-- Theme Toggle Button -->
-        <button id="theme-toggle" class="p-2 border-3 border-ink dark:border-dark-border rounded bg-paper-card dark:bg-dark-card hover:bg-pixel-yellow hover:text-ink transition shadow-pixel" title="Toggle Light/Dark Mode">
-          <i class="fa-solid fa-moon dark:hidden text-ink"></i>
-          <i class="fa-solid fa-sun hidden dark:block text-pixel-yellow"></i>
+        <button id="theme-toggle" class="p-2 border-3 border-slate-900 dark:border-slate-700 rounded bg-paper-card dark:bg-dark-card hover:bg-amber-400 hover:text-slate-900 transition shadow-pixel" title="Toggle Light/Dark Mode">
+          <i class="fa-solid fa-moon dark:hidden text-slate-900"></i>
+          <i class="fa-solid fa-sun hidden dark:block text-amber-400"></i>
         </button>
 
         <!-- CRT Scanline Filter Toggle -->
-        <button onclick="toggleCRT()" class="p-2 border-3 border-ink dark:border-dark-border rounded bg-paper-card dark:bg-dark-card hover:bg-pixel-yellow hover:text-ink transition shadow-pixel hidden sm:block" title="Toggle Scanline CRT Effect">
+        <button onclick="toggleCRT()" class="p-2 border-3 border-slate-900 dark:border-slate-700 rounded bg-paper-card dark:bg-dark-card hover:bg-amber-400 hover:text-slate-900 transition shadow-pixel hidden sm:block" title="Toggle Scanline CRT Effect">
           <i class="fa-solid fa-tv"></i>
         </button>
       </div>
 
       <!-- Quick Nav Controls -->
       <div class="flex items-center space-x-2">
-        <button id="prev-btn" onclick="navigateScreen(-1)" class="px-3 py-1.5 border-3 border-ink dark:border-dark-border rounded bg-paper-card dark:bg-dark-card font-arcade text-xs shadow-pixel hover:translate-x-[-1px] hover:translate-y-[-1px] disabled:opacity-40 disabled:cursor-not-allowed transition">
+        <button id="prev-btn" onclick="navigateScreen(-1)" class="px-3 py-1.5 border-3 border-slate-900 dark:border-slate-700 rounded bg-paper-card dark:bg-dark-card font-arcade text-xs shadow-pixel hover:translate-x-[-1px] hover:translate-y-[-1px] disabled:opacity-40 disabled:cursor-not-allowed transition">
           <i class="fa-solid fa-caret-left"></i> BACK
         </button>
-        <button id="next-btn" onclick="navigateScreen(1)" class="px-4 py-1.5 border-3 border-ink dark:border-dark-border rounded bg-pixel-yellow text-ink font-arcade text-xs shadow-pixel hover:translate-x-[-1px] hover:translate-y-[-1px] transition">
+        <button id="next-btn" onclick="navigateScreen(1)" class="px-4 py-1.5 border-3 border-slate-900 dark:border-slate-700 rounded bg-amber-400 text-slate-900 font-arcade text-xs shadow-pixel hover:translate-x-[-1px] hover:translate-y-[-1px] disabled:opacity-40 disabled:cursor-not-allowed transition" title="Complete required action to proceed">
           NEXT <i class="fa-solid fa-caret-right"></i>
         </button>
       </div>
@@ -225,11 +207,11 @@
     <!-- Arcade Stage Progress Bar -->
     <div class="max-w-6xl mx-auto mt-3">
       <div class="flex justify-between items-center text-xs font-arcade mb-1">
-        <span>STAGE <span id="current-stage-num" class="text-pixel-red font-bold">1</span> / 10</span>
-        <span id="stage-title-nav" class="text-pixel-blue dark:text-pixel-yellow hidden sm:inline">INSERT COIN</span>
+        <span>STAGE <span id="current-stage-num" class="text-red-600 dark:text-red-400 font-bold">1</span> / 10</span>
+        <span id="stage-status-msg" class="text-amber-700 dark:text-amber-400 font-bold">⚠ COMPLETE STAGE ACTION TO PROCEED</span>
       </div>
-      <div class="w-full bg-paper-card dark:bg-dark-card h-4 border-3 border-ink dark:border-dark-border rounded overflow-hidden flex p-0.5">
-        <div id="progress-bar-fill" class="bg-pixel-green h-full transition-all duration-300" style="width: 10%;"></div>
+      <div class="w-full bg-paper-card dark:bg-dark-card h-4 border-3 border-slate-900 dark:border-slate-700 rounded overflow-hidden flex p-0.5">
+        <div id="progress-bar-fill" class="bg-emerald-600 dark:bg-emerald-500 h-full transition-all duration-300" style="width: 10%;"></div>
       </div>
     </div>
   </header>
@@ -237,325 +219,299 @@
   <!-- MAIN GAMEPLAY CANVAS / SCREEN CONTAINER -->
   <main class="max-w-5xl mx-auto px-4 py-6 flex-grow w-full">
 
-    <!-- STAGE 1: TITLE SCREEN / INSERT COIN -->
+    <!-- STAGE 1: TITLE SCREEN -->
     <section id="screen-1" class="screen-content space-y-6">
-      <div class="bg-paper-card dark:bg-dark-card border-4 border-ink dark:border-dark-border p-6 sm:p-10 rounded-xl shadow-pixel-lg dark:shadow-pixel-dark text-center space-y-8 relative overflow-hidden">
+      <div class="bg-paper-card dark:bg-dark-card border-4 border-slate-900 dark:border-slate-700 p-6 sm:p-10 rounded-xl shadow-pixel-lg dark:shadow-pixel-dark text-center space-y-8 relative overflow-hidden">
         
-        <div class="inline-block bg-pixel-red text-white border-3 border-ink font-arcade text-xs sm:text-sm px-4 py-2 rounded shadow-pixel animate-bounce-pixel">
+        <div class="inline-block bg-red-600 text-white border-3 border-slate-900 font-arcade text-xs sm:text-sm px-4 py-2 rounded shadow-pixel animate-bounce-pixel">
           ★ RETRO ARCADE MICROLEARNING ★
         </div>
 
         <div class="space-y-4">
-          <h1 class="font-arcade text-2xl sm:text-4xl lg:text-5xl text-pixel-blue dark:text-pixel-yellow tracking-wider leading-tight">
+          <h1 class="font-arcade text-2xl sm:text-4xl lg:text-5xl text-blue-700 dark:text-amber-400 tracking-wider leading-tight">
             5S WORKPLACE QUEST
           </h1>
-          <h2 class="font-pixel text-3xl sm:text-4xl text-pixel-red font-bold">
+          <h2 class="font-pixel text-3xl sm:text-4xl text-red-700 dark:text-red-400 font-bold">
             SLAY DESK CHAOS & MASTER EFFICIENCY!
           </h2>
         </div>
 
-        <!-- 8-Bit Pixel Mascot Art -->
         <div class="flex justify-center items-center space-x-6 py-4">
-          <div class="text-6xl text-pixel-yellow animate-pulse"><i class="fa-solid fa-robot"></i></div>
-          <div class="text-3xl font-arcade text-pixel-red">VS</div>
-          <div class="text-6xl text-pixel-purple"><i class="fa-solid fa-ghost"></i></div>
+          <div class="text-6xl text-amber-500 animate-pulse"><i class="fa-solid fa-robot"></i></div>
+          <div class="text-3xl font-arcade text-red-600">VS</div>
+          <div class="text-6xl text-purple-600 dark:text-purple-400"><i class="fa-solid fa-ghost"></i></div>
         </div>
 
-        <p class="max-w-2xl mx-auto leading-relaxed">
+        <p class="max-w-2xl mx-auto leading-relaxed text-slate-800 dark:text-slate-200">
           The Office Chaos Monster has scattered coffee cups, tangled charger cords, and misplaced staplers across your workstation! Step up to the 8-bit arcade cabinet, master the 5S Lean Framework, and restore order in under 15 minutes.
         </p>
 
-        <!-- Coin / Start Button -->
         <div class="space-y-4 pt-4">
-          <button onclick="startGame()" class="px-8 py-5 bg-pixel-yellow text-ink border-4 border-ink font-arcade text-base sm:text-lg rounded-xl shadow-pixel-lg hover:bg-pixel-green hover:translate-x-[-2px] hover:translate-y-[-2px] transition active:translate-x-[2px] active:translate-y-[2px]">
+          <button onclick="startGame()" class="px-8 py-5 bg-amber-400 text-slate-900 border-4 border-slate-900 font-arcade text-base sm:text-lg rounded-xl shadow-pixel-lg hover:bg-emerald-500 hover:text-white hover:translate-x-[-2px] hover:translate-y-[-2px] transition active:translate-x-[2px] active:translate-y-[2px]">
             <i class="fa-solid fa-play mr-2"></i> PRESS START / INSERT COIN
           </button>
           
-          <div class="font-arcade text-xs text-pixel-red animate-blink">
+          <div class="font-arcade text-xs text-red-600 dark:text-red-400 animate-blink">
             CREDITS: 99 | HIGH SCORE: 500 XP
           </div>
         </div>
 
-        <div class="pt-4 border-t-3 border-ink dark:border-dark-border flex flex-wrap justify-center gap-6 font-pixel text-lg">
+        <div class="pt-4 border-t-3 border-slate-900 dark:border-slate-700 flex flex-wrap justify-center gap-6 font-pixel text-lg">
           <span><i class="fa-solid fa-keyboard mr-1"></i> ARROW KEYS: Navigate</span>
           <span><i class="fa-solid fa-clock mr-1"></i> TIME: 12-15 Mins</span>
           <span><i class="fa-solid fa-award mr-1"></i> CERTIFICATE: Included</span>
         </div>
-
       </div>
     </section>
 
-    <!-- STAGE 2: QUEST BRIEFING & BLOOM OBJECTIVES -->
+    <!-- STAGE 2: QUEST BRIEFING -->
     <section id="screen-2" class="screen-content space-y-6 hidden">
-      <div class="bg-paper-card dark:bg-dark-card border-4 border-ink dark:border-dark-border p-6 sm:p-10 rounded-xl shadow-pixel-lg space-y-6">
+      <div class="bg-paper-card dark:bg-dark-card border-4 border-slate-900 dark:border-slate-700 p-6 sm:p-10 rounded-xl shadow-pixel-lg space-y-6">
         
-        <!-- RPG Dialogue Box Header -->
-        <div class="flex items-center space-x-4 bg-paper dark:bg-dark-bg p-4 rounded-lg border-3 border-ink">
-          <div class="text-5xl text-pixel-blue"><i class="fa-solid fa-user-ninja"></i></div>
+        <div class="flex items-center space-x-4 bg-paper dark:bg-dark-bg p-4 rounded-lg border-3 border-slate-900 dark:border-slate-700">
+          <div class="text-5xl text-blue-600 dark:text-blue-400"><i class="fa-solid fa-user-ninja"></i></div>
           <div>
-            <div class="font-arcade text-xs text-pixel-red">GUIDE: SENSEI SORI</div>
-            <div class="font-pixel text-2xl font-bold">"Welcome, Cadet! Here is your Quest Log."</div>
+            <div class="font-arcade text-xs text-red-600 dark:text-red-400">GUIDE: SENSEI SORI</div>
+            <div class="font-pixel text-2xl font-bold">"Welcome, Cadet! Review your Quest Objectives."</div>
           </div>
         </div>
 
-        <h2 class="font-arcade text-sm sm:text-base text-pixel-blue dark:text-pixel-yellow">
-          STAGE 2: QUEST OBJECTIVES & BLOOM MISSIONS
+        <h2 class="font-arcade text-sm sm:text-base text-blue-700 dark:text-amber-400">
+          STAGE 2: QUEST MISSIONS (CLICK ACCEPT TO PROCEED)
         </h2>
 
-        <p>By clearing all 10 stages of this microlearning game, you will unlock 5 core workplace skills:</p>
-
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          
-          <div class="bg-paper dark:bg-dark-bg p-5 rounded-lg border-3 border-ink shadow-pixel flex items-start space-x-3">
-            <span class="bg-pixel-red text-white font-arcade text-xs p-2 rounded">01</span>
+          <div class="bg-paper dark:bg-dark-bg p-5 rounded-lg border-3 border-slate-900 dark:border-slate-700 shadow-pixel flex items-start space-x-3">
+            <span class="bg-red-600 text-white font-arcade text-xs p-2 rounded">01</span>
             <div>
-              <h3 class="font-bold text-pixel-red">APPLY RED TAG SORTING</h3>
-              <p class="text-sm">Categorize desktop items into KEEP, RECYCLE, or SECURE DISPOSAL.</p>
+              <h3 class="font-bold text-red-700 dark:text-red-400">APPLY RED TAG SORTING</h3>
+              <p class="text-sm text-slate-700 dark:text-slate-300">Categorize desktop items into KEEP, RECYCLE, or SECURE DISPOSAL.</p>
             </div>
           </div>
 
-          <div class="bg-paper dark:bg-dark-bg p-5 rounded-lg border-3 border-ink shadow-pixel flex items-start space-x-3">
-            <span class="bg-pixel-blue text-white font-arcade text-xs p-2 rounded">02</span>
+          <div class="bg-paper dark:bg-dark-bg p-5 rounded-lg border-3 border-slate-900 dark:border-slate-700 shadow-pixel flex items-start space-x-3">
+            <span class="bg-blue-600 text-white font-arcade text-xs p-2 rounded">02</span>
             <div>
-              <h3 class="font-bold text-pixel-blue">ARRANGE 3-ZONE ERGONOMICS</h3>
-              <p class="text-sm">Place pens, staplers, and paper in arm's reach sweep zones.</p>
+              <h3 class="font-bold text-blue-700 dark:text-blue-400">ARRANGE 3-ZONE ERGONOMICS</h3>
+              <p class="text-sm text-slate-700 dark:text-slate-300">Place pens, staplers, and paper in arm's reach sweep zones.</p>
             </div>
           </div>
 
-          <div class="bg-paper dark:bg-dark-bg p-5 rounded-lg border-3 border-ink shadow-pixel flex items-start space-x-3">
-            <span class="bg-pixel-green text-ink font-arcade text-xs p-2 rounded">03</span>
+          <div class="bg-paper dark:bg-dark-bg p-5 rounded-lg border-3 border-slate-900 dark:border-slate-700 shadow-pixel flex items-start space-x-3">
+            <span class="bg-emerald-600 text-white font-arcade text-xs p-2 rounded">03</span>
             <div>
-              <h3 class="font-bold text-pixel-green">INSPECT DESK HAZARDS</h3>
-              <p class="text-sm">Spot coffee spills, dusty screens, and frayed wires early.</p>
+              <h3 class="font-bold text-emerald-700 dark:text-emerald-400">INSPECT DESK HAZARDS</h3>
+              <p class="text-sm text-slate-700 dark:text-slate-300">Spot coffee spills, dusty screens, and frayed wires early.</p>
             </div>
           </div>
 
-          <div class="bg-paper dark:bg-dark-bg p-5 rounded-lg border-3 border-ink shadow-pixel flex items-start space-x-3">
-            <span class="bg-pixel-purple text-white font-arcade text-xs p-2 rounded">04</span>
+          <div class="bg-paper dark:bg-dark-bg p-5 rounded-lg border-3 border-slate-900 dark:border-slate-700 shadow-pixel flex items-start space-x-3">
+            <span class="bg-purple-600 text-white font-arcade text-xs p-2 rounded">04</span>
             <div>
-              <h3 class="font-bold text-pixel-purple">BUILD VISUAL CONTROLS</h3>
-              <p class="text-sm">Design standardized supply labels for 3-second tool access.</p>
+              <h3 class="font-bold text-purple-700 dark:text-purple-400">BUILD VISUAL CONTROLS</h3>
+              <p class="text-sm text-slate-700 dark:text-slate-300">Design standardized supply labels for 3-second tool access.</p>
             </div>
           </div>
-
         </div>
 
         <div class="text-center pt-4">
-          <button onclick="navigateScreen(1)" class="px-8 py-4 bg-pixel-yellow text-ink border-3 border-ink font-arcade text-xs rounded-lg shadow-pixel hover:bg-pixel-green transition">
-            ACCEPT QUEST & BEGIN <i class="fa-solid fa-arrow-right ml-2"></i>
+          <button id="accept-quest-btn" onclick="completeStage2()" class="px-8 py-4 bg-amber-400 text-slate-900 border-3 border-slate-900 font-arcade text-xs rounded-lg shadow-pixel hover:bg-emerald-500 hover:text-white transition">
+            <i class="fa-solid fa-check mr-2"></i> ACCEPT QUEST & UNLOCK STAGE 3
           </button>
         </div>
-
       </div>
     </section>
 
-    <!-- STAGE 3: LEVEL 0 — WHAT IS 5S? (PILLAR CARDS) -->
+    <!-- STAGE 3: LEVEL 0 — WHAT IS 5S? -->
     <section id="screen-3" class="screen-content space-y-6 hidden">
-      <div class="bg-paper-card dark:bg-dark-card border-4 border-ink dark:border-dark-border p-6 sm:p-10 rounded-xl shadow-pixel-lg space-y-6">
+      <div class="bg-paper-card dark:bg-dark-card border-4 border-slate-900 dark:border-slate-700 p-6 sm:p-10 rounded-xl shadow-pixel-lg space-y-6">
         
         <div class="flex justify-between items-center flex-wrap gap-2">
-          <span class="bg-pixel-yellow text-ink font-arcade text-xs px-3 py-1 border-2 border-ink rounded">LEVEL 0</span>
-          <span class="font-pixel text-2xl font-bold">THE 5 PILLARS OF WORKPLACE EXCELLENCE</span>
+          <span class="bg-amber-400 text-slate-900 font-arcade text-xs px-3 py-1 border-2 border-slate-900 rounded">LEVEL 0</span>
+          <span class="font-pixel text-2xl font-bold">INSPECT ALL 5 PILLARS (<span id="pillar-viewed-count">0</span> / 5 VIEWED)</span>
         </div>
 
-        <h2 class="font-arcade text-sm sm:text-base text-pixel-blue dark:text-pixel-yellow">
-          Select each 8-bit card to inspect its core power:
+        <h2 class="font-arcade text-sm sm:text-base text-blue-700 dark:text-amber-400">
+          Select each 8-bit card below to inspect its core power:
         </h2>
 
-        <!-- 5 Pillar Selection Cards -->
         <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
-          <button onclick="selectPillarCard(1)" id="pillar-card-1" class="pillar-card p-3 bg-paper dark:bg-dark-bg border-3 border-ink rounded-lg text-center hover:bg-pixel-yellow hover:text-ink transition shadow-pixel">
-            <div class="font-arcade text-xs text-pixel-red mb-1">1S</div>
+          <button onclick="selectPillarCard(1)" id="pillar-card-1" class="pillar-card p-3 bg-paper dark:bg-dark-bg border-3 border-slate-900 dark:border-slate-700 rounded-lg text-center hover:bg-amber-400 hover:text-slate-900 transition shadow-pixel">
+            <div class="font-arcade text-xs text-red-600 mb-1">1S</div>
             <div class="font-bold">SORT</div>
-            <div class="font-pixel text-lg opacity-80">Seiri</div>
+            <div class="font-pixel text-lg opacity-90">Seiri</div>
           </button>
-          <button onclick="selectPillarCard(2)" id="pillar-card-2" class="pillar-card p-3 bg-paper dark:bg-dark-bg border-3 border-ink rounded-lg text-center hover:bg-pixel-yellow hover:text-ink transition shadow-pixel">
-            <div class="font-arcade text-xs text-pixel-blue mb-1">2S</div>
+          <button onclick="selectPillarCard(2)" id="pillar-card-2" class="pillar-card p-3 bg-paper dark:bg-dark-bg border-3 border-slate-900 dark:border-slate-700 rounded-lg text-center hover:bg-amber-400 hover:text-slate-900 transition shadow-pixel">
+            <div class="font-arcade text-xs text-blue-600 mb-1">2S</div>
             <div class="font-bold">SET</div>
-            <div class="font-pixel text-lg opacity-80">Seiton</div>
+            <div class="font-pixel text-lg opacity-90">Seiton</div>
           </button>
-          <button onclick="selectPillarCard(3)" id="pillar-card-3" class="pillar-card p-3 bg-paper dark:bg-dark-bg border-3 border-ink rounded-lg text-center hover:bg-pixel-yellow hover:text-ink transition shadow-pixel">
-            <div class="font-arcade text-xs text-pixel-green mb-1">3S</div>
+          <button onclick="selectPillarCard(3)" id="pillar-card-3" class="pillar-card p-3 bg-paper dark:bg-dark-bg border-3 border-slate-900 dark:border-slate-700 rounded-lg text-center hover:bg-amber-400 hover:text-slate-900 transition shadow-pixel">
+            <div class="font-arcade text-xs text-emerald-600 mb-1">3S</div>
             <div class="font-bold">SHINE</div>
-            <div class="font-pixel text-lg opacity-80">Seiso</div>
+            <div class="font-pixel text-lg opacity-90">Seiso</div>
           </button>
-          <button onclick="selectPillarCard(4)" id="pillar-card-4" class="pillar-card p-3 bg-paper dark:bg-dark-bg border-3 border-ink rounded-lg text-center hover:bg-pixel-yellow hover:text-ink transition shadow-pixel">
-            <div class="font-arcade text-xs text-pixel-purple mb-1">4S</div>
+          <button onclick="selectPillarCard(4)" id="pillar-card-4" class="pillar-card p-3 bg-paper dark:bg-dark-bg border-3 border-slate-900 dark:border-slate-700 rounded-lg text-center hover:bg-amber-400 hover:text-slate-900 transition shadow-pixel">
+            <div class="font-arcade text-xs text-purple-600 mb-1">4S</div>
             <div class="font-bold">STANDARDIZE</div>
-            <div class="font-pixel text-lg opacity-80">Seiketsu</div>
+            <div class="font-pixel text-lg opacity-90">Seiketsu</div>
           </button>
-          <button onclick="selectPillarCard(5)" id="pillar-card-5" class="pillar-card p-3 bg-paper dark:bg-dark-bg border-3 border-ink rounded-lg text-center hover:bg-pixel-yellow hover:text-ink transition shadow-pixel col-span-2 sm:col-span-1">
-            <div class="font-arcade text-xs text-pixel-orange mb-1">5S</div>
+          <button onclick="selectPillarCard(5)" id="pillar-card-5" class="pillar-card p-3 bg-paper dark:bg-dark-bg border-3 border-slate-900 dark:border-slate-700 rounded-lg text-center hover:bg-amber-400 hover:text-slate-900 transition shadow-pixel col-span-2 sm:col-span-1">
+            <div class="font-arcade text-xs text-orange-600 mb-1">5S</div>
             <div class="font-bold">SUSTAIN</div>
-            <div class="font-pixel text-lg opacity-80">Shitsuke</div>
+            <div class="font-pixel text-lg opacity-90">Shitsuke</div>
           </button>
         </div>
 
-        <!-- Pillar Details Display Box -->
-        <div id="pillar-detail-box" class="bg-paper dark:bg-dark-bg p-6 rounded-lg border-4 border-ink shadow-pixel min-h-[160px] flex flex-col justify-center space-y-3">
+        <div id="pillar-detail-box" class="bg-paper dark:bg-dark-bg p-6 rounded-lg border-4 border-slate-900 dark:border-slate-700 shadow-pixel min-h-[160px] flex flex-col justify-center space-y-3">
           <!-- Populated via JS -->
         </div>
-
       </div>
     </section>
 
-    <!-- STAGE 4: LEVEL 1 — SORT (SEIRI) MINIGAME -->
+    <!-- STAGE 4: LEVEL 1 — SORT MINIGAME -->
     <section id="screen-4" class="screen-content space-y-6 hidden">
-      <div class="bg-paper-card dark:bg-dark-card border-4 border-ink dark:border-dark-border p-6 sm:p-10 rounded-xl shadow-pixel-lg space-y-6">
+      <div class="bg-paper-card dark:bg-dark-card border-4 border-slate-900 dark:border-slate-700 p-6 sm:p-10 rounded-xl shadow-pixel-lg space-y-6">
         
-        <div class="flex justify-between items-center flex-wrap gap-2 border-b-3 border-ink pb-3">
-          <span class="bg-pixel-red text-white font-arcade text-xs px-3 py-1 border-2 border-ink rounded">LEVEL 1: SORT</span>
+        <div class="flex justify-between items-center flex-wrap gap-2 border-b-3 border-slate-900 dark:border-slate-700 pb-3">
+          <span class="bg-red-600 text-white font-arcade text-xs px-3 py-1 border-2 border-slate-900 rounded">LEVEL 1: SORT</span>
           <span class="font-pixel text-2xl font-bold">ITEM <span id="sort-step-num">1</span> OF 4</span>
         </div>
 
-        <h2 class="font-arcade text-sm sm:text-base text-pixel-blue dark:text-pixel-yellow">
-          DESK CHAOS CLEANER: CATEGORIZE THE ITEM
+        <h2 class="font-arcade text-sm sm:text-base text-blue-700 dark:text-amber-400">
+          DESK CHAOS CLEANER: CATEGORIZE ALL 4 ITEMS TO PROCEED
         </h2>
 
-        <!-- Interactive Sorting Desk Card -->
-        <div id="sort-item-card" class="bg-paper dark:bg-dark-bg p-8 rounded-xl border-4 border-ink shadow-pixel text-center space-y-4">
-          <div id="sort-item-icon" class="text-7xl text-pixel-blue"><i class="fa-solid fa-mug-hot"></i></div>
-          <h3 id="sort-item-title" class="font-arcade text-base sm:text-lg text-pixel-red">EMPTY COFFEE PAPER CUP</h3>
-          <p id="sort-item-desc" class="max-w-md mx-auto">An empty coffee paper cup sitting on your desk from breakfast.</p>
+        <div id="sort-item-card" class="bg-paper dark:bg-dark-bg p-8 rounded-xl border-4 border-slate-900 dark:border-slate-700 shadow-pixel text-center space-y-4">
+          <div id="sort-item-icon" class="text-7xl text-blue-600"><i class="fa-solid fa-mug-hot"></i></div>
+          <h3 id="sort-item-title" class="font-arcade text-base sm:text-lg text-red-600">EMPTY COFFEE PAPER CUP</h3>
+          <p id="sort-item-desc" class="max-w-md mx-auto text-slate-700 dark:text-slate-300">An empty coffee paper cup sitting on your desk from breakfast.</p>
         </div>
 
-        <!-- Action Bins (Large Touch Targets) -->
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-          <button onclick="handleSortAction('keep')" class="p-4 bg-paper dark:bg-dark-bg hover:bg-pixel-blue hover:text-white border-3 border-ink font-arcade text-xs rounded-lg transition shadow-pixel text-center">
-            <i class="fa-solid fa-desktop block text-3xl mb-2 text-pixel-blue"></i>
+          <button onclick="handleSortAction('keep')" class="p-4 bg-paper dark:bg-dark-bg hover:bg-blue-600 hover:text-white border-3 border-slate-900 dark:border-slate-700 font-arcade text-xs rounded-lg transition shadow-pixel text-center">
+            <i class="fa-solid fa-desktop block text-3xl mb-2 text-blue-600"></i>
             KEEP ON DESK
           </button>
-          <button onclick="handleSortAction('trash')" class="p-4 bg-paper dark:bg-dark-bg hover:bg-pixel-yellow hover:text-ink border-3 border-ink font-arcade text-xs rounded-lg transition shadow-pixel text-center">
-            <i class="fa-solid fa-trash-can block text-3xl mb-2 text-pixel-yellow"></i>
+          <button onclick="handleSortAction('trash')" class="p-4 bg-paper dark:bg-dark-bg hover:bg-amber-500 hover:text-slate-900 border-3 border-slate-900 dark:border-slate-700 font-arcade text-xs rounded-lg transition shadow-pixel text-center">
+            <i class="fa-solid fa-trash-can block text-3xl mb-2 text-amber-500"></i>
             TRASH / RECYCLE
           </button>
-          <button onclick="handleSortAction('shred')" class="p-4 bg-paper dark:bg-dark-bg hover:bg-pixel-red hover:text-white border-3 border-ink font-arcade text-xs rounded-lg transition shadow-pixel text-center">
-            <i class="fa-solid fa-file-shield block text-3xl mb-2 text-pixel-red"></i>
+          <button onclick="handleSortAction('shred')" class="p-4 bg-paper dark:bg-dark-bg hover:bg-red-600 hover:text-white border-3 border-slate-900 dark:border-slate-700 font-arcade text-xs rounded-lg transition shadow-pixel text-center">
+            <i class="fa-solid fa-file-shield block text-3xl mb-2 text-red-600"></i>
             SECURE SHRED
           </button>
         </div>
 
-        <!-- Feedback Box -->
-        <div id="sort-feedback" class="hidden p-5 rounded-lg border-3 border-ink font-bold font-pixel text-2xl"></div>
-
+        <div id="sort-feedback" class="hidden p-5 rounded-lg border-3 border-slate-900 font-bold font-pixel text-2xl"></div>
       </div>
     </section>
 
-    <!-- STAGE 5: LEVEL 2 — SET IN ORDER (SEITON) ERGONOMIC MAP -->
+    <!-- STAGE 5: LEVEL 2 — SET IN ORDER (ERGONOMIC MAP) -->
     <section id="screen-5" class="screen-content space-y-6 hidden">
-      <div class="bg-paper-card dark:bg-dark-card border-4 border-ink dark:border-dark-border p-6 sm:p-10 rounded-xl shadow-pixel-lg space-y-6">
+      <div class="bg-paper-card dark:bg-dark-card border-4 border-slate-900 dark:border-slate-700 p-6 sm:p-10 rounded-xl shadow-pixel-lg space-y-6">
         
-        <div class="flex justify-between items-center flex-wrap gap-2 border-b-3 border-ink pb-3">
-          <span class="bg-pixel-blue text-white font-arcade text-xs px-3 py-1 border-2 border-ink rounded">LEVEL 2: SET IN ORDER</span>
+        <div class="flex justify-between items-center flex-wrap gap-2 border-b-3 border-slate-900 dark:border-slate-700 pb-3">
+          <span class="bg-blue-600 text-white font-arcade text-xs px-3 py-1 border-2 border-slate-900 rounded">LEVEL 2: SET IN ORDER</span>
           <span class="font-pixel text-2xl font-bold">3-ZONE REACH ERGONOMICS</span>
         </div>
 
-        <h2 class="font-arcade text-sm sm:text-base text-pixel-blue dark:text-pixel-yellow">
-          WHERE DOES YOUR ACTIVE PEN & DAILY NOTEPAD BELONG?
+        <h2 class="font-arcade text-sm sm:text-base text-blue-700 dark:text-amber-400">
+          SELECT THE CORRECT ZONE FOR ACTIVE PENS & DAILY NOTEPADS:
         </h2>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          
-          <button onclick="checkErgoZone(1)" class="p-6 bg-paper dark:bg-dark-bg border-4 border-ink rounded-xl text-left hover:border-pixel-blue transition shadow-pixel space-y-3">
-            <div class="font-arcade text-xs text-pixel-blue">ZONE 1</div>
+          <button onclick="checkErgoZone(1)" class="p-6 bg-paper dark:bg-dark-bg border-4 border-slate-900 dark:border-slate-700 rounded-xl text-left hover:border-blue-600 transition shadow-pixel space-y-3">
+            <div class="font-arcade text-xs text-blue-600">ZONE 1</div>
             <div class="font-bold text-xl">ARM'S SWEEP (ON DESK)</div>
-            <p class="text-sm">Items used continuously all day without stretching your arm.</p>
+            <p class="text-sm text-slate-700 dark:text-slate-300">Items used continuously all day without stretching your arm.</p>
           </button>
 
-          <button onclick="checkErgoZone(2)" class="p-6 bg-paper dark:bg-dark-bg border-4 border-ink rounded-xl text-left hover:border-pixel-purple transition shadow-pixel space-y-3">
-            <div class="font-arcade text-xs text-pixel-purple">ZONE 2</div>
+          <button onclick="checkErgoZone(2)" class="p-6 bg-paper dark:bg-dark-bg border-4 border-slate-900 dark:border-slate-700 rounded-xl text-left hover:border-purple-600 transition shadow-pixel space-y-3">
+            <div class="font-arcade text-xs text-purple-600">ZONE 2</div>
             <div class="font-bold text-xl">EXTENDED ARM REACH</div>
-            <p class="text-sm">Items accessed 2-3 times a day (scissors, stapler, tape).</p>
+            <p class="text-sm text-slate-700 dark:text-slate-300">Items accessed 2-3 times a day (scissors, stapler, tape).</p>
           </button>
 
-          <button onclick="checkErgoZone(3)" class="p-6 bg-paper dark:bg-dark-bg border-4 border-ink rounded-xl text-left hover:border-pixel-red transition shadow-pixel space-y-3">
-            <div class="font-arcade text-xs text-pixel-red">ZONE 3</div>
+          <button onclick="checkErgoZone(3)" class="p-6 bg-paper dark:bg-dark-bg border-4 border-slate-900 dark:border-slate-700 rounded-xl text-left hover:border-red-600 transition shadow-pixel space-y-3">
+            <div class="font-arcade text-xs text-red-600">ZONE 3</div>
             <div class="font-bold text-xl">STORAGE DRAWER / CABINET</div>
-            <p class="text-sm">Items used rarely (backup paper reams, archive files).</p>
+            <p class="text-sm text-slate-700 dark:text-slate-300">Items used rarely (backup paper reams, archive files).</p>
           </button>
-
         </div>
 
-        <div id="ergo-feedback" class="hidden p-5 rounded-lg border-3 border-ink font-bold font-pixel text-2xl"></div>
-
+        <div id="ergo-feedback" class="hidden p-5 rounded-lg border-3 border-slate-900 font-bold font-pixel text-2xl"></div>
       </div>
     </section>
 
-    <!-- STAGE 6: LEVEL 3 — SHINE (SEISO) HAZARD INSPECTOR -->
+    <!-- STAGE 6: LEVEL 3 — SHINE (HAZARD INSPECTOR) -->
     <section id="screen-6" class="screen-content space-y-6 hidden">
-      <div class="bg-paper-card dark:bg-dark-card border-4 border-ink dark:border-dark-border p-6 sm:p-10 rounded-xl shadow-pixel-lg space-y-6">
+      <div class="bg-paper-card dark:bg-dark-card border-4 border-slate-900 dark:border-slate-700 p-6 sm:p-10 rounded-xl shadow-pixel-lg space-y-6">
         
-        <div class="flex justify-between items-center flex-wrap gap-2 border-b-3 border-ink pb-3">
-          <span class="bg-pixel-green text-ink font-arcade text-xs px-3 py-1 border-2 border-ink rounded">LEVEL 3: SHINE</span>
-          <span class="font-pixel text-2xl font-bold">HAZARDS SPOTTED: <span id="hazards-count" class="text-pixel-red font-bold">0</span> / 2</span>
+        <div class="flex justify-between items-center flex-wrap gap-2 border-b-3 border-slate-900 dark:border-slate-700 pb-3">
+          <span class="bg-emerald-600 text-white font-arcade text-xs px-3 py-1 border-2 border-slate-900 rounded">LEVEL 3: SHINE</span>
+          <span class="font-pixel text-2xl font-bold">HAZARDS SPOTTED: <span id="hazards-count" class="text-red-600 dark:text-red-400 font-bold">0</span> / 2</span>
         </div>
 
-        <h2 class="font-arcade text-sm sm:text-base text-pixel-blue dark:text-pixel-yellow">
-          CLICK TO SCAN & FIX 2 WORKSTATION HAZARDS:
+        <h2 class="font-arcade text-sm sm:text-base text-blue-700 dark:text-amber-400">
+          CLICK TO SCAN & FIX BOTH WORKSTATION HAZARDS:
         </h2>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          
-          <!-- Safe Item -->
-          <button onclick="clickPixelHazard(false, 'Clean Computer Mouse')" class="p-5 border-3 border-ink rounded-lg bg-paper dark:bg-dark-bg hover:bg-gray-200 dark:hover:bg-gray-800 transition text-left flex items-center space-x-4 shadow-pixel">
-            <i class="fa-solid fa-computer-mouse text-4xl text-pixel-blue"></i>
+          <button onclick="clickPixelHazard(false, 'Clean Computer Mouse')" class="p-5 border-3 border-slate-900 dark:border-slate-700 rounded-lg bg-paper dark:bg-dark-bg hover:bg-slate-200 dark:hover:bg-slate-800 transition text-left flex items-center space-x-4 shadow-pixel">
+            <i class="fa-solid fa-computer-mouse text-4xl text-blue-600"></i>
             <div>
               <div class="font-bold">Clean Computer Mouse</div>
-              <div class="text-xs opacity-80">Clean, dry surface. Cable securely plugged in.</div>
+              <div class="text-xs text-slate-600 dark:text-slate-400">Clean, dry surface. Cable securely plugged in.</div>
             </div>
           </button>
 
-          <!-- Hazard 1 -->
-          <button id="hazard-wire" onclick="clickPixelHazard(true, 'Frayed Charger Cable')" class="p-5 border-3 border-ink rounded-lg bg-paper dark:bg-dark-bg hover:border-pixel-red transition text-left flex items-center space-x-4 shadow-pixel">
-            <i class="fa-solid fa-bolt text-4xl text-pixel-red animate-bounce-pixel"></i>
+          <button id="hazard-wire" onclick="clickPixelHazard(true, 'Frayed Charger Cable')" class="p-5 border-3 border-slate-900 dark:border-slate-700 rounded-lg bg-paper dark:bg-dark-bg hover:border-red-600 transition text-left flex items-center space-x-4 shadow-pixel">
+            <i class="fa-solid fa-bolt text-4xl text-red-600 animate-bounce-pixel"></i>
             <div>
-              <div class="font-bold text-pixel-red">Frayed Phone Charger Wire</div>
-              <div class="text-xs opacity-80">Exposed wiring near metal desk edge.</div>
+              <div class="font-bold text-red-600 dark:text-red-400">Frayed Phone Charger Wire</div>
+              <div class="text-xs text-slate-600 dark:text-slate-400">Exposed wiring near metal desk edge.</div>
             </div>
           </button>
 
-          <!-- Hazard 2 -->
-          <button id="hazard-coffee" onclick="clickPixelHazard(true, 'Spilled Coffee Near Keyboard')" class="p-5 border-3 border-ink rounded-lg bg-paper dark:bg-dark-bg hover:border-pixel-red transition text-left flex items-center space-x-4 shadow-pixel">
-            <i class="fa-solid fa-mug-saucer text-4xl text-pixel-yellow"></i>
+          <button id="hazard-coffee" onclick="clickPixelHazard(true, 'Spilled Coffee Near Keyboard')" class="p-5 border-3 border-slate-900 dark:border-slate-700 rounded-lg bg-paper dark:bg-dark-bg hover:border-red-600 transition text-left flex items-center space-x-4 shadow-pixel">
+            <i class="fa-solid fa-mug-saucer text-4xl text-amber-500"></i>
             <div>
-              <div class="font-bold text-pixel-red">Spilled Coffee Spill</div>
-              <div class="text-xs opacity-80">Liquid dripping toward power strip.</div>
+              <div class="font-bold text-red-600 dark:text-red-400">Spilled Coffee Spill</div>
+              <div class="text-xs text-slate-600 dark:text-slate-400">Liquid dripping toward power strip.</div>
             </div>
           </button>
 
-          <!-- Safe Item -->
-          <button onclick="clickPixelHazard(false, 'Printer Paper Pack')" class="p-5 border-3 border-ink rounded-lg bg-paper dark:bg-dark-bg hover:bg-gray-200 dark:hover:bg-gray-800 transition text-left flex items-center space-x-4 shadow-pixel">
-            <i class="fa-solid fa-copy text-4xl text-pixel-green"></i>
+          <button onclick="clickPixelHazard(false, 'Printer Paper Pack')" class="p-5 border-3 border-slate-900 dark:border-slate-700 rounded-lg bg-paper dark:bg-dark-bg hover:bg-slate-200 dark:hover:bg-slate-800 transition text-left flex items-center space-x-4 shadow-pixel">
+            <i class="fa-solid fa-copy text-4xl text-emerald-600"></i>
             <div>
               <div class="font-bold">Neat Printer Paper Pack</div>
-              <div class="text-xs opacity-80">Stored dry in supply drawer.</div>
+              <div class="text-xs text-slate-600 dark:text-slate-400">Stored dry in supply drawer.</div>
             </div>
           </button>
-
         </div>
 
-        <div id="shine-feedback" class="hidden p-5 rounded-lg border-3 border-ink font-bold font-pixel text-2xl"></div>
-
+        <div id="shine-feedback" class="hidden p-5 rounded-lg border-3 border-slate-900 font-bold font-pixel text-2xl"></div>
       </div>
     </section>
 
-    <!-- STAGE 7: LEVEL 4 — STANDARDIZE (SEIKETSU) SUPPLY ROOM BUILDER -->
+    <!-- STAGE 7: LEVEL 4 — STANDARDIZE (SUPPLY ROOM BUILDER) -->
     <section id="screen-7" class="screen-content space-y-6 hidden">
-      <div class="bg-paper-card dark:bg-dark-card border-4 border-ink dark:border-dark-border p-6 sm:p-10 rounded-xl shadow-pixel-lg space-y-6">
+      <div class="bg-paper-card dark:bg-dark-card border-4 border-slate-900 dark:border-slate-700 p-6 sm:p-10 rounded-xl shadow-pixel-lg space-y-6">
         
-        <div class="flex justify-between items-center flex-wrap gap-2 border-b-3 border-ink pb-3">
-          <span class="bg-pixel-purple text-white font-arcade text-xs px-3 py-1 border-2 border-ink rounded">LEVEL 4: STANDARDIZE</span>
+        <div class="flex justify-between items-center flex-wrap gap-2 border-b-3 border-slate-900 dark:border-slate-700 pb-3">
+          <span class="bg-purple-600 text-white font-arcade text-xs px-3 py-1 border-2 border-slate-900 rounded">LEVEL 4: STANDARDIZE</span>
           <span class="font-pixel text-2xl font-bold">VISUAL LABEL BUILDER</span>
         </div>
 
-        <h2 class="font-arcade text-sm sm:text-base text-pixel-blue dark:text-pixel-yellow">
-          CREATE A STANDARDIZED SHELF CONTROL:
+        <h2 class="font-arcade text-sm sm:text-base text-blue-700 dark:text-amber-400">
+          CREATE A STANDARDIZED SHELF CONTROL (INTERACT TO UNLOCK):
         </h2>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div class="space-y-4">
             <label class="block font-bold">1. Select Supply Category:</label>
-            <select id="label-category-select" onchange="updatePixelLabel()" class="w-full p-3 bg-paper dark:bg-dark-bg border-3 border-ink rounded font-bold font-pixel text-2xl">
+            <select id="label-category-select" onchange="updatePixelLabel()" class="w-full p-3 bg-paper dark:bg-dark-bg border-3 border-slate-900 dark:border-slate-700 rounded font-bold font-pixel text-2xl">
               <option value="PENS, PENCILS & HIGHLIGHTERS TRAY">PENS, PENCILS & HIGHLIGHTERS TRAY</option>
               <option value="STAPLER & HEAVY DUTY TAPE BOX">STAPLER & HEAVY DUTY TAPE BOX</option>
               <option value="PRINTER PAPER & ENVELOPE PACKS">PRINTER PAPER & ENVELOPE PACKS</option>
@@ -563,168 +519,155 @@
 
             <label class="block font-bold">2. Assign Arcade Color Code:</label>
             <div class="flex space-x-3">
-              <button onclick="setPixelColor('bg-pixel-blue text-white')" class="w-12 h-12 rounded bg-pixel-blue border-3 border-ink shadow-pixel"></button>
-              <button onclick="setPixelColor('bg-pixel-red text-white')" class="w-12 h-12 rounded bg-pixel-red border-3 border-ink shadow-pixel"></button>
-              <button onclick="setPixelColor('bg-pixel-green text-ink')" class="w-12 h-12 rounded bg-pixel-green border-3 border-ink shadow-pixel"></button>
-              <button onclick="setPixelColor('bg-pixel-yellow text-ink')" class="w-12 h-12 rounded bg-pixel-yellow border-3 border-ink shadow-pixel"></button>
+              <button onclick="setPixelColor('bg-blue-600 text-white')" class="w-12 h-12 rounded bg-blue-600 border-3 border-slate-900 shadow-pixel"></button>
+              <button onclick="setPixelColor('bg-red-600 text-white')" class="w-12 h-12 rounded bg-red-600 border-3 border-slate-900 shadow-pixel"></button>
+              <button onclick="setPixelColor('bg-emerald-600 text-white')" class="w-12 h-12 rounded bg-emerald-600 border-3 border-slate-900 shadow-pixel"></button>
+              <button onclick="setPixelColor('bg-amber-400 text-slate-900')" class="w-12 h-12 rounded bg-amber-400 border-3 border-slate-900 shadow-pixel"></button>
             </div>
           </div>
 
-          <!-- Label Preview Card -->
-          <div class="bg-paper dark:bg-dark-bg p-6 rounded-lg border-3 border-ink flex flex-col justify-center items-center text-center space-y-3 shadow-pixel">
+          <div class="bg-paper dark:bg-dark-bg p-6 rounded-lg border-3 border-slate-900 dark:border-slate-700 flex flex-col justify-center items-center text-center space-y-3 shadow-pixel">
             <span class="font-arcade text-xs">VISUAL LABEL PREVIEW</span>
-            <div id="pixel-label-preview" class="px-6 py-4 border-4 border-ink font-arcade text-xs sm:text-sm rounded-lg shadow-pixel bg-pixel-blue text-white w-full">
+            <div id="pixel-label-preview" class="px-6 py-4 border-4 border-slate-900 font-arcade text-xs sm:text-sm rounded-lg shadow-pixel bg-blue-600 text-white w-full">
               PENS, PENCILS & HIGHLIGHTERS TRAY
             </div>
-            <span class="text-pixel-green font-pixel text-2xl font-bold"><i class="fa-solid fa-circle-check"></i> Standardized Visual Control Ready</span>
+            <span class="text-emerald-700 dark:text-emerald-400 font-pixel text-2xl font-bold"><i class="fa-solid fa-circle-check"></i> Standardized Visual Control Ready</span>
           </div>
         </div>
-
       </div>
     </section>
 
-    <!-- STAGE 8: LEVEL 5 — SUSTAIN (SHITSUKE) 2-MIN RESET -->
+    <!-- STAGE 8: LEVEL 5 — SUSTAIN (2-MIN RESET) -->
     <section id="screen-8" class="screen-content space-y-6 hidden">
-      <div class="bg-paper-card dark:bg-dark-card border-4 border-ink dark:border-dark-border p-6 sm:p-10 rounded-xl shadow-pixel-lg space-y-6">
+      <div class="bg-paper-card dark:bg-dark-card border-4 border-slate-900 dark:border-slate-700 p-6 sm:p-10 rounded-xl shadow-pixel-lg space-y-6">
         
-        <div class="flex justify-between items-center flex-wrap gap-2 border-b-3 border-ink pb-3">
-          <span class="bg-pixel-orange text-white font-arcade text-xs px-3 py-1 border-2 border-ink rounded">LEVEL 5: SUSTAIN</span>
+        <div class="flex justify-between items-center flex-wrap gap-2 border-b-3 border-slate-900 dark:border-slate-700 pb-3">
+          <span class="bg-orange-600 text-white font-arcade text-xs px-3 py-1 border-2 border-slate-900 rounded">LEVEL 5: SUSTAIN</span>
           <span class="font-pixel text-2xl font-bold">2-MINUTE DESK RESET ROUTINE</span>
         </div>
 
-        <h2 class="font-arcade text-sm sm:text-base text-pixel-blue dark:text-pixel-yellow">
-          COMPLETE YOUR END-OF-DAY DESK HABIT:
+        <h2 class="font-arcade text-sm sm:text-base text-blue-700 dark:text-amber-400">
+          CHECK ALL 3 HABIT BOXES TO COMPLETE STAGE 8:
         </h2>
 
-        <div class="bg-paper dark:bg-dark-bg p-6 rounded-xl border-3 border-ink space-y-4 shadow-pixel">
-          
-          <label class="flex items-center space-x-4 p-4 bg-paper-card dark:bg-dark-card border-3 border-ink rounded-lg cursor-pointer hover:bg-pixel-yellow/20 transition">
-            <input type="checkbox" onchange="checkSustainHabit()" class="sustain-checkbox w-6 h-6 accent-pixel-blue rounded">
+        <div class="bg-paper dark:bg-dark-bg p-6 rounded-xl border-3 border-slate-900 dark:border-slate-700 space-y-4 shadow-pixel">
+          <label class="flex items-center space-x-4 p-4 bg-paper-card dark:bg-dark-card border-3 border-slate-900 dark:border-slate-700 rounded-lg cursor-pointer hover:bg-amber-400/20 transition">
+            <input type="checkbox" onchange="checkSustainHabit()" class="sustain-checkbox w-6 h-6 accent-blue-600 rounded">
             <span class="font-medium">Return pens, pencils, and scissors back into primary reach trays.</span>
           </label>
 
-          <label class="flex items-center space-x-4 p-4 bg-paper-card dark:bg-dark-card border-3 border-ink rounded-lg cursor-pointer hover:bg-pixel-yellow/20 transition">
-            <input type="checkbox" onchange="checkSustainHabit()" class="sustain-checkbox w-6 h-6 accent-pixel-blue rounded">
+          <label class="flex items-center space-x-4 p-4 bg-paper-card dark:bg-dark-card border-3 border-slate-900 dark:border-slate-700 rounded-lg cursor-pointer hover:bg-amber-400/20 transition">
+            <input type="checkbox" onchange="checkSustainHabit()" class="sustain-checkbox w-6 h-6 accent-blue-600 rounded">
             <span class="font-medium">Throw away coffee cups, empty wrappers, and old sticky notes.</span>
           </label>
 
-          <label class="flex items-center space-x-4 p-4 bg-paper-card dark:bg-dark-card border-3 border-ink rounded-lg cursor-pointer hover:bg-pixel-yellow/20 transition">
-            <input type="checkbox" onchange="checkSustainHabit()" class="sustain-checkbox w-6 h-6 accent-pixel-blue rounded">
+          <label class="flex items-center space-x-4 p-4 bg-paper-card dark:bg-dark-card border-3 border-slate-900 dark:border-slate-700 rounded-lg cursor-pointer hover:bg-amber-400/20 transition">
+            <input type="checkbox" onchange="checkSustainHabit()" class="sustain-checkbox w-6 h-6 accent-blue-600 rounded">
             <span class="font-medium">Lock confidential sheets in drawer & log off laptop screen.</span>
           </label>
 
-          <div id="sustain-habit-status" class="font-arcade text-xs text-pixel-blue pt-2">
+          <div id="sustain-habit-status" class="font-arcade text-xs text-blue-700 dark:text-blue-400 pt-2">
             HABITS COMPLETED: 0 / 3
           </div>
-
         </div>
-
       </div>
     </section>
 
-    <!-- STAGE 9: BOSS LEVEL — THE CHAOS MONSTER OVERHAUL -->
+    <!-- STAGE 9: BOSS LEVEL -->
     <section id="screen-9" class="screen-content space-y-6 hidden">
-      <div class="bg-paper-card dark:bg-dark-card border-4 border-ink dark:border-dark-border p-6 sm:p-10 rounded-xl shadow-pixel-lg space-y-6">
+      <div class="bg-paper-card dark:bg-dark-card border-4 border-slate-900 dark:border-slate-700 p-6 sm:p-10 rounded-xl shadow-pixel-lg space-y-6">
         
-        <div class="flex justify-between items-center flex-wrap gap-2 border-b-3 border-ink pb-3">
-          <span class="bg-pixel-red text-white font-arcade text-xs px-3 py-1 border-2 border-ink rounded">BOSS LEVEL</span>
-          <span class="font-arcade text-xs text-pixel-yellow">BOSS HP: <span id="boss-hp">100</span>%</span>
+        <div class="flex justify-between items-center flex-wrap gap-2 border-b-3 border-slate-900 dark:border-slate-700 pb-3">
+          <span class="bg-red-600 text-white font-arcade text-xs px-3 py-1 border-2 border-slate-900 rounded">BOSS LEVEL</span>
+          <span class="font-arcade text-xs text-amber-600 dark:text-amber-400">BOSS HP: <span id="boss-hp">100</span>%</span>
         </div>
 
-        <div class="flex items-center space-x-4 bg-paper dark:bg-dark-bg p-4 rounded-lg border-3 border-ink">
-          <div class="text-6xl text-pixel-purple animate-bounce-pixel"><i class="fa-solid fa-ghost"></i></div>
+        <div class="flex items-center space-x-4 bg-paper dark:bg-dark-bg p-4 rounded-lg border-3 border-slate-900 dark:border-slate-700">
+          <div class="text-6xl text-purple-600 dark:text-purple-400 animate-bounce-pixel"><i class="fa-solid fa-ghost"></i></div>
           <div>
-            <h2 class="font-arcade text-sm text-pixel-red">THE OFFICE CHAOS MONSTER APPEARS!</h2>
-            <p class="font-pixel text-2xl font-bold">Defeat the boss by answering 5 sequential 5S battle scenarios correctly!</p>
+            <h2 class="font-arcade text-sm text-red-600">THE OFFICE CHAOS MONSTER APPEARS!</h2>
+            <p class="font-pixel text-2xl font-bold">Defeat the boss by answering all 5 battle scenarios correctly to proceed!</p>
           </div>
         </div>
 
-        <!-- Boss Step Container -->
-        <div id="boss-battle-container" class="bg-paper dark:bg-dark-bg p-6 rounded-xl border-4 border-ink shadow-pixel space-y-6">
+        <div id="boss-battle-container" class="bg-paper dark:bg-dark-bg p-6 rounded-xl border-4 border-slate-900 dark:border-slate-700 shadow-pixel space-y-6">
           <!-- Rendered via JS -->
         </div>
-
       </div>
     </section>
 
-    <!-- STAGE 10: VICTORY SCREEN & PIXEL TROPHY CERTIFICATE -->
+    <!-- STAGE 10: VICTORY & CERTIFICATE -->
     <section id="screen-10" class="screen-content space-y-6 hidden">
-      <div class="bg-paper-card dark:bg-dark-card border-4 border-ink dark:border-dark-border p-6 sm:p-10 rounded-xl shadow-pixel-lg space-y-6">
+      <div class="bg-paper-card dark:bg-dark-card border-4 border-slate-900 dark:border-slate-700 p-6 sm:p-10 rounded-xl shadow-pixel-lg space-y-6">
         
         <div class="text-center space-y-4">
-          <div class="text-7xl text-pixel-yellow animate-bounce-pixel inline-block"><i class="fa-solid fa-trophy"></i></div>
-          <span class="bg-pixel-green text-ink font-arcade text-xs px-4 py-1 border-2 border-ink rounded-full uppercase block max-w-xs mx-auto">QUEST COMPLETED!</span>
-          <h2 class="font-arcade text-xl sm:text-3xl text-pixel-blue dark:text-pixel-yellow">VICTORY! YOU ARE A 5S MASTER</h2>
-          <p class="max-w-xl mx-auto">
-            You defeated the Chaos Monster, unlocked all 5 pillars, and scored <strong id="final-score-display" class="text-pixel-red">500 XP</strong>! Enter your name below to issue your official 8-Bit Certificate:
+          <div class="text-7xl text-amber-500 animate-bounce-pixel inline-block"><i class="fa-solid fa-trophy"></i></div>
+          <span class="bg-emerald-600 text-white font-arcade text-xs px-4 py-1 border-2 border-slate-900 rounded-full uppercase block max-w-xs mx-auto">QUEST COMPLETED!</span>
+          <h2 class="font-arcade text-xl sm:text-3xl text-blue-700 dark:text-amber-400">VICTORY! YOU ARE A 5S MASTER</h2>
+          <p class="max-w-xl mx-auto text-slate-800 dark:text-slate-200">
+            You successfully performed all required actions, defeated the Chaos Monster, and scored <strong id="final-score-display" class="text-red-600">500 XP</strong>! Enter your name below to issue your official 8-Bit Certificate:
           </p>
         </div>
 
-        <!-- Certificate Name Form -->
-        <div class="bg-paper dark:bg-dark-bg p-6 rounded-xl border-3 border-ink space-y-4 shadow-pixel">
+        <div class="bg-paper dark:bg-dark-bg p-6 rounded-xl border-3 border-slate-900 dark:border-slate-700 space-y-4 shadow-pixel">
           <div class="flex flex-col sm:flex-row gap-3">
-            <input type="text" id="player-name-input" placeholder="Enter Your Full Name" class="flex-grow p-4 bg-paper-card dark:bg-dark-card border-3 border-ink rounded-lg font-pixel text-2xl font-bold focus:outline-none focus:border-pixel-blue">
-            <button onclick="updatePixelCertificate()" class="px-8 py-4 bg-pixel-yellow text-ink border-3 border-ink font-arcade text-xs rounded-lg shadow-pixel hover:bg-pixel-green transition">
+            <input type="text" id="player-name-input" placeholder="Enter Your Full Name" class="flex-grow p-4 bg-paper-card dark:bg-dark-card border-3 border-slate-900 dark:border-slate-700 rounded-lg font-pixel text-2xl font-bold focus:outline-none focus:border-blue-600">
+            <button onclick="updatePixelCertificate()" class="px-8 py-4 bg-amber-400 text-slate-900 border-3 border-slate-900 font-arcade text-xs rounded-lg shadow-pixel hover:bg-emerald-500 hover:text-white transition">
               UPDATE CERTIFICATE
             </button>
           </div>
 
-          <!-- Printable 8-Bit Certificate View -->
-          <div id="printable-certificate" class="mt-6 bg-[#fffef7] text-ink border-6 border-ink p-8 sm:p-12 rounded-xl shadow-pixel-lg text-center space-y-6 relative overflow-hidden">
-            
-            <div class="font-arcade text-xs text-pixel-red uppercase tracking-widest">★ OFFICIAL 8-BIT CERTIFICATE OF COMPLETION ★</div>
-            <h1 class="font-arcade text-xl sm:text-3xl text-ink">5S WORKPLACE METHODOLOGY</h1>
+          <div id="printable-certificate" class="mt-6 bg-[#fffef7] text-slate-900 border-6 border-slate-900 p-8 sm:p-12 rounded-xl shadow-pixel-lg text-center space-y-6 relative overflow-hidden">
+            <div class="font-arcade text-xs text-red-600 uppercase tracking-widest">★ OFFICIAL 8-BIT CERTIFICATE OF COMPLETION ★</div>
+            <h1 class="font-arcade text-xl sm:text-3xl text-slate-900">5S WORKPLACE METHODOLOGY</h1>
             <p class="font-pixel text-2xl italic">This certifies that Cadet</p>
             
-            <div id="cert-player-name" class="font-arcade text-lg sm:text-2xl text-pixel-blue underline decoration-pixel-yellow decoration-4">
+            <div id="cert-player-name" class="font-arcade text-lg sm:text-2xl text-blue-700 underline decoration-amber-500 decoration-4">
               [ LEARNER NAME ]
             </div>
             
             <p class="max-w-lg mx-auto font-pixel text-2xl leading-relaxed">
-              has successfully mastered Sorting, Setting in Order, Shining, Standardizing, and Sustaining an efficient workplace!
+              has successfully completed all actions, mastered Sorting, Setting in Order, Shining, Standardizing, and Sustaining an efficient workplace!
             </p>
             
-            <div class="pt-6 flex justify-between items-center font-arcade text-xs border-t-3 border-ink max-w-md mx-auto">
+            <div class="pt-6 flex justify-between items-center font-arcade text-xs border-t-3 border-slate-900 max-w-md mx-auto">
               <div>
                 <span class="block font-bold">DATE:</span>
                 <span id="cert-issue-date">OCTOBER 28, 2026</span>
               </div>
               <div>
                 <span class="block font-bold">SCORE:</span>
-                <span id="cert-xp-score" class="text-pixel-green font-bold">500 XP</span>
+                <span id="cert-xp-score" class="text-emerald-600 font-bold">500 XP</span>
               </div>
             </div>
-
           </div>
 
           <div class="text-center pt-4">
-            <button onclick="window.print()" class="px-8 py-4 bg-pixel-blue text-white border-3 border-ink font-arcade text-xs rounded-lg shadow-pixel hover:bg-pixel-green transition">
+            <button onclick="window.print()" class="px-8 py-4 bg-blue-600 text-white border-3 border-slate-900 font-arcade text-xs rounded-lg shadow-pixel hover:bg-emerald-600 transition">
               <i class="fa-solid fa-print mr-2"></i> PRINT / SAVE PDF CERTIFICATE
             </button>
           </div>
         </div>
-
       </div>
     </section>
 
   </main>
 
   <!-- ARCADE FOOTER -->
-  <footer class="border-t-4 border-ink dark:border-dark-border bg-paper dark:bg-dark-bg p-4 transition-colors">
+  <footer class="border-t-4 border-slate-900 dark:border-slate-700 bg-paper dark:bg-dark-bg p-4 transition-colors">
     <div class="max-w-5xl mx-auto flex flex-wrap justify-between items-center gap-3 font-pixel text-xl">
       <div class="flex items-center space-x-2">
-        <span class="w-3 h-3 rounded-full bg-pixel-green animate-ping"></span>
-        <span>ARCADE ENGINE ACTIVE</span>
+        <span class="w-3 h-3 rounded-full bg-emerald-600 animate-ping"></span>
+        <span>ARCADE ENGINE ACTIVE (ACTION TRACKING ENFORCED)</span>
       </div>
       <div>
-        <span>CONTROLS: Use <b>← / →</b> arrow keys to jump stages</span>
+        <span>Complete stage tasks to unlock <b>NEXT</b></span>
       </div>
     </div>
   </footer>
 
   <!-- 8-BIT SYNTH AUDIO & GAMEPLAY ENGINE -->
   <script>
-    // Audio Synth Engine using Web Audio API (Zero External Files Required)
     let audioCtx = null;
     let sfxEnabled = true;
 
@@ -743,22 +686,21 @@
       const gain = audioCtx.createGain();
       osc.connect(gain);
       gain.connect(audioCtx.destination);
-
       const now = audioCtx.currentTime;
 
       if (type === 'coin') {
         osc.type = 'square';
-        osc.frequency.setValueAtTime(987.77, now); // B5
-        osc.frequency.setValueAtTime(1318.51, now + 0.08); // E6
+        osc.frequency.setValueAtTime(987.77, now);
+        osc.frequency.setValueAtTime(1318.51, now + 0.08);
         gain.gain.setValueAtTime(0.2, now);
         gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
         osc.start(now);
         osc.stop(now + 0.3);
       } else if (type === 'correct') {
         osc.type = 'triangle';
-        osc.frequency.setValueAtTime(523.25, now); // C5
-        osc.frequency.setValueAtTime(659.25, now + 0.08); // E5
-        osc.frequency.setValueAtTime(783.99, now + 0.16); // G5
+        osc.frequency.setValueAtTime(523.25, now);
+        osc.frequency.setValueAtTime(659.25, now + 0.08);
+        osc.frequency.setValueAtTime(783.99, now + 0.16);
         gain.gain.setValueAtTime(0.25, now);
         gain.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
         osc.start(now);
@@ -785,10 +727,10 @@
       sfxEnabled = !sfxEnabled;
       const icon = document.getElementById('sfx-icon');
       if (sfxEnabled) {
-        icon.className = "fa-solid fa-volume-high text-pixel-green";
+        icon.className = "fa-solid fa-volume-high text-emerald-600 dark:text-emerald-400";
         play8BitSound('coin');
       } else {
-        icon.className = "fa-solid fa-volume-xmark text-pixel-red";
+        icon.className = "fa-solid fa-volume-xmark text-red-600 dark:text-red-400";
       }
     }
 
@@ -797,21 +739,36 @@
       play8BitSound('click');
     }
 
-    // State Management
+    // State Management & Action Tracker
     let currentStage = 1;
     const totalStages = 10;
     let xpScore = 0;
     let timerSeconds = 15 * 60;
     let timerInterval = null;
 
+    // Tracker dictionary: checks whether each stage's mandatory action is completed
+    let stageCompleted = {
+      1: true,   // Title screen (can click start)
+      2: false,  // Briefing (must click accept quest)
+      3: false,  // Level 0 (must view all 5 pillars)
+      4: false,  // Level 1 Sort (must sort all items)
+      5: false,  // Level 2 Set (must select correct ergo zone)
+      6: false,  // Level 3 Shine (must find 2 hazards)
+      7: true,   // Level 4 Standardize (visual builder auto-interactive)
+      8: false,  // Level 5 Sustain (must check all 3 habits)
+      9: false,  // Boss Level (must defeat boss)
+      10: true   // Victory certificate
+    };
+
     // Pillar Data (Stage 3)
     const pillarData = {
-      1: { title: "1S: SORT (SEIRI)", desc: "Clear away unnecessary items from your desk. Keep active daily tools on desk; store reference items in drawers; shred confidential sheets; throw out trash.", color: "text-pixel-red" },
-      2: { title: "2S: SET IN ORDER (SEITON)", desc: "Arrange necessary items so they are easy to reach and labeled so anyone can find them in under 3 seconds.", color: "text-pixel-blue" },
-      3: { title: "3S: SHINE (SEISO)", desc: "Clean your workspace daily while inspecting cables, power strips, and screens for safety hazards.", color: "text-pixel-green" },
-      4: { title: "4S: STANDARDIZE (SEIKETSU)", desc: "Create visual color labels and standard shelf spots so order is easy to maintain.", color: "text-pixel-purple" },
-      5: { title: "5S: SUSTAIN (SHITSUKE)", desc: "Build a daily 2-minute desk reset habit at the end of every shift.", color: "text-pixel-orange" }
+      1: { title: "1S: SORT (SEIRI)", desc: "Clear away unnecessary items from your desk. Keep active daily tools on desk; store reference items in drawers; shred confidential sheets; throw out trash.", color: "text-red-600 dark:text-red-400" },
+      2: { title: "2S: SET IN ORDER (SEITON)", desc: "Arrange necessary items so they are easy to reach and labeled so anyone can find them in under 3 seconds.", color: "text-blue-600 dark:text-blue-400" },
+      3: { title: "3S: SHINE (SEISO)", desc: "Clean your workspace daily while inspecting cables, power strips, and screens for safety hazards.", color: "text-emerald-600 dark:text-emerald-400" },
+      4: { title: "4S: STANDARDIZE (SEIKETSU)", desc: "Create visual color labels and standard shelf spots so order is easy to maintain.", color: "text-purple-600 dark:text-purple-400" },
+      5: { title: "5S: SUSTAIN (SHITSUKE)", desc: "Build a daily 2-minute desk reset habit at the end of every shift.", color: "text-orange-600 dark:text-orange-400" }
     };
+    let viewedPillars = new Set();
 
     // Sort Items (Stage 4)
     const sortItems = [
@@ -864,23 +821,20 @@
     let bossStepIdx = 0;
     let bossHP = 100;
 
-    // Initialize Game engine
     document.addEventListener("DOMContentLoaded", () => {
       showStage(1);
       selectPillarCard(1);
       renderSortCard();
       renderBossStep();
 
-      // Theme toggle setup
       document.getElementById('theme-toggle').addEventListener('click', () => {
         document.documentElement.classList.toggle('dark');
         play8BitSound('click');
       });
 
-      // Keyboard Controls
       document.addEventListener('keydown', (e) => {
         if (e.key === "ArrowRight") {
-          if (currentStage < totalStages) navigateScreen(1);
+          if (stageCompleted[currentStage] && currentStage < totalStages) navigateScreen(1);
         } else if (e.key === "ArrowLeft") {
           if (currentStage > 1) navigateScreen(-1);
         }
@@ -902,7 +856,16 @@
     function startGame() {
       play8BitSound('coin');
       startTimer();
+      stageCompleted[1] = true;
       showStage(2);
+    }
+
+    function completeStage2() {
+      play8BitSound('correct');
+      stageCompleted[2] = true;
+      document.getElementById('accept-quest-btn').innerHTML = `<i class="fa-solid fa-check-double mr-2"></i> QUEST ACCEPTED! (STAGE UNLOCKED)`;
+      document.getElementById('accept-quest-btn').classList.add('bg-emerald-600', 'text-white');
+      updateNavButtonState();
     }
 
     function showStage(stageNum) {
@@ -915,19 +878,42 @@
       document.getElementById('progress-bar-fill').style.width = `${(currentStage / totalStages) * 100}%`;
 
       document.getElementById('prev-btn').disabled = (currentStage === 1);
-      const nextBtn = document.getElementById('next-btn');
-      if (currentStage === totalStages) {
-        nextBtn.innerText = "FINISH";
-        nextBtn.disabled = true;
-      } else {
-        nextBtn.innerHTML = `NEXT <i class="fa-solid fa-caret-right"></i>`;
-        nextBtn.disabled = false;
-      }
+      updateNavButtonState();
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
+    function updateNavButtonState() {
+      const nextBtn = document.getElementById('next-btn');
+      const statusMsg = document.getElementById('stage-status-msg');
+
+      if (currentStage === totalStages) {
+        nextBtn.innerText = "FINISH";
+        nextBtn.disabled = true;
+        statusMsg.innerText = "★ COURSE COMPLETED SUCCESSFULLY ★";
+        statusMsg.className = "text-emerald-600 dark:text-emerald-400 font-bold";
+        return;
+      }
+
+      if (stageCompleted[currentStage]) {
+        nextBtn.disabled = false;
+        nextBtn.classList.remove('opacity-40', 'cursor-not-allowed');
+        statusMsg.innerText = "✔ STAGE ACTION COMPLETED — PROCEED TO NEXT";
+        statusMsg.className = "text-emerald-600 dark:text-emerald-400 font-bold";
+      } else {
+        nextBtn.disabled = true;
+        nextBtn.classList.add('opacity-40', 'cursor-not-allowed');
+        statusMsg.innerText = "⚠ COMPLETE REQUIRED STAGE ACTION TO PROCEED";
+        statusMsg.className = "text-red-600 dark:text-red-400 font-bold";
+      }
+    }
+
     function navigateScreen(dir) {
+      if (dir === 1 && !stageCompleted[currentStage]) {
+        play8BitSound('wrong');
+        alert("Action Required: Please complete the required action for this stage before proceeding!");
+        return;
+      }
       play8BitSound('click');
       const next = currentStage + dir;
       if (next >= 1 && next <= totalStages) {
@@ -938,6 +924,14 @@
     // Stage 3 Pillar Logic
     function selectPillarCard(num) {
       play8BitSound('click');
+      viewedPillars.add(num);
+      document.getElementById('pillar-viewed-count').innerText = viewedPillars.size;
+
+      if (viewedPillars.size >= 5) {
+        stageCompleted[3] = true;
+        updateNavButtonState();
+      }
+
       const data = pillarData[num];
       const box = document.getElementById('pillar-detail-box');
       box.innerHTML = `
@@ -947,9 +941,9 @@
 
       document.querySelectorAll('.pillar-card').forEach((btn, i) => {
         if (i + 1 === num) {
-          btn.classList.add('bg-pixel-yellow', 'text-ink');
+          btn.classList.add('bg-amber-400', 'text-slate-900');
         } else {
-          btn.classList.remove('bg-pixel-yellow', 'text-ink');
+          btn.classList.remove('bg-amber-400', 'text-slate-900');
         }
       });
     }
@@ -957,10 +951,12 @@
     // Stage 4 Sort Logic
     function renderSortCard() {
       if (sortIdx >= sortItems.length) {
+        stageCompleted[4] = true;
+        updateNavButtonState();
         document.getElementById('sort-item-card').innerHTML = `
-          <div class="text-pixel-green text-6xl mb-2"><i class="fa-solid fa-circle-check"></i></div>
-          <h3 class="font-arcade text-lg text-pixel-green">ALL ITEMS SORTED!</h3>
-          <p class="font-pixel text-2xl">Great job! You cleared all daily desk items using 1S Sort rules.</p>
+          <div class="text-emerald-600 dark:text-emerald-400 text-6xl mb-2"><i class="fa-solid fa-circle-check"></i></div>
+          <h3 class="font-arcade text-lg text-emerald-600 dark:text-emerald-400">ALL ITEMS SORTED!</h3>
+          <p class="font-pixel text-2xl">Great job! Stage 1 completed. You can now proceed to Stage 2.</p>
         `;
         return;
       }
@@ -981,14 +977,14 @@
 
       if (choice === current.correct) {
         play8BitSound('correct');
-        fb.className = "p-5 rounded-lg border-3 border-ink bg-pixel-green/20 text-pixel-green font-bold font-pixel text-2xl";
-        fb.innerText = `CORRECT! ${current.title} appropriately sorted to ${choice.toUpperCase()}. (+20 XP)`;
+        fb.className = "p-5 rounded-lg border-3 border-slate-900 bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 font-bold font-pixel text-2xl";
+        fb.innerText = `CORRECT! ${current.title} sorted to ${choice.toUpperCase()}. (+20 XP)`;
         addXP(20);
         sortIdx++;
         setTimeout(() => renderSortCard(), 1200);
       } else {
         play8BitSound('wrong');
-        fb.className = "p-5 rounded-lg border-3 border-ink bg-pixel-red/20 text-pixel-red font-bold font-pixel text-2xl";
+        fb.className = "p-5 rounded-lg border-3 border-slate-900 bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300 font-bold font-pixel text-2xl";
         fb.innerText = `INCORRECT. Think about daily usage and confidentiality. Try again!`;
       }
     }
@@ -999,12 +995,14 @@
       fb.classList.remove('hidden');
       if (zone === 1) {
         play8BitSound('correct');
-        fb.className = "p-5 rounded-lg border-3 border-ink bg-pixel-green/20 text-pixel-green font-bold font-pixel text-2xl";
-        fb.innerText = "CORRECT! Daily pens and active notebooks belong in Zone 1 (Arm's Reach). (+20 XP)";
+        stageCompleted[5] = true;
+        updateNavButtonState();
+        fb.className = "p-5 rounded-lg border-3 border-slate-900 bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 font-bold font-pixel text-2xl";
+        fb.innerText = "CORRECT! Daily pens belong in Zone 1 (Arm's Reach). Stage Unlocked! (+20 XP)";
         addXP(20);
       } else {
         play8BitSound('wrong');
-        fb.className = "p-5 rounded-lg border-3 border-ink bg-pixel-red/20 text-pixel-red font-bold font-pixel text-2xl";
+        fb.className = "p-5 rounded-lg border-3 border-slate-900 bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300 font-bold font-pixel text-2xl";
         fb.innerText = "INCORRECT. Placing daily tools in Zone 2 or 3 causes unnecessary arm stretching!";
       }
     }
@@ -1019,18 +1017,24 @@
         play8BitSound('correct');
         hazardsFound++;
         document.getElementById('hazards-count').innerText = Math.min(hazardsFound, 2);
-        fb.className = "p-5 rounded-lg border-3 border-ink bg-pixel-green/20 text-pixel-green font-bold font-pixel text-2xl";
-        fb.innerText = `HAZARD FIXED (${name})! Inspection during cleaning prevents accidents. (+25 XP)`;
+        fb.className = "p-5 rounded-lg border-3 border-slate-900 bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 font-bold font-pixel text-2xl";
+        fb.innerText = `HAZARD FIXED (${name})! (+25 XP)`;
         addXP(25);
+
+        if (hazardsFound >= 2) {
+          stageCompleted[6] = true;
+          updateNavButtonState();
+          fb.innerText += " ALL HAZARDS FOUND! Stage Unlocked!";
+        }
       } else {
         play8BitSound('click');
-        fb.className = "p-5 rounded-lg border-3 border-ink bg-pixel-yellow/20 text-ink font-bold font-pixel text-2xl";
+        fb.className = "p-5 rounded-lg border-3 border-slate-900 bg-amber-100 dark:bg-amber-900/40 text-slate-900 dark:text-amber-200 font-bold font-pixel text-2xl";
         fb.innerText = `SAFE ITEM (${name}): Clean and dry. Keep searching for hazards!`;
       }
     }
 
     // Stage 7 Supply Builder
-    let selectedColor = 'bg-pixel-blue text-white';
+    let selectedColor = 'bg-blue-600 text-white';
     function setPixelColor(c) {
       play8BitSound('click');
       selectedColor = c;
@@ -1040,7 +1044,7 @@
     function updatePixelLabel() {
       const cat = document.getElementById('label-category-select').value;
       const preview = document.getElementById('pixel-label-preview');
-      preview.className = `px-6 py-4 border-4 border-ink font-arcade text-xs sm:text-sm rounded-lg shadow-pixel text-center w-full ${selectedColor}`;
+      preview.className = `px-6 py-4 border-4 border-slate-900 font-arcade text-xs sm:text-sm rounded-lg shadow-pixel text-center w-full ${selectedColor}`;
       preview.innerText = cat;
     }
 
@@ -1049,7 +1053,11 @@
       play8BitSound('click');
       const count = document.querySelectorAll('.sustain-checkbox:checked').length;
       document.getElementById('sustain-habit-status').innerText = `HABITS COMPLETED: ${count} / 3`;
-      if (count === 3) addXP(30);
+      if (count === 3) {
+        stageCompleted[8] = true;
+        updateNavButtonState();
+        addXP(30);
+      }
     }
 
     // Stage 9 Boss Level Logic
@@ -1058,15 +1066,14 @@
       if (bossStepIdx >= bossSteps.length) {
         bossHP = 0;
         document.getElementById('boss-hp').innerText = bossHP;
+        stageCompleted[9] = true;
+        updateNavButtonState();
         addXP(250);
         container.innerHTML = `
           <div class="text-center space-y-4">
-            <div class="text-6xl text-pixel-yellow animate-bounce-pixel"><i class="fa-solid fa-trophy"></i></div>
-            <h3 class="font-arcade text-lg text-pixel-green">BOSS DEFEATED! 500 XP EARNED!</h3>
-            <p class="font-pixel text-2xl">You obliterated the Chaos Monster and restored 100% order to the office!</p>
-            <button onclick="navigateScreen(1)" class="px-8 py-4 bg-pixel-yellow text-ink font-arcade text-xs border-3 border-ink rounded-lg shadow-pixel">
-              CLAIM VICTORY CERTIFICATE <i class="fa-solid fa-arrow-right ml-2"></i>
-            </button>
+            <div class="text-6xl text-amber-500 animate-bounce-pixel"><i class="fa-solid fa-trophy"></i></div>
+            <h3 class="font-arcade text-lg text-emerald-600 dark:text-emerald-400">BOSS DEFEATED! 500 XP EARNED!</h3>
+            <p class="font-pixel text-2xl">You obliterated the Chaos Monster! You can now proceed to the Victory Certificate.</p>
           </div>
         `;
         return;
@@ -1074,18 +1081,18 @@
 
       const step = bossSteps[bossStepIdx];
       container.innerHTML = `
-        <div class="font-arcade text-xs text-pixel-blue border-b-3 border-ink pb-2">
+        <div class="font-arcade text-xs text-blue-600 dark:text-blue-400 border-b-3 border-slate-900 pb-2">
           ATTACK WAVE ${bossStepIdx + 1} OF ${bossSteps.length}
         </div>
         <h3 class="font-pixel text-3xl font-bold">${step.q}</h3>
         <div class="space-y-3 pt-2">
           ${step.options.map((opt, i) => `
-            <button onclick="handleBossAttack(${opt.correct}, '${opt.reason.replace(/'/g, "\\'")}')" class="w-full p-4 bg-paper-card dark:bg-dark-card border-3 border-ink rounded-lg text-left font-pixel text-2xl font-bold hover:bg-pixel-yellow hover:text-ink transition shadow-pixel">
+            <button onclick="handleBossAttack(${opt.correct}, '${opt.reason.replace(/'/g, "\\'")}')" class="w-full p-4 bg-paper-card dark:bg-dark-card border-3 border-slate-900 dark:border-slate-700 rounded-lg text-left font-pixel text-2xl font-bold hover:bg-amber-400 hover:text-slate-900 transition shadow-pixel">
               ${i + 1}. ${opt.text}
             </button>
           `).join('')}
         </div>
-        <div id="boss-feedback" class="hidden p-4 rounded-lg border-3 border-ink font-pixel text-2xl font-bold"></div>
+        <div id="boss-feedback" class="hidden p-4 rounded-lg border-3 border-slate-900 font-pixel text-2xl font-bold"></div>
       `;
     }
 
@@ -1097,18 +1104,17 @@
         play8BitSound('correct');
         bossHP -= 20;
         document.getElementById('boss-hp').innerText = Math.max(bossHP, 0);
-        fb.className = "p-5 rounded-lg border-3 border-ink bg-pixel-green/20 text-pixel-green font-bold font-pixel text-2xl";
+        fb.className = "p-5 rounded-lg border-3 border-slate-900 bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 font-bold font-pixel text-2xl";
         fb.innerText = reason;
         bossStepIdx++;
         setTimeout(() => renderBossStep(), 1500);
       } else {
         play8BitSound('wrong');
-        fb.className = "p-5 rounded-lg border-3 border-ink bg-pixel-red/20 text-pixel-red font-bold font-pixel text-2xl";
+        fb.className = "p-5 rounded-lg border-3 border-slate-900 bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300 font-bold font-pixel text-2xl";
         fb.innerText = reason;
       }
     }
 
-    // Add XP
     function addXP(pts) {
       xpScore = Math.min(xpScore + pts, 500);
       document.getElementById('score-display').innerText = xpScore;
@@ -1116,7 +1122,6 @@
       document.getElementById('cert-xp-score').innerText = `${xpScore} XP`;
     }
 
-    // Certificate Generator (Stage 10)
     function updatePixelCertificate() {
       play8BitSound('coin');
       const name = document.getElementById('player-name-input').value.trim() || "VALUED TEAM MEMBER";
