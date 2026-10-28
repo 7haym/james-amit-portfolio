@@ -278,6 +278,23 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 .modal-body.case-body{background:var(--paper)}
 .modal-body iframe{width:100%;height:100%;border:0}
 
+/* full-screen course player (in-page, no new tab, no address shown) */
+.stage{position:fixed;inset:0;z-index:200;display:none;flex-direction:column;background:var(--paper);height:100vh;height:100dvh}
+.stage.on{display:flex}
+.stage-bar{flex:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 14px;border-bottom:var(--rule);background:var(--paper)}
+.stage-bar .now{display:flex;align-items:center;gap:12px;min-width:0}
+.stage-bar .now .mono{flex:none;background:var(--accent);color:#fff;border-radius:99px;padding:2px 10px;font-weight:700}
+.stage-bar h3{font-family:var(--serif);font-size:1.05rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.stage-bar .acts{display:flex;gap:8px;flex:none}
+.stage-btn{display:inline-flex;align-items:center;gap:8px;border:var(--rule);background:var(--paper);color:var(--ink);border-radius:99px;padding:8px 16px;font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;box-shadow:3px 3px 0 var(--ink);transition:transform .15s,box-shadow .15s}
+.stage-btn:hover{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.stage-btn[hidden]{display:none}
+.stage-btn.x{background:var(--sun);color:#16130f}
+.stage-btn:focus-visible{outline:3px solid var(--accent-2);outline-offset:3px}
+.stage-body{flex:1;min-height:0;background:var(--paper)}
+.stage-body iframe{width:100%;height:100%;border:0;display:block;background:var(--paper)}
+@media(max-width:520px){.stage-bar .now .mono{display:none}.stage-btn span{display:none}.stage-btn{padding:10px 14px}}
+
 /* reveal */
 .rv{opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s}
 .rv.in{opacity:1;transform:none}
@@ -313,7 +330,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
   <div class="wrap">
     <div class="hero-grid">
       <div>
-        <div class="kicker mono"><b>Vol. 2026</b><span>The Learning Design Edition</span></div>
+        <div class="kicker mono"><b>2026 Portofolio</b><span>The Learning Design Edition</span></div>
         <h1 class="big">Making <span class="hl">complex</span> things <em>click.</em></h1>
         <p class="lede">I'm James Amit, an instructional designer and former training supervisor. I turn dense information into learning people actually remember, and can measure.</p>
         <div class="btn-row">
@@ -532,6 +549,18 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
   </div>
 </div>
 
+<!-- Full-screen course player: covers the whole page, shows no address, no "open in new tab" -->
+<div class="stage" id="stage" role="dialog" aria-modal="true" aria-label="Course player">
+  <div class="stage-bar">
+    <div class="now"><span class="mono">Now playing</span><h3 id="stageTitle"></h3></div>
+    <div class="acts">
+      <button class="stage-btn" id="stageFs" type="button" hidden>⛶ <span>Full screen</span></button>
+      <button class="stage-btn x" id="stageClose" type="button" aria-label="Close course">✕ <span>Close</span></button>
+    </div>
+  </div>
+  <div class="stage-body" id="stageBody"></div>
+</div>
+
 <script>
 /* =====================================================================
    CONFIG — edit these
@@ -564,7 +593,8 @@ const CERT_BASE = "https://raw.githubusercontent.com/7haym/james-amit-portfolio/
 /* ---------------------------------------------------------------------
    MICROLEARNING COURSES
    To make a course launchable, paste its link into `url`. That's it.
-   The "Launch course" button then opens it in a pop-up viewer.
+   The "Launch course" button then opens it in a full-screen player inside
+   the page (no new tab, no address shown).
 
    What works for `url`:
    - Articulate Rise / Storyline published link (Articulate Review or 360 share link)
@@ -574,7 +604,7 @@ const CERT_BASE = "https://raw.githubusercontent.com/7haym/james-amit-portfolio/
      (YouTube "watch" links and Drive "view" links are converted automatically)
    Leave `url` empty and the card shows "Coming soon".
    Optional: `duration` (e.g. "5 min"), `embed` (use a different iframe URL
-   than the "Open in new tab" link).
+   than `url`).
    --------------------------------------------------------------------- */
 const courseGroups = ["Skill Improvement Courses","People & Performance Courses"];
 const projects = [
@@ -806,23 +836,38 @@ function openPdf(url,title){
   $('#modalBody').innerHTML=`<iframe title="${esc(title)}" src="https://docs.google.com/viewer?embedded=true&url=${encodeURIComponent(url)}"></iframe>`;
   modal.classList.add('on'); document.body.style.overflow='hidden';
 }
-function openCourse(i){
+/* full-screen course player */
+const stage=$('#stage'); let stageFrom=null;
+function openCourse(i,trigger){
   const p=projects[i]; if(!p||!p.url) return;
-  $('#modalTitle').textContent=p.title;
-  const open=$('#modalOpen'); open.href=p.url; open.style.display='';
-  const body=$('#modalBody'); body.className='modal-body';
-  body.innerHTML=`<iframe title="${esc(p.title)}" src="${esc(p.embed||toEmbed(p.url))}" allow="autoplay; fullscreen; encrypted-media; clipboard-write" allowfullscreen></iframe>`;
-  modal.classList.add('on'); document.body.style.overflow='hidden';
+  stageFrom=trigger||null;
+  $('#stageTitle').textContent=p.title;
+  $('#stageBody').innerHTML=`<iframe title="${esc(p.title)}" src="${esc(p.embed||toEmbed(p.url))}" referrerpolicy="no-referrer" allow="autoplay; fullscreen; encrypted-media; clipboard-write" allowfullscreen></iframe>`;
+  stage.classList.add('on'); document.body.style.overflow='hidden';
+  $('#stageFs').hidden = !(stage.requestFullscreen||stage.webkitRequestFullscreen);
+  $('#stageClose').focus();
 }
+function closeStage(){
+  if(!stage.classList.contains('on')) return;
+  if(document.fullscreenElement && document.exitFullscreen){ try{document.exitFullscreen();}catch(_){} }
+  stage.classList.remove('on'); $('#stageBody').innerHTML=''; document.body.style.overflow='';
+  if(stageFrom && stageFrom.focus) stageFrom.focus(); stageFrom=null;
+}
+$('#stageClose').addEventListener('click',closeStage);
+$('#stageFs').addEventListener('click',()=>{
+  const el=stage;
+  if(document.fullscreenElement){ document.exitFullscreen&&document.exitFullscreen(); }
+  else (el.requestFullscreen||el.webkitRequestFullscreen).call(el);
+});
 function closeModal(){ modal.classList.remove('on'); $('#modalBody').innerHTML=''; document.body.style.overflow=''; }
 document.addEventListener('click',e=>{
   const b=e.target.closest('[data-pdf]'); if(b) openPdf(b.dataset.pdf,b.dataset.title);
-  const c=e.target.closest('[data-launch]'); if(c) openCourse(+c.dataset.launch);
+  const c=e.target.closest('[data-launch]'); if(c) openCourse(+c.dataset.launch,c);
   if(e.target.closest('[data-goto-contact]')){ closeModal(); $('#contact').scrollIntoView({behavior:'smooth'}); setTimeout(()=>$('#mMsg').focus({preventScroll:true}),600); }
 });
 $('#modalClose').addEventListener('click',closeModal);
 modal.addEventListener('click',e=>{ if(e.target===modal) closeModal(); });
-document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ if(stage.classList.contains('on')) closeStage(); else closeModal(); } });
 
 /* visitor book (opt-in) */
 $('#visitorForm').addEventListener('submit',async e=>{
