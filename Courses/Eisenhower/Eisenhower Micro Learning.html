@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Beat the Busy Trap: Eisenhower Decision Matrix</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,800;1,9..144,400;1,9..144,700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  color-scheme:light;
+  --paper:#f4efe6; --paper-2:#ece5d6; --ink:#16130f; --muted:#4f493e;
+  --accent:#ff4d2e; --accent-2:#2b4cff; --sun:#ffc93c; --mint:#8fe3c0; --pink:#ffb3c7;
+  --on-fill:#16130f; --accent-text:#b3260c; --hl:#2b4cff;
+  --rule:2px solid var(--ink);
+  --serif:'Fraunces',Georgia,serif; --sans:'Inter',system-ui,sans-serif; --mono:'Space Mono',ui-monospace,monospace;
+}
+:root[data-theme="dark"]{color-scheme:dark;--paper:#14120f;--paper-2:#1d1a15;--ink:#f4efe6;--muted:#c4bcab;
+  --accent:#b8321a;--sun:#8a6200;--mint:#1f6b52;--pink:#9a3358;--on-fill:#f4efe6;--accent-text:#ff8f78;--hl:#ffc93c}
+[hidden]{display:none!important}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
+button,select,input{font-family:inherit;color:inherit}
+::selection{background:var(--accent);color:#fff}
+:focus-visible{outline:3px solid var(--accent-2);outline-offset:3px}
+:root[data-theme="dark"] :focus-visible{outline-color:#ffc93c}
+.mono{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:100;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* top bar */
+.top{border-bottom:var(--rule);background:var(--paper);position:sticky;top:0;z-index:20}
+.top-in{max-width:960px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:16px}
+.brand{font-family:var(--serif);font-weight:800;letter-spacing:-.02em;font-size:1.15rem}
+.brand i{color:var(--accent);font-style:normal}
+.prog{flex:1;display:flex;gap:4px}
+.prog button{flex:1;height:14px;border:2px solid var(--ink);border-radius:99px;background:transparent;transition:background .3s;cursor:pointer;padding:0}
+.prog button.done{background:var(--ink)}
+.prog button.now{background:var(--accent)}
+.prog button:disabled{border-style:dashed;border-color:var(--muted);cursor:not-allowed}
+.icon-btn{border:var(--rule);background:transparent;width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:1rem;display:grid;place-items:center;transition:.2s}
+.icon-btn:hover{background:var(--sun);color:var(--on-fill);transform:rotate(-12deg)}
+
+/* stage */
+main{flex:1;width:100%;max-width:960px;margin:0 auto;padding:36px 20px 20px}
+.screen{animation:rise .45s ease both}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.meta{color:var(--muted);margin-bottom:10px}
+h2.st{font-family:var(--serif);font-weight:800;font-size:clamp(2.1rem,6vw,3.6rem);letter-spacing:-.035em;line-height:1;margin-bottom:22px;outline:none}
+h2.st em{font-weight:400;font-style:italic;color:var(--hl)}
+.lede{font-family:var(--serif);font-weight:300;font-size:clamp(1.15rem,2.2vw,1.45rem);line-height:1.38;max-width:44ch;margin-bottom:22px}
+.sub{font-family:var(--mono);font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:-8px 0 18px}
+p.t{max-width:62ch;margin-bottom:14px;font-size:1.05rem}
+.hint{font-family:var(--mono);font-size:.74rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-top:14px}
+.tr{margin-top:34px;border-top:1px dashed var(--muted);padding-top:12px;font-size:.92rem;color:var(--muted);max-width:62ch}
+.tr summary{cursor:pointer;font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase}
+.tr p{margin-top:8px}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:10px;padding:13px 22px;border:var(--rule);border-radius:99px;font-weight:600;cursor:pointer;background:var(--paper);color:var(--ink);box-shadow:4px 4px 0 var(--ink);transition:transform .15s,box-shadow .15s;font-size:.95rem}
+.btn:hover:not(:disabled){transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
+.btn:active:not(:disabled){transform:translate(4px,4px);box-shadow:0 0 0 var(--ink)}
+.btn.hot{background:var(--accent);color:var(--on-fill)}
+.btn.sun{background:var(--sun);color:var(--on-fill)}
+.btn.mint{background:var(--mint);color:var(--on-fill)}
+.btn:disabled{background:var(--paper-2)!important;color:var(--muted)!important;border-style:dashed;cursor:not-allowed;box-shadow:none}
+.btn.sm{padding:9px 18px;font-size:.86rem;box-shadow:3px 3px 0 var(--ink)}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+
+/* nav */
+.nav{max-width:960px;margin:0 auto;width:100%;padding:18px 20px 34px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.linkbtn{background:none;border:0;cursor:pointer;font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px;color:var(--ink)}
+.linkbtn:hover{color:var(--accent-text)}
+.linkbtn[hidden]{display:none}
+
+/* welcome desk */
+.desk{position:relative;height:250px;border:var(--rule);background:var(--paper-2);box-shadow:8px 8px 0 var(--ink);margin:6px 0 20px;overflow:hidden}
+.note{position:absolute;width:29%;padding:12px 12px;border:var(--rule);font-family:var(--serif);font-weight:800;font-size:1.05rem;color:var(--on-fill);left:var(--sx);top:var(--sy);transform:rotate(var(--sr));transition:left .9s cubic-bezier(.3,1.2,.5,1),top .9s cubic-bezier(.3,1.2,.5,1),transform .9s cubic-bezier(.3,1.2,.5,1);box-shadow:3px 3px 0 var(--ink)}
+.note small{display:block;font-family:var(--mono);font-weight:400;font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;margin-top:2px}
+.desk.tidy .note{left:var(--tx);top:var(--ty);transform:rotate(0)}
+.desk-state{position:absolute;right:12px;bottom:10px;font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;background:var(--ink);color:var(--paper);padding:3px 10px;border-radius:99px}
+
+/* choice cards */
+.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:16px 0}
+.choice{display:flex;gap:12px;align-items:center;text-align:left;padding:16px;border:var(--rule);background:var(--paper);cursor:pointer;box-shadow:4px 4px 0 var(--ink);transition:.15s;font-weight:500;font-size:1rem}
+.choice:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
+.choice .em{font-size:1.8rem;line-height:1}
+.choice[aria-pressed="true"]{background:var(--sun);color:var(--on-fill)}
+.reflect{border:var(--rule);background:var(--paper-2);padding:20px 22px;margin-top:20px;animation:rise .4s both}
+.reflect p{max-width:60ch;margin-bottom:12px}
+.pills{display:flex;flex-wrap:wrap;gap:10px}
+.pill{border:var(--rule);border-radius:99px;padding:4px 14px;font-weight:600;font-size:.9rem;color:var(--on-fill)}
+.pill.a{background:var(--accent)}.pill.b{background:var(--mint)}.pill.c{background:var(--pink)}
+
+/* objectives */
+.objs{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.obj{display:block;width:100%;text-align:left;font:inherit;color:var(--ink);cursor:pointer;border:var(--rule);padding:22px;background:var(--paper);box-shadow:5px 5px 0 var(--ink);transition:transform .2s}
+.obj:hover{transform:translateY(-5px) rotate(-1deg)}
+.obj .ic{width:54px;height:54px;border-radius:50%;border:var(--rule);display:grid;place-items:center;font-size:1.6rem;margin-bottom:12px;color:var(--on-fill)}
+.obj:nth-child(1) .ic{background:var(--sun)}.obj:nth-child(2) .ic{background:var(--mint)}.obj:nth-child(3) .ic{background:var(--pink)}
+.obj b{font-family:var(--serif);font-size:1.25rem;line-height:1.15;display:block;margin-bottom:6px}
+.obj span{color:var(--muted);font-size:.95rem}
+
+/* matrix */
+.mx{display:grid;grid-template-columns:34px 1fr 1fr;gap:8px;margin:10px 0 18px}
+.mx .ch,.mx .rh{font-family:var(--mono);font-size:.76rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700;display:grid;place-items:center;padding:6px;border:2px solid transparent;border-radius:10px;transition:.2s;text-align:center}
+.mx .rh{padding:2px}
+.mx .rh span{writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap}
+.mx.hl-u .ch,.mx.hl-i .rh{background:var(--sun);color:var(--on-fill);border-color:var(--ink)}
+.mx.hl-u .ch::before{content:"→ ";}
+.mx.hl-i .rh span::after{content:" ↓"}
+.q{border:var(--rule);padding:12px 14px;min-height:112px;display:flex;flex-direction:column;gap:6px;text-align:left;font:inherit;color:var(--on-fill);box-shadow:3px 3px 0 var(--ink);transition:.15s;position:relative;background:var(--paper-2)}
+.q1{background:var(--accent)}.q2{background:var(--mint)}.q3{background:var(--sun)}.q4{background:var(--pink)}
+button.q{cursor:pointer}
+button.q:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--ink)}
+.q.sel{outline:4px solid var(--ink);outline-offset:2px}
+.q.over{outline:4px dashed var(--ink);outline-offset:2px;transform:scale(1.02)}
+.qh{display:flex;gap:8px;align-items:center;font-family:var(--mono);font-size:.78rem;letter-spacing:.04em;text-transform:uppercase}
+.qh .qi{font-size:1.3rem}
+.qs{font-size:.84rem;line-height:1.3}
+.q .tick{position:absolute;right:10px;top:8px;font-weight:700;display:none}
+.q.seen .tick{display:block}
+.chipbox{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto}
+.mchip{background:#f4efe6;color:#16130f;border:2px solid #16130f;border-radius:99px;padding:2px 10px;font-size:.8rem;font-weight:600;animation:pop .45s cubic-bezier(.3,1.6,.5,1) both}
+@keyframes pop{from{transform:scale(.2) translateY(-30px);opacity:0}to{transform:none;opacity:1}}
+@media(max-width:560px){.q{min-height:96px;padding:10px}.qs{display:none}.mx{grid-template-columns:26px 1fr 1fr;gap:6px}}
+
+/* panels */
+.panel{border:var(--rule);background:var(--paper-2);padding:20px 22px;margin:6px 0 16px;box-shadow:5px 5px 0 var(--ink);animation:rise .35s both}
+.panel h3{font-family:var(--serif);font-size:1.45rem;line-height:1.1;margin-bottom:6px}
+.panel p{max-width:60ch;margin-bottom:8px}
+.panel .ex{font-size:.95rem;color:var(--muted)}
+.toggle{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.toggle .btn[aria-pressed="true"]{background:var(--sun);color:var(--on-fill)}
+
+/* see it */
+.taskcard{border:var(--rule);background:var(--paper);padding:16px 20px;box-shadow:4px 4px 0 var(--ink);margin-bottom:14px;font-family:var(--serif);font-size:1.2rem;line-height:1.3}
+.qa{display:flex;flex-direction:column;gap:8px;margin-bottom:14px;min-height:96px}
+.qa div{border-left:5px solid var(--ink);padding:2px 12px;animation:rise .35s both}
+.qa b{font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase}
+
+/* feedback */
+.fb{border:var(--rule);padding:12px 16px;margin-top:14px;animation:rise .3s both;max-width:62ch}
+.fb.ok{background:var(--mint);color:var(--on-fill)}
+.fb.no{background:var(--pink);color:var(--on-fill)}
+.fb.neutral{background:var(--sun);color:var(--on-fill)}
+.fb b{display:block}
+
+/* practice / quiz */
+.scn{border:var(--rule);background:var(--paper);box-shadow:5px 5px 0 var(--ink);padding:22px;margin-bottom:16px}
+.scn .lt{font-family:var(--serif);font-weight:800;font-style:italic;font-size:2.4rem;line-height:1;color:var(--accent-text);margin-right:12px}
+.scn p{font-family:var(--serif);font-size:1.3rem;line-height:1.3;display:flex;align-items:baseline}
+.opts{display:grid;gap:12px;margin-top:6px}
+.opts.four{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.opt{border:var(--rule);padding:14px 16px;background:var(--paper);cursor:pointer;text-align:left;font-weight:500;font-size:1rem;box-shadow:3px 3px 0 var(--ink);transition:.15s;display:flex;gap:10px;align-items:center}
+.opt:hover:not(:disabled){transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink);background:var(--sun);color:var(--on-fill)}
+.opt:disabled{cursor:default}
+.opt.right{background:var(--mint);color:var(--on-fill)}
+.opt.wrong{background:var(--pink);color:var(--on-fill)}
+.opt .mk{font-weight:700;min-width:1.2em}
+.count{font-family:var(--mono);font-size:.76rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;color:var(--muted)}
+.score{font-family:var(--serif);font-weight:800;font-size:4.2rem;line-height:1;letter-spacing:-.04em}
+.rev{list-style:none;margin-top:14px;display:grid;gap:10px}
+.rev li{border:var(--rule);padding:12px 16px;background:var(--paper);font-size:.95rem}
+.rev li b{display:block;margin-bottom:2px}
+
+/* apply */
+.apply{display:grid;grid-template-columns:1.05fr 1fr;gap:26px;align-items:start}
+@media(max-width:820px){.apply{grid-template-columns:1fr}}
+.tks{display:grid;gap:12px}
+.tk{border:var(--rule);background:var(--paper);padding:12px 14px;box-shadow:3px 3px 0 var(--ink);cursor:grab}
+.tk:active{cursor:grabbing}
+.tk .tt{display:flex;gap:10px;align-items:flex-start;font-size:.97rem;margin-bottom:8px}
+.tk .tn{flex:none;width:26px;height:26px;border-radius:50%;background:var(--ink);color:var(--paper);display:grid;place-items:center;font-family:var(--mono);font-size:.78rem;font-weight:700}
+.tk select{width:100%;padding:8px 10px;border:var(--rule);background:var(--paper);font-size:.92rem;border-radius:0}
+.tk .tf{font-size:.86rem;margin-top:8px;padding:6px 10px;border:2px solid var(--ink);animation:rise .3s both;color:var(--on-fill)}
+.tk .tf.ok{background:var(--mint)}.tk .tf.no{background:var(--pink)}
+
+/* closing */
+.mini{width:100%;padding:12px 14px;border:var(--rule);background:var(--paper);font-size:1rem;margin-bottom:12px}
+.yn{display:flex;gap:10px;align-items:center;margin-bottom:12px;flex-wrap:wrap}
+.yn b{min-width:90px;font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase}
+.slogan{font-family:var(--serif);font-weight:800;font-style:italic;font-size:clamp(1.5rem,4vw,2.2rem);letter-spacing:-.02em;margin:20px 0 6px}
+.slogan em{color:var(--accent-text)}
+.done-card{text-align:center;padding:44px 20px;border:var(--rule);background:var(--paper-2);box-shadow:8px 8px 0 var(--ink)}
+.done-card .big{font-size:4rem;line-height:1;margin-bottom:10px;display:inline-block;animation:wob 2.5s ease-in-out infinite}
+@keyframes wob{50%{transform:rotate(10deg) scale(1.1)}}
+.done-card h2{font-family:var(--serif);font-weight:800;font-size:clamp(2rem,6vw,3.2rem);letter-spacing:-.03em;line-height:1;margin-bottom:12px}
+/* objectives reveal */
+.obj .ic{display:grid}
+.obj .full{display:none;color:var(--ink);font-size:1rem}
+.obj.open{background:var(--paper-2)}
+.obj.open .full{display:block}
+.obj.open .tap{display:none}
+.obj .tap{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase}
+/* tracker */
+.trk{max-width:960px;margin:0 auto;width:100%;padding:0 20px}
+.trk-in{border:var(--rule);background:var(--paper-2);padding:12px 16px;display:flex;flex-wrap:wrap;gap:8px 20px;align-items:center}
+.trk-in>b{font-family:var(--mono);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase}
+.trk .it{display:inline-flex;gap:8px;align-items:center;font-size:.92rem}
+.trk .it i{font-style:normal;font-weight:700;width:1.4em;height:1.4em;border:2px solid var(--ink);border-radius:50%;display:grid;place-items:center;font-size:.72rem;flex:none}
+.trk .it.ok i{background:var(--mint);color:var(--on-fill)}
+.trk-in.ready{background:var(--mint);color:var(--on-fill)}
+.trk-in.ready .it i{border-color:var(--on-fill)}
+.trk-in.ready .it.ok i{background:transparent}
+/* audio */
+.aud{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;border:var(--rule);background:var(--paper-2);padding:8px 14px;margin-bottom:22px}
+.aud .al{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.aud audio{display:none}
+.abar{flex:1;min-width:120px;height:10px;border:2px solid var(--ink);border-radius:99px;overflow:hidden;background:var(--paper)}
+.abar i{display:block;height:100%;width:0;background:var(--accent)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-in">
+    <span class="brand">James<i>.</i>Amit</span>
+    <nav class="prog" id="prog" aria-label="Course progress"></nav>
+    <button class="icon-btn" id="themeBtn" aria-label="Toggle dark or light theme">◐</button>
+  </div>
+</header>
+
+<main id="stage" aria-live="polite"></main>
+
+<div class="trk" id="tracker" hidden></div>
+
+<div class="nav" id="nav">
+  <button class="linkbtn" id="backBtn">← Back</button>
+  <button class="btn hot" id="nextBtn">Next →</button>
+</div>
+
+<script>
+/* ===== helpers ===== */
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+/* ===== audio =====
+   Put your narration files in a folder called "audio" next to this file:
+     audio/01.mp3 ... audio/11.mp3  (one per screen, in screen order)
+   Narration starts automatically when each screen opens (learners can pause or replay it).
+   Set SHOW_AUDIO_LABELS to false once the files are in place to hide the file names. */
+const AUDIO_DIR='audio/';
+const AUDIO_FILES=['01.mp3','02.mp3','03.mp3','04.mp3','05.mp3','06.mp3','07.mp3','08.mp3','09.mp3','10.mp3','11.mp3'];
+const SHOW_AUDIO_LABELS=true;
+
+/* ===== theme ===== */
+(function(){
+  let t='light';
+  try{t=localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')}catch(e){}
+  document.documentElement.dataset.theme=t;
+  $('#themeBtn').addEventListener('click',()=>{
+    const n=document.documentElement.dataset.theme==='dark'?'light':'dark';
+    document.documentElement.dataset.theme=n; try{localStorage.setItem('theme',n)}catch(e){}
+  });
+})();
+
+/* ===== LMS (SCORM 1.2, only if a host provides it) ===== */
+const LMS=(()=>{
+  let api=null;
+  try{let w=window;for(let i=0;i<8&&!api;i++){if(w.API)api=w.API;if(!api&&w.parent&&w.parent!==w)w=w.parent;else break;}}catch(e){}
+  if(api){try{api.LMSInitialize("")}catch(e){api=null}}
+  return{set(k,v){try{api&&api.LMSSetValue(k,String(v))}catch(e){}},commit(){try{api&&api.LMSCommit("")}catch(e){}}};
+})();
+
+/* ===== data ===== */
+const Q={
+  1:{name:"DO",icon:"⚡",sub:"Urgent and important",short:"Handle promptly",act:"Do these promptly.",ex:"A system outage stops a customer from using a service."},
+  2:{name:"SCHEDULE",icon:"🗓️",sub:"Important, not urgent",short:"Plan time for it",act:"Schedule these before they become urgent.",ex:"Preparing for a project milestone that is due next month."},
+  3:{name:"DELEGATE",icon:"🤝",sub:"Urgent, not important to your main goals",short:"Redirect appropriately",act:"Delegate or redirect when someone else is better placed to handle it.",ex:"Routing a routine request to the right teammate before a near-term deadline.",note:"Delegation depends on role, authority, capacity, and agreed ownership."},
+  4:{name:"ELIMINATE",icon:"🗑️",sub:"Neither urgent nor important",short:"Remove low-value work",act:"Eliminate or reduce activities that add little value.",ex:"A recurring report that no one uses."}
+};
+const qLabel=n=>`Q${n} — ${Q[n].name}`;
+
+function matrix(o={}){
+  const tag=o.btn?'button':'div';
+  const cell=n=>`<${tag} class="q q${n}" data-q="${n}" ${o.btn?'type="button"':''} aria-label="Quadrant ${n}: ${Q[n].name}. ${Q[n].sub}">
+    <span class="tick" aria-hidden="true">✓</span>
+    <span class="qh"><span class="qi" aria-hidden="true">${Q[n].icon}</span><b>Q${n} · ${Q[n].name}</b></span>
+    ${o.text==='sub'?`<span class="qs">${Q[n].sub}</span>`:''}${o.text==='short'?`<span class="qs">${Q[n].short}</span>`:''}
+    <span class="chipbox" data-box="${n}"></span></${tag}>`;
+  return `<div class="mx" id="${o.id||'mx'}">
+    <div></div><div class="ch" data-axis="u">Urgent</div><div class="ch" data-axis="u">Not urgent</div>
+    <div class="rh" data-axis="i"><span>Important</span></div>${cell(1)}${cell(2)}
+    <div class="rh" data-axis="i"><span>Not important</span></div>${cell(3)}${cell(4)}</div>`;
+}
+const chip=(t,title)=>`<span class="mchip" ${title?`title="${esc(title)}"`:''}>${esc(t)}</span>`;
+
+/* ===== state ===== */
+const S={max:0,tidied:false,hook:null,objs:new Set(),sum:new Set(),seen:new Set(),axis:new Set(),seeA:false,seeDone:false,prac:{i:0,score:0,done:false,ans:{}},
+  applyChecked:false,apply:{},q:{i:0,score:0,answered:false,log:[],finished:false},pass:false,score:0,closing:{}};
+
+/* ===== screens ===== */
+const R=[];
+
+/* 1 Welcome */
+R.push({title:'Beat the <em>Busy Trap</em>',time:'30 sec',nextLabel:'Start Learning →',
+narr:"Have you ever ended a busy day feeling like you accomplished a lot, but your most important tasks are still unfinished? In this short course, you'll learn a simple way to decide what deserves your attention first.",
+body(){
+  const N=[["Emails","20 unread","var(--sun)","4%","8%","-9deg","3%","8%"],["Deadline","due tomorrow","var(--accent)","38%","48%","6deg","35%","8%"],["Meeting","in 10 min","var(--pink)","62%","4%","-4deg","67%","8%"],
+           ["Report","for review","var(--mint)","8%","56%","8deg","3%","54%"],["Goal","not started","var(--sun)","44%","14%","-7deg","35%","54%"],["Requests","need replies","var(--pink)","68%","52%","5deg","67%","54%"]];
+  return `<p class="sub">The Eisenhower Decision Matrix</p>
+  <p class="lede">Learn how to focus on what matters most, not just what feels urgent.</p>
+  <div class="desk ${S.tidied?'tidy':''}" id="desk" role="img" aria-label="Sticky notes of work tasks, scattered, then arranged neatly">
+    ${N.map(n=>`<div class="note" style="background:${n[2]};--sx:${n[3]};--sy:${n[4]};--sr:${n[5]};--tx:${n[6]};--ty:${n[7]}">${n[0]}<small>${n[1]}</small></div>`).join('')}
+    <span class="desk-state" id="deskState">${S.tidied?'Organized':'Busy'}</span>
+  </div>
+  <div class="row"><button class="btn sun sm" id="tidyBtn" aria-pressed="${S.tidied}">${S.tidied?'Messy again':'✨ Tidy up'}</button><span class="hint" style="margin:0">Takes about 8 minutes · go at your own pace</span></div>`;
+},
+init(){
+  const desk=$('#desk'),st=$('#deskState'),b=$('#tidyBtn');
+  const paint=()=>{desk.classList.toggle('tidy',S.tidied);st.textContent=S.tidied?'Organized':'Busy';b.textContent=S.tidied?'Messy again':'✨ Tidy up';b.setAttribute('aria-pressed',S.tidied)};
+  b.addEventListener('click',()=>{S.tidied=!S.tidied;paint()});
+  if(!S.tidied){setTimeout(()=>{if($('#desk')===desk&&!S.tidied){S.tidied=true;paint()}},1800)}
+}});
+
+/* 2 Hook */
+R.push({title:'Busy or <em>productive?</em>',time:'45 sec',req:()=>[["Choose what you would do first",S.hook!==null]],
+narr:"All these tasks may seem important when they compete for your attention. But should they all receive the same amount of time? The key is to decide which tasks need action now, which need planning, and which can wait or be removed.",
+body(){
+  const C=[["📧","Answer the emails"],["⏰","Prepare for tomorrow's deadline"],["👥","Attend the meeting"],["🎯","Work on the long-term goal"]];
+  return `<p class="lede">Imagine this: you have 20 unread emails, a project deadline tomorrow, a team meeting in 10 minutes, and a long-term goal you have not started.</p>
+  <p class="t"><b>What would you normally do first?</b></p>
+  <div class="choices" role="group" aria-label="Choose what you would do first">
+    ${C.map((c,i)=>`<button class="choice" data-c="${i}" aria-pressed="${S.hook===i}"><span class="em" aria-hidden="true">${c[0]}</span>${c[1]}</button>`).join('')}
+  </div><div id="reflect"></div>`;
+},
+init(){
+  const show=()=>{ if(S.hook===null)return;
+    $('#reflect').innerHTML=`<div class="reflect"><p><b>There's no right or wrong answer here.</b> All of these can feel important when they compete for your attention. But should they all get the same amount of time?</p>
+    <p>The key is to decide which tasks need…</p><div class="pills"><span class="pill a">action now</span><span class="pill b">planning</span><span class="pill c">to wait or be removed</span></div></div>`;};
+  $$('.choice').forEach(b=>b.addEventListener('click',()=>{S.hook=+b.dataset.c;$$('.choice').forEach(x=>x.setAttribute('aria-pressed',x===b));show();refreshNav();}));
+  show();
+}});
+
+/* 3 Objectives */
+R.push({title:"What you'll <em>be able to do</em>",time:'30 sec',
+req:()=>[["Open all 3 objectives ("+S.objs.size+"/3)",S.objs.size===3]],
+narr:"By the end, you'll be able to use the Eisenhower Decision Matrix to sort tasks and choose a practical next step for your workload.",
+body(){
+  const O=[["🔍","Classify","Classify tasks by urgency and importance."],["🧭","Select","Select an appropriate action for each quadrant."],["📋","Apply","Apply the matrix to prioritize a list of work tasks."]];
+  return `<p class="lede">By the end of this course, you will be able to:</p>
+  <p class="t">Select each card to reveal an objective.</p>
+  <div class="objs">${O.map((o,i)=>`<button type="button" class="obj ${S.objs.has(i)?'open':''}" data-o="${i}" aria-expanded="${S.objs.has(i)}"><span class="ic" aria-hidden="true">${o[0]}</span><b>${i+1}. ${o[1]}</b><span class="tap">Select to reveal</span><span class="full">${o[2]}</span></button>`).join('')}</div>`;
+},
+init(){$$('.obj').forEach(b=>b.addEventListener('click',()=>{S.objs.add(+b.dataset.o);b.classList.add('open');b.setAttribute('aria-expanded','true');refreshNav();}));}});
+
+/* 4 Meet the matrix */
+R.push({title:'Meet the <em>matrix</em>',time:'45 sec',req:()=>[["Explore Urgency",S.axis.has('u')],["Explore Importance",S.axis.has('i')]],
+narr:"Urgency is about timing and the consequences of delay. Importance is about impact. A task can be urgent, important, both, or neither. The matrix helps you decide what to do next.",
+body(){return `<p class="t">The matrix helps you prioritize with two questions. Select each one to see where it sits.</p>
+  <div class="toggle"><button class="btn sm" data-ax="u" aria-pressed="false">⏱ Urgency</button><button class="btn sm" data-ax="i" aria-pressed="false">💥 Importance</button></div>
+  <div id="axInfo" class="panel" style="min-height:92px"><p class="ex">Pick <b>Urgency</b> or <b>Importance</b> to begin.</p></div>
+  ${matrix({id:'mx4'})}
+  <p class="hint" id="axHint"></p>`;},
+init(){
+  const T={u:["Urgency","Does this need attention soon?","Urgency is about timing and the consequences of delay."],i:["Importance","Does this task significantly affect a goal, responsibility, or result?","Importance is about impact."]};
+  const mx=$('#mx4'), hint=$('#axHint');
+  const hp=()=>{hint.textContent=S.axis.size<2?`Explore both questions (${S.axis.size}/2)`:'A task can be urgent, important, both, or neither.'};
+  $$('[data-ax]').forEach(b=>b.addEventListener('click',()=>{
+    const k=b.dataset.ax;S.axis.add(k);
+    $$('[data-ax]').forEach(x=>x.setAttribute('aria-pressed',x===b));
+    mx.classList.remove('hl-u','hl-i');mx.classList.add('hl-'+k);
+    $('#axInfo').innerHTML=`<h3>${T[k][0]}: ${T[k][1]}</h3><p>${T[k][2]}</p>`;
+    hp();refreshNav();}));
+  hp();
+}});
+
+/* 5 Four quadrants */
+R.push({title:'The four <em>quadrants</em>',time:'60 sec',req:()=>[["Open all four quadrants ("+S.seen.size+"/4)",S.seen.size===4]],
+narr:"Do urgent, important tasks promptly. Schedule important tasks before they become urgent. Delegate or redirect urgent tasks when someone else is better placed to handle them. Eliminate or reduce activities that add little value.",
+body(){return `<p class="t">Select each quadrant to reveal its action and an example.</p>
+  ${matrix({btn:true,text:'sub',id:'mx5'})}
+  <div id="qInfo" class="panel" style="min-height:130px"><p class="ex">Select a quadrant above.</p></div>
+  <p class="hint" id="qHint"></p>`;},
+init(){
+  const upd=()=>{$('#qHint').textContent=S.seen.size<4?`Explored ${S.seen.size} of 4`:'All four explored ✓';$$('#mx5 .q').forEach(q=>q.classList.toggle('seen',S.seen.has(+q.dataset.q)))};
+  $$('#mx5 .q').forEach(b=>b.addEventListener('click',()=>{
+    const n=+b.dataset.q;S.seen.add(n);
+    $$('#mx5 .q').forEach(x=>x.classList.toggle('sel',x===b));
+    $('#qInfo').innerHTML=`<h3>${Q[n].icon} ${qLabel(n)}</h3><p><b>${Q[n].sub}.</b> ${Q[n].act}</p><p class="ex">Example: ${Q[n].ex}</p>${Q[n].note?`<p class="ex"><b>Keep in mind:</b> ${Q[n].note}</p>`:''}`;
+    upd();refreshNav();}));
+  upd();
+}});
+
+/* 6 See it in action */
+R.push({title:'See it <em>in action</em>',time:'60 sec',req:()=>[["Place the outage task",S.seeA],["Place the milestone task",S.seeDone]],
+narr:"The outage affects the customer and needs prompt attention. Both urgency and importance are high, so this task belongs in Quadrant 1. Now compare it with preparing for a project milestone due next month. That is important, but it can be planned in advance.",
+body(){return `<div class="taskcard" id="seeTask"></div><div class="qa" id="seeQA" aria-live="polite"></div>
+  <div class="row" style="margin-bottom:12px"><button class="btn sun sm" id="seeBtn"></button></div>
+  ${matrix({id:'mx6'})}
+  <p class="hint">Remember: a task's real impact and deadline decide where it goes.</p>`;},
+init(){
+  const EX=[
+    {task:"Example 1 · A customer cannot access a service because of a system outage.",u:["Yes","The customer is affected right now."],i:["Yes","The impact on the customer is high."],q:1,chip:"Outage"},
+    {task:"Example 2 · Prepare for a project milestone due next month.",u:["No","It can be planned in advance."],i:["Yes","It supports an important result."],q:2,chip:"Milestone"}];
+  let ex=S.seeDone?1:0, st=(S.seeDone||S.seeA)?3:0;
+  const paint=()=>{
+    const e=EX[ex];$('#seeTask').textContent=e.task;
+    let h='';
+    if(st>=1)h+=`<div><b>Urgent?</b> ${e.u[0]} — ${e.u[1]}</div>`;
+    if(st>=2)h+=`<div><b>Important?</b> ${e.i[0]} — ${e.i[1]}</div>`;
+    if(st>=3)h+=`<div><b>Action:</b> ${qLabel(e.q)} — ${Q[e.q].act}</div>`;
+    $('#seeQA').innerHTML=h;
+    $$('#mx6 .chipbox').forEach(b=>b.innerHTML='');
+    for(let k=0;k<=ex;k++){ if(k<ex||st>=3) $(`#mx6 [data-box="${EX[k].q}"]`).innerHTML+=chip(EX[k].chip); }
+    const b=$('#seeBtn');
+    b.hidden=false;
+    b.textContent=['Is it urgent?','Is it important?','Place it in the matrix',ex===0?'Next example →':''][st];
+    if(st===3&&ex===1){b.hidden=true;}
+  };
+  $('#seeBtn').addEventListener('click',()=>{
+    st++; if(st>3){ex++;st=0;}
+    if(ex===0&&st===3)S.seeA=true;
+    if(ex===1&&st===3)S.seeDone=true;
+    paint();refreshNav();
+  });
+  paint();
+}});
+
+/* 7 Practice */
+R.push({title:'Where does it <em>belong?</em>',time:'75 sec',req:()=>[["Answer all 4 tasks ("+Object.keys(S.prac.ans).length+"/4)",S.prac.done]],
+narr:"Try each task yourself. Look at its deadline, its impact, and whether you are the right person to handle it. Then choose the quadrant that best fits.",
+body(){return `<div id="pracBox"></div>`;},
+init(){
+  const T=[
+    {t:"Fix a service outage affecting customers.",a:1,why:"Customers are affected now, so it is both urgent and important."},
+    {t:"Prepare for a project milestone due next month.",a:2,why:"It is important, but there is time to plan it in advance."},
+    {t:"Route a routine request to the appropriate team member before a near-term deadline.",a:3,why:"It is time-sensitive but can appropriately be redirected to someone better placed."},
+    {t:"Remove an unnecessary recurring report that no one uses.",a:4,why:"It adds little value, so it can be removed."}];
+  const P=S.prac, box=$('#pracBox');
+  function paint(){
+    if(P.done){
+      box.innerHTML=`<div class="panel"><h3>Nicely done</h3><p>You matched <b>${P.score} of 4</b> tasks to their best-fit quadrant. This one isn't scored, it's practice. Next you'll sort a whole workload.</p><button class="btn sm" id="pracAgain">↺ Try again</button></div>`;
+      $('#pracAgain').addEventListener('click',()=>{P.i=0;P.score=0;P.done=false;P.ans={};paint();refreshNav()});return;}
+    const t=T[P.i];
+    box.innerHTML=`<div class="count">Task ${P.i+1} of 4 · choose the best quadrant</div>
+    <div class="scn"><p><span class="lt">${'ABCD'[P.i]}</span><span>${t.t}</span></p></div>
+    <div class="opts four" role="group" aria-label="Quadrant choices">${[1,2,3,4].map(n=>`<button class="opt" data-n="${n}"><span aria-hidden="true">${Q[n].icon}</span>${qLabel(n)}</button>`).join('')}</div>
+    <div id="pracFb"></div>`;
+    $$('.opt',box).forEach(b=>b.addEventListener('click',()=>{
+      const n=+b.dataset.n,ok=n===t.a; if(!(P.i in P.ans)){P.ans[P.i]=ok;if(ok)P.score++;}
+      $$('.opt',box).forEach(x=>{x.disabled=true;const m=+x.dataset.n;if(m===t.a){x.classList.add('right');x.insertAdjacentHTML('afterbegin','<span class="mk">✓</span>')}else if(x===b){x.classList.add('wrong');x.insertAdjacentHTML('afterbegin','<span class="mk">✗</span>')}});
+      $('#pracFb').innerHTML=`<div class="fb ${ok?'ok':'no'}"><b>${ok?'Right on.':'Not quite — best fit: '+qLabel(t.a)+'.'}</b>${t.why}</div>
+      <div class="row" style="margin-top:14px"><button class="btn hot sm" id="pracNext">${P.i<3?'Next task →':'See results →'}</button></div>`;
+      $('#pracNext').addEventListener('click',()=>{ if(P.i<3)P.i++; else P.done=true; paint();refreshNav(); });
+      $('#pracNext').focus();
+    }));
+  }
+  paint();
+}});
+
+/* 8 Apply */
+R.push({title:'Apply it to <em>your workload</em>',time:'75 sec',req:()=>{const n=Object.values(S.apply).filter(Boolean).length;return [["Place all 5 tasks ("+n+"/5)",n===5],["Check your answers",S.applyChecked]];},
+narr:"You have several competing tasks. Start by checking the impact of each task and the consequence of waiting. Then decide which tasks need immediate action, planning, redirection, or removal.",
+body(){
+  const TK=["A critical system issue is stopping work.","A report is due tomorrow and supports a key decision.","A routine request needs a quick response but can be handled by an appropriate teammate.","A future training plan needs attention this month.","An optional update meeting has no clear purpose."];
+  return `<p class="t">Place each task in a quadrant. Drag a card onto the matrix, or use its dropdown.</p>
+  <div class="apply"><div class="tks">${TK.map((t,i)=>`<div class="tk" draggable="true" data-t="${i+1}">
+    <div class="tt"><span class="tn">${i+1}</span><span>${t}</span></div>
+    <label class="mono" style="display:none" for="sel${i+1}">Quadrant for task ${i+1}</label>
+    <select id="sel${i+1}" data-t="${i+1}" aria-label="Quadrant for task ${i+1}"><option value="">Choose a quadrant…</option>${[1,2,3,4].map(n=>`<option value="${n}">${qLabel(n)}</option>`).join('')}</select>
+    <div class="tfw"></div></div>`).join('')}</div>
+  <div>${matrix({id:'mx8',text:'short'})}<div class="row"><button class="btn hot sm" id="chkBtn" disabled>Check my answers</button><span class="hint" id="chkHint" style="margin:0"></span></div></div></div>
+  <div id="applyFb"></div>`;},
+init(){
+  const KEY={1:1,2:1,3:3,4:2,5:4};
+  const NOTE={
+    1:{ok:"Work is stopped and the impact is high, so it needs prompt action.",no:"Work is stopped and the impact is high, so this is Q1 — Do."},
+    2:{ok:"Due tomorrow and supporting a key decision, so it needs prompt action.",no:"If the deadline and decision impact require prompt action, this belongs in Q1."},
+    3:{ok:"Time-sensitive, but an appropriate teammate can handle it.",no:"This is Q3 — Delegate. It is quick, but not something only you must do."},
+    4:{ok:"Important, with time to plan it this month.",no:"It matters but isn't pressing yet — Q2 — Schedule it before it becomes urgent."},
+    5:{ok:"With no clear purpose, it adds little value.",no:"With no clear purpose, it adds little value: Q4 — Eliminate."}};
+  const A=S.apply;
+  const sync=()=>{
+    $$('#mx8 .chipbox').forEach(b=>b.innerHTML='');
+    Object.entries(A).forEach(([t,q])=>{ if(q)$(`#mx8 [data-box="${q}"]`).innerHTML+=chip('Task '+t); });
+    const n=Object.values(A).filter(Boolean).length;
+    $('#chkBtn').disabled=n<5;
+    $('#chkHint').textContent=n<5?`${n} of 5 placed`:'All placed';
+  };
+  const setQ=(t,q)=>{A[t]=q;$(`#sel${t}`).value=q||'';$$('.tfw').forEach(f=>{});
+    const w=$(`.tk[data-t="${t}"] .tfw`);w.innerHTML='';S.applyChecked=false;$('#applyFb').innerHTML='';sync();refreshNav();};
+  Object.entries(A).forEach(([t,q])=>{$(`#sel${t}`).value=q||''});
+  $$('.tk select').forEach(s=>s.addEventListener('change',()=>setQ(s.dataset.t,s.value)));
+  $$('.tk').forEach(c=>c.addEventListener('dragstart',e=>{e.dataTransfer.setData('text/plain',c.dataset.t);e.dataTransfer.effectAllowed='move'}));
+  $$('#mx8 .q').forEach(z=>{
+    z.addEventListener('dragover',e=>{e.preventDefault();z.classList.add('over')});
+    z.addEventListener('dragleave',()=>z.classList.remove('over'));
+    z.addEventListener('drop',e=>{e.preventDefault();z.classList.remove('over');const t=e.dataTransfer.getData('text/plain');if(t)setQ(t,z.dataset.q)});
+  });
+  $('#chkBtn').addEventListener('click',()=>{
+    let right=0;
+    for(let t=1;t<=5;t++){
+      const ok=+A[t]===KEY[t]; if(ok)right++;
+      $(`.tk[data-t="${t}"] .tfw`).innerHTML=`<div class="tf ${ok?'ok':'no'}">${ok?'✓ ':'✗ '}${ok?NOTE[t].ok:NOTE[t].no}</div>`;
+    }
+    S.applyChecked=true;
+    $('#applyFb').innerHTML=`<div class="fb ${right===5?'ok':'neutral'}"><b>${right} of 5 matched the suggested answers.</b>Context can change a classification. A different deadline, impact, or required purpose could move a task. ${right<5?'You can adjust your placements and check again.':''}</div>`;
+    refreshNav();
+  });
+  sync();
+}});
+
+/* 9 Summary */
+R.push({title:'Summary: Beat the <em>Busy Trap</em>',time:'30 sec',nextLabel:'Take the Knowledge Check →',
+req:()=>[["Review all four actions ("+S.sum.size+"/4)",S.sum.size===4]],
+narr:"You do not need to treat every task as a top priority. Pause, assess urgency and importance, and choose your next action. Scheduling important work early can help prevent it from becoming another emergency.",
+body(){return `<p class="lede">Remember the four actions. Select each one to lock it in.</p>${matrix({btn:true,text:'short',id:'mx9'})}
+  <div class="panel" id="sumInfo" style="min-height:92px"><p class="ex">Select a quadrant above.</p></div>
+  <div class="panel"><h3>Ask yourself</h3><p style="margin:0"><b>Is it urgent?</b> &nbsp;·&nbsp; <b>Is it important?</b></p></div>`;},
+init(){
+  const upd=()=>$$('#mx9 .q').forEach(q=>q.classList.toggle('seen',S.sum.has(+q.dataset.q)));
+  $$('#mx9 .q').forEach(b=>b.addEventListener('click',()=>{
+    const n=+b.dataset.q;S.sum.add(n);$$('#mx9 .q').forEach(x=>x.classList.toggle('sel',x===b));
+    $('#sumInfo').innerHTML=`<h3>${Q[n].icon} ${Q[n].name}: ${Q[n].short.toLowerCase()}</h3><p style="margin:0">${Q[n].sub}. ${Q[n].act}</p>`;
+    upd();refreshNav();}));
+  upd();
+}});
+
+/* 10 Knowledge check */
+const QZ=[
+  {q:"A key customer's payment system fails during checkout and orders are being lost. Which quadrant and action fit best?",o:["Q1 — Do it promptly","Q2 — Schedule it for next week","Q3 — Delegate it and move on","Q4 — Eliminate it"],a:0,why:"Customers are affected now: it is both urgent and important, so it needs prompt action."},
+  {q:"You want to build a training plan that supports next quarter's goals. No one is waiting on it this week. Where does it belong?",o:["Q1 — Do","Q2 — Schedule","Q3 — Delegate","Q4 — Eliminate"],a:1,why:"It is important but not urgent, so plan time for it before it becomes urgent."},
+  {q:"A routine request is due this afternoon. A teammate with the right role and capacity can handle it, and it does not need your expertise. What is the best action?",o:["Drop everything and do it yourself","Ignore it","Delegate or redirect it","Eliminate it"],a:2,why:"It is urgent but not important to your main goals, so redirect it to someone better placed."},
+  {q:"A weekly status email goes to nobody who reads it and supports no goal. What should you do with it?",o:["Do it first every week","Schedule extra time for it","Delegate it to a teammate","Eliminate or reduce it"],a:3,why:"It is neither urgent nor important. It adds little value, so remove or reduce it."},
+  {q:"Why is it useful to schedule important, not-urgent work early?",o:["It makes every task urgent","It helps stop important work from becoming a last-minute emergency","It lets you ignore deadlines","It removes the need to prioritize"],a:1,why:"Planning Q2 work early helps prevent it from turning into another Q1 emergency."}];
+R.push({title:'Knowledge <em>check</em>',time:'90 sec',nextLabel:'Continue →',req:()=>[["Score at least 4 of 5 (80%) on the knowledge check",S.pass]],
+narr:"Let's check your understanding. For each situation, choose the quadrant or action that best fits the information provided.",
+body(){return `<div id="quizBox"></div>`;},
+init(){
+  const Z=S.q, box=$('#quizBox');
+  function finish(){
+    Z.finished=true;S.score=Z.score;const pass=Z.score>=4;S.pass=S.pass||pass;
+    LMS.set('cmi.core.score.min',0);LMS.set('cmi.core.score.max',100);LMS.set('cmi.core.score.raw',Math.round(Z.score/5*100));
+    LMS.set('cmi.core.lesson_status',pass?'passed':'failed');LMS.commit();
+    box.innerHTML=`<div class="count">Results</div><div class="score">${Z.score}/5</div>
+    <div class="fb ${pass?'ok':'no'}" style="margin-bottom:14px"><b>${pass?'You passed! 🎉':'Almost there.'}</b>${pass?'You scored at least 4 out of 5. Nice work.':'You need at least 4 out of 5 to pass. Review the answers below, then try again.'}</div>
+    <div class="row">${pass?'':'<button class="btn hot sm" id="qzRetry">↺ Try again</button>'}<button class="btn sm" id="qzRev">Review answers</button></div><ul class="rev" id="qzList" hidden>
+    ${Z.log.map((l,i)=>`<li><b>${i+1}. ${l.ok?'✓ Correct':'✗ Not quite'}</b>${esc(QZ[i].q)}<br/><i>Best answer: ${esc(QZ[i].o[QZ[i].a])}.</i> ${esc(QZ[i].why)}</li>`).join('')}</ul>`;
+    $('#qzRev').addEventListener('click',()=>{const l=$('#qzList');l.hidden=!l.hidden});
+    const r=$('#qzRetry'); if(r)r.addEventListener('click',()=>{Object.assign(Z,{i:0,score:0,answered:false,log:[],finished:false});paint()});
+    refreshNav();
+  }
+  function paint(){
+    if(Z.finished)return finish();
+    const it=QZ[Z.i];
+    box.innerHTML=`<div class="count">Question ${Z.i+1} of 5 · pass mark 4/5</div>
+    <div class="scn"><p>${esc(it.q)}</p></div>
+    <div class="opts" role="group" aria-label="Answer choices">${it.o.map((o,i)=>`<button class="opt" data-i="${i}"><span class="mk" aria-hidden="true">${'ABCD'[i]}</span>${esc(o)}</button>`).join('')}</div><div id="qzFb"></div>`;
+    $$('.opt',box).forEach(b=>b.addEventListener('click',()=>{
+      const i=+b.dataset.i, ok=i===it.a; if(Z.log[Z.i]===undefined){Z.log[Z.i]={ok};if(ok)Z.score++;}
+      $$('.opt',box).forEach(x=>{x.disabled=true;const m=+x.dataset.i;const mk=x.querySelector('.mk');
+        if(m===it.a){x.classList.add('right');mk.textContent='✓'}else if(x===b){x.classList.add('wrong');mk.textContent='✗'}});
+      $('#qzFb').innerHTML=`<div class="fb ${ok?'ok':'no'}"><b>${ok?'Correct.':'Not quite.'}</b>${esc(it.why)}</div><div class="row" style="margin-top:14px"><button class="btn hot sm" id="qzNext">${Z.i<4?'Next question →':'See results →'}</button></div>`;
+      $('#qzNext').addEventListener('click',()=>{if(Z.i<4){Z.i++;paint()}else finish()});
+      $('#qzNext').focus();
+    }));
+  }
+  paint();
+}});
+
+/* 11 Closing */
+R.push({title:'Your <em>next move</em>',time:'20 sec',nextLabel:'Complete Course ✓',
+req:()=>{const C=S.closing;return [["Name one task from your workload",!!(C.task&&C.task.trim())],["Answer: Is it urgent?",C.u!==undefined],["Answer: Is it important?",C.i!==undefined],["Pass the knowledge check",S.pass]];},
+narr:"Before you return to work, choose one task you need to handle. Use the matrix to decide whether to do it, schedule it, delegate it, or eliminate it. Small decisions can make your workload more manageable.",
+body(){const C=S.closing;
+  return `<p class="lede">Choose one task from your current workload and ask: <b>Is it urgent? Is it important? What action should I take?</b></p>
+  <label class="mono" for="myTask" style="display:block;margin-bottom:6px">Your task <span style="text-transform:none;letter-spacing:0">(stays on your device)</span></label>
+  <input class="mini" id="myTask" maxlength="40" placeholder="e.g. Update the onboarding guide" value="${esc(C.task||'')}"/>
+  <div class="yn"><b>Urgent?</b><button class="btn sm" data-yn="u" data-v="1" aria-pressed="false">Yes</button><button class="btn sm" data-yn="u" data-v="0" aria-pressed="false">No</button></div>
+  <div class="yn"><b>Important?</b><button class="btn sm" data-yn="i" data-v="1" aria-pressed="false">Yes</button><button class="btn sm" data-yn="i" data-v="0" aria-pressed="false">No</button></div>
+  ${matrix({id:'mx11',text:'short'})}
+  <div id="nmFb"></div>
+  <p class="slogan">Beat the busy trap. <em>Focus on what matters.</em></p>
+  ${S.pass?'':'<p class="hint">Pass the knowledge check to complete the course.</p>'}`;},
+init(){
+  const C=S.closing;
+  const paint=()=>{refreshNav();
+    $$('[data-yn]').forEach(b=>b.setAttribute('aria-pressed',C[b.dataset.yn]===b.dataset.v));
+    $$('#mx11 .chipbox').forEach(x=>x.innerHTML='');$('#nmFb').innerHTML='';
+    if(C.u!==undefined&&C.i!==undefined){
+      const u=C.u==='1',im=C.i==='1',q=u&&im?1:im?2:u?3:4;
+      $(`#mx11 [data-box="${q}"]`).innerHTML=chip((C.task||'').trim()||'My task');
+      $('#nmFb').innerHTML=`<div class="fb ok"><b>Your next move: ${qLabel(q)}</b>${Q[q].act}${q===3?' '+Q[3].note:''}</div>`;
+    }
+  };
+  $('#myTask').addEventListener('input',e=>{C.task=e.target.value;paint()});
+  $$('[data-yn]').forEach(b=>b.addEventListener('click',()=>{C[b.dataset.yn]=b.dataset.v;paint()}));
+  paint();
+}});
+
+/* ===== engine ===== */
+let idx=0;
+const stage=$('#stage'),nextBtn=$('#nextBtn'),backBtn=$('#backBtn'),prog=$('#prog'),trk=$('#tracker');
+const reqs=i=>R[i].req?R[i].req():[];
+const isDone=i=>reqs(i).every(r=>r[1]);
+const unlocked=i=>{for(let k=0;k<i;k++)if(!isDone(k))return false;return true;};
+const plain=h=>h.replace(/<[^>]+>/g,'');
+prog.innerHTML=R.map((s,i)=>`<button type="button" data-go="${i}"></button>`).join('');
+prog.addEventListener('click',e=>{const b=e.target.closest('[data-go]');if(!b||b.disabled)return;idx=+b.dataset.go;render();});
+
+function refreshNav(){
+  const s=R[idx],rq=reqs(idx),done=rq.every(r=>r[1]);
+  nextBtn.textContent=s.nextLabel||'Next →';
+  nextBtn.disabled=!done;
+  nextBtn.title=done?'':'Complete the checklist above to continue';
+  backBtn.hidden=idx===0;
+  $$('#prog button').forEach((d,i)=>{
+    const open=unlocked(i);
+    d.disabled=!open;
+    d.className=i===idx?'now':(i<=S.max&&open&&isDone(i))?'done':'';
+    d.setAttribute('aria-label',`Screen ${i+1}: ${plain(R[i].title)}${open?'':' (locked)'}`);
+    d.title=`${i+1}. ${plain(R[i].title)}${open?'':' · locked until earlier steps are done'}`;
+    if(i===idx)d.setAttribute('aria-current','step');else d.removeAttribute('aria-current');
+  });
+  if(rq.length){
+    trk.hidden=false;
+    trk.innerHTML=`<div class="trk-in ${done?'ready':''}" role="status"><b>${done?'✓ Ready to continue':'To continue'}</b>${rq.map(r=>`<span class="it ${r[1]?'ok':''}"><i aria-hidden="true">${r[1]?'✓':''}</i><span>${esc(r[0])}</span><span class="sr">${r[1]?' (done)':' (not done)'}</span></span>`).join('')}</div>`;
+  }else{trk.hidden=true;trk.innerHTML='';}
+}
+function setupAudio(af){
+  const box=$('#aud'),au=$('#aud audio'),pb=$('#audPlay'),rb=$('#audRe'),fill=$('#audFill'),lab=$('#audLab');
+  const lbl=SHOW_AUDIO_LABELS?' · '+af:'';
+  const go=()=>{const p=au.play();if(p&&p.catch)p.catch(()=>{});};
+  const sync=()=>{pb.textContent=au.paused?(au.ended?'▶ Play':'▶ Resume'):'⏸ Pause';pb.setAttribute('aria-label',au.paused?'Play narration':'Pause narration');};
+  au.addEventListener('play',()=>{lab.textContent='🔊 Narration'+lbl;sync();});
+  au.addEventListener('pause',sync);au.addEventListener('ended',sync);
+  au.addEventListener('timeupdate',()=>{if(au.duration)fill.style.width=(au.currentTime/au.duration*100)+'%';});
+  au.addEventListener('error',()=>{
+    if(SHOW_AUDIO_LABELS)box.innerHTML=`<span class="al">🔇 Audio not found: ${af} (add it to the audio folder)</span>`;else box.remove();});
+  pb.addEventListener('click',()=>{if(au.paused){delete au.dataset.userPaused;go();}else{au.dataset.userPaused='1';au.pause();}});
+  rb.addEventListener('click',()=>{delete au.dataset.userPaused;au.currentTime=0;go();});
+  /* auto-start as soon as the screen opens */
+  const p=au.play();
+  if(p&&p.catch)p.catch(err=>{
+    if(err&&err.name==='NotAllowedError'){
+      /* browser blocked autoplay (no interaction yet): start on the learner's first tap or key press */
+      lab.textContent='🔊 Tap anywhere to start narration';
+      const un=()=>{document.removeEventListener('pointerdown',un,true);document.removeEventListener('keydown',un,true);
+        if(au.isConnected&&au.paused&&!au.dataset.userPaused)go();};
+      document.addEventListener('pointerdown',un,true);document.addEventListener('keydown',un,true);
+    }
+  });
+  sync();
+}
+function stopAudio(){const a=$('#aud audio');if(a)a.pause();}
+function render(first){
+  stopAudio();
+  const s=R[idx];
+  S.max=Math.max(S.max,idx);
+  const af=AUDIO_DIR+AUDIO_FILES[idx];
+  stage.innerHTML=`<section class="screen"><div class="meta mono">Screen ${idx+1} of ${R.length} · about ${s.time}</div>
+    <h2 class="st" tabindex="-1" id="stTitle">${s.title}</h2>
+    <div class="aud" id="aud" role="group" aria-label="Narration controls"><span class="al" id="audLab">🔊 Narration${SHOW_AUDIO_LABELS?' · '+af:''}</span><button type="button" class="btn sm" id="audPlay">⏸ Pause</button><button type="button" class="btn sm" id="audRe">↺ Replay</button><span class="abar" aria-hidden="true"><i id="audFill"></i></span><audio preload="auto" src="${af}"></audio></div>
+    ${s.body()}
+    <details class="tr"><summary>Transcript</summary><p>${esc(s.narr)}</p></details></section>`;
+  setupAudio(af);
+  s.init&&s.init();
+  refreshNav();
+  if(!first){window.scrollTo({top:0,behavior:'smooth'});$('#stTitle').focus({preventScroll:true});}
+}
+function complete(){
+  stopAudio();
+  LMS.set('cmi.core.lesson_status','passed');LMS.commit();
+  $('#nav').hidden=true;trk.hidden=true;
+  $$('#prog button').forEach(d=>{d.className='done';d.disabled=true});
+  stage.innerHTML=`<div class="done-card screen"><div class="big" aria-hidden="true">🏆</div>
+    <h2 id="stTitle" tabindex="-1">Course complete!</h2>
+    <p class="lede" style="margin:0 auto 18px">You scored ${S.score}/5 on the knowledge check. Pick one task today and use the matrix on it.</p>
+    <p class="slogan" style="margin-top:0">Beat the busy trap. <em>Focus on what matters.</em></p>
+    <div class="row" style="justify-content:center;margin-top:18px"><button class="btn sm" id="restart">↺ Restart course</button></div></div>`;
+  $('#stTitle').focus();
+  $('#restart').addEventListener('click',()=>{location.reload()});
+}
+nextBtn.addEventListener('click',()=>{ if(!isDone(idx))return; if(idx===R.length-1){complete();return;} idx++;render(); });
+backBtn.addEventListener('click',()=>{ if(idx>0){idx--;render();} });
+LMS.set('cmi.core.lesson_status','incomplete');
+render(true);
+</script>
+</body>
+</html>
