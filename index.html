@@ -100,13 +100,9 @@ h2.title em{font-weight:400;font-style:italic;color:var(--accent-2)}
 .about p{font-size:1.1rem;margin-bottom:1.1rem;max-width:56ch}
 .video-box{aspect-ratio:16/9;border:var(--rule);box-shadow:8px 8px 0 var(--ink);background:var(--ink);position:relative;overflow:hidden}
 .video-box iframe{width:100%;height:100%;border:0}
-.play-card{width:100%;height:100%;border:0;cursor:pointer;display:grid;place-items:center;background:
-  repeating-linear-gradient(45deg,var(--accent-2) 0 14px,#243fd6 14px 28px);color:#fff;position:relative}
-.play-card .disc{width:76px;height:76px;border-radius:50%;background:var(--sun);color:#16130f;display:grid;place-items:center;font-size:1.6rem;border:var(--rule);transition:transform .2s}
-.play-card:hover .disc{transform:scale(1.15) rotate(8deg)}
-.play-card .cap{position:absolute;left:14px;bottom:12px;font-family:var(--mono);font-size:.72rem;text-transform:uppercase;letter-spacing:.08em}
-.play-card .g{position:absolute;left:16px;top:10px;font-size:2.6rem;line-height:1;transform:rotate(-8deg);filter:drop-shadow(3px 3px 0 rgba(0,0,0,.25))}
-.play-card .ep{position:absolute;right:16px;top:14px;font-family:var(--serif);font-style:italic;font-weight:800;font-size:2rem;opacity:.9}
+.play-card{display:block;width:100%;height:100%;border:0;padding:0;cursor:pointer;position:relative;font:inherit;text-align:left}
+.play-card:focus-visible{outline:3px solid var(--accent-2);outline-offset:-8px}
+.play-card .cap{position:absolute;left:14px;bottom:12px;z-index:5;font-family:var(--mono);font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:#fff}
 .expertise{margin-top:56px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0;border:var(--rule)}
 .expertise article{padding:24px;border-right:var(--rule);border-bottom:var(--rule);margin:-1px -1px 0 0;transition:.2s}
 .expertise article:hover{background:var(--sun);color:#16130f}
@@ -153,18 +149,62 @@ h2.title em{font-weight:400;font-style:italic;color:var(--accent-2)}
 .link:hover{color:var(--accent)}
 .empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:30px}
 
-/* typographic covers (replace image thumbnails) */
-.cover{position:relative;width:100%;height:100%;min-height:150px;display:flex;flex-direction:column;justify-content:space-between;padding:14px 16px;color:#16130f;overflow:hidden;
-  background-image:radial-gradient(rgba(22,19,15,.16) 1.4px,transparent 1.6px);background-size:14px 14px}
-.cover.k0{background-color:var(--sun)}
-.cover.k1{background-color:var(--mint)}
-.cover.k2{background-color:var(--pink)}
-.cover.k3{background-color:var(--accent);color:#fff;background-image:radial-gradient(rgba(255,255,255,.25) 1.4px,transparent 1.6px)}
-.cover.k4{background-color:var(--accent-2);color:#fff;background-image:radial-gradient(rgba(255,255,255,.25) 1.4px,transparent 1.6px)}
-.cover .cv-tag{align-self:flex-start;font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;border:2px solid currentColor;border-radius:99px;padding:2px 10px;background:rgba(255,255,255,.35)}
-.cover .cv-glyph{position:absolute;right:14px;top:50%;transform:translateY(-50%) rotate(-8deg);font-size:4.6rem;line-height:1;transition:transform .35s cubic-bezier(.3,1.6,.5,1);filter:drop-shadow(3px 3px 0 rgba(22,19,15,.25))}
-.card:hover .cv-glyph{transform:translateY(-50%) rotate(8deg) scale(1.12)}
-.cover .cv-no{font-family:var(--serif);font-weight:800;font-style:italic;font-size:2.4rem;line-height:1;letter-spacing:-.04em}
+/* ---- editorial thumbnails -------------------------------------------
+   Layers (bottom → top): blur · photo/GIF · scrim · halftone dots · type · button.
+   If there is no photo/GIF (or it fails to load) the blur is simply what you see. */
+.thumb{--bg:#ffc93c;--c1:#ff4d2e;--c2:#ffb3c7;--c3:#fff3c4;position:relative;display:block;width:100%;height:100%;min-height:150px;overflow:hidden;isolation:isolate;background:var(--bg);color:#16130f}
+.thumb.k1{--bg:#8fe3c0;--c1:#2b4cff;--c2:#ffc93c;--c3:#e6fff4}
+.thumb.k2{--bg:#ffb3c7;--c1:#ffc93c;--c2:#8e44ff;--c3:#fff0f5}
+.thumb.k3{--bg:#ff4d2e;--c1:#ffc93c;--c2:#ffb3c7;--c3:#ff9a82;color:#fff}
+.thumb.k4{--bg:#2b4cff;--c1:#8fe3c0;--c2:#ff4d2e;--c3:#7b93ff;color:#fff}
+.thumb.k5{--bg:#1c9c74;--c1:#8fe3c0;--c2:#ffc93c;--c3:#52d6a8;color:#fff}
+.thumb.k6{--bg:#8e44ff;--c1:#ffb3c7;--c2:#2b4cff;--c3:#b88aff;color:#fff}
+.thumb .bl{position:absolute;inset:-25%;z-index:0;filter:blur(30px) saturate(1.25);transition:transform 1s cubic-bezier(.2,.7,.2,1);will-change:transform}
+.thumb .bl i{position:absolute;display:block;border-radius:50%}
+.thumb .bl i:nth-child(1){width:55%;height:65%;left:2%;top:0;background:var(--c1)}
+.thumb .bl i:nth-child(2){width:50%;height:55%;right:0;bottom:2%;background:var(--c2)}
+.thumb .bl i:nth-child(3){width:35%;height:40%;left:34%;top:30%;background:var(--c3);opacity:.85}
+.card:hover .thumb .bl,.play-card:hover .bl{transform:scale(1.15) rotate(8deg)}
+.thumb .ghost{position:absolute;right:-4%;top:50%;z-index:1;font-size:7.5rem;line-height:1;filter:blur(9px);opacity:.55;transform:translateY(-50%) rotate(-10deg);pointer-events:none}
+.thumb .media{position:absolute;inset:0;z-index:1;width:100%;height:100%;object-fit:cover}
+.play-card .media{transition:transform .6s}
+.play-card:hover .media{transform:scale(1.06)}
+.thumb .media ~ .ghost{display:none}
+/* blurred copy of the REAL content (video thumbnail / certificate page) */
+.thumb .media.blurred{filter:blur(9px) saturate(1.15);transform:scale(1.25);animation:edfade .6s both}
+.play-card:hover .media.blurred{transform:scale(1.32)}
+@keyframes edfade{from{opacity:0}}
+/* course thumbnails: just the photo (flat placeholder until one is added) */
+.thumb.flat{background:var(--paper-2);background-image:radial-gradient(rgba(22,19,15,.14) 1.2px,transparent 1.5px);background-size:12px 12px}
+.thumb.flat .glyph{position:absolute;inset:0;display:grid;place-items:center;font-size:4rem;opacity:.75}
+.thumb.flat .pic{position:absolute;inset:0;z-index:1;width:100%;height:100%;object-fit:cover}
+.thumb .scrim{display:none;position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:linear-gradient(to bottom,rgba(10,8,5,.3),transparent 38%),linear-gradient(to top,rgba(10,8,5,.62),transparent 55%)}
+.thumb .media ~ .scrim{display:block}
+.thumb .dots{position:absolute;inset:0;z-index:3;pointer-events:none;mix-blend-mode:multiply;
+  background-image:radial-gradient(rgba(22,19,15,.16) 1.2px,transparent 1.5px);background-size:12px 12px}
+.thumb .media ~ .dots{opacity:.45}
+.thumb .cv-tag{position:absolute;left:14px;top:12px;z-index:4;font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;
+  background:#f4efe6;color:#16130f;border:2px solid #16130f;border-radius:99px;padding:2px 10px;line-height:1.5}
+.thumb .cv-no{position:absolute;left:16px;bottom:8px;z-index:4;font-family:var(--serif);font-weight:800;font-style:italic;font-size:2.4rem;line-height:1;letter-spacing:-.04em;color:inherit}
+.thumb .media ~ .cv-no{color:#fff;text-shadow:2px 2px 0 rgba(22,19,15,.45)}
+.card .img[data-launch],.card .img[data-pdf]{cursor:pointer}
+
+/* editorial button: solid disc + a type ring that spins in on hover */
+.ed-btn{position:absolute;left:50%;top:50%;width:96px;height:96px;margin:-48px 0 0 -48px;z-index:5;display:grid;place-items:center;pointer-events:none}
+.ed-btn .ring-wrap{position:absolute;inset:-12px;opacity:0;transform:scale(.65) rotate(-50deg);transition:opacity .3s,transform .7s cubic-bezier(.2,1.25,.4,1)}
+.ed-btn .ring{width:100%;height:100%;overflow:visible;animation:edspin 16s linear infinite}
+.ed-btn .ring text{font-family:var(--mono);font-size:10.5px;font-weight:700;fill:#fff;stroke:#16130f;stroke-width:3.2px;stroke-linejoin:round;paint-order:stroke}
+.ed-btn::before{content:"";position:absolute;inset:-4px;border-radius:50%;background:radial-gradient(closest-side,rgba(10,8,5,.5) 55%,transparent);pointer-events:none}
+.ed-btn .disc{position:relative;width:58px;height:58px;border-radius:50%;background:#16130f;color:#f4efe6;border:3px solid #f4efe6;
+  box-shadow:0 0 0 2px #16130f,4px 4px 0 2px #16130f;display:grid;place-items:center;transition:transform .3s cubic-bezier(.3,1.6,.5,1),box-shadow .2s,background .2s,color .2s,border-color .2s}
+.ed-btn .disc svg{width:24px;height:24px;fill:currentColor}
+.ed-btn .disc svg path:only-child{transform:translateX(1.5px)}
+.ed-btn .eye .pupil{fill:currentColor;transition:transform .35s cubic-bezier(.3,1.6,.5,1)}
+.card:hover .ed-btn .disc,.play-card:hover .ed-btn .disc,.play-card:focus-visible .ed-btn .disc{transform:scale(1.14) rotate(8deg);background:var(--sun);color:#16130f;border-color:#16130f;box-shadow:0 0 0 2px #f4efe6,5px 5px 0 2px #16130f}
+.card:hover .ed-btn .ring-wrap,.play-card:hover .ed-btn .ring-wrap,.play-card:focus-visible .ed-btn .ring-wrap{opacity:1;transform:none}
+.card:hover .ed-btn .pupil,.play-card:hover .ed-btn .pupil{transform:translate(1.6px,-1px)}
+@keyframes edspin{to{transform:rotate(360deg)}}
 .card .meta{font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 
 /* course groups + launcher */
@@ -209,9 +249,6 @@ h2.title em{font-weight:400;font-style:italic;color:var(--accent-2)}
 .vgrid figcaption{margin-top:16px}
 .vgrid h3{font-family:var(--serif);font-size:1.5rem;line-height:1.1;margin-bottom:6px}
 .vgrid p{color:var(--muted);font-size:.95rem}
-.vgrid .play-card.c1{background:repeating-linear-gradient(45deg,var(--accent) 0 14px,#e8401f 14px 28px)}
-.vgrid .play-card.c2{background:repeating-linear-gradient(45deg,#1c9c74 0 14px,#17835f 14px 28px)}
-.vgrid .play-card.c3{background:repeating-linear-gradient(45deg,#8e44ff 0 14px,#7a35e0 14px 28px)}
 
 /* certificates & resume */
 .tabs{display:flex;gap:10px;margin-bottom:28px}
@@ -302,6 +339,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><path id="edRing" d="M15 60a45 45 0 1 1 90 0a45 45 0 1 1-90 0"/></defs></svg>
 
 <div class="ticker" aria-hidden="true"><div class="ticker-track" id="tickerTrack"></div></div>
 
@@ -573,7 +611,7 @@ const CONFIG = {
   // endpoint that accepts a JSON POST) and paste its URL here.
   // Example: "https://formspree.io/f/abcdwxyz"
   // If left empty, the form falls back to opening an email to you.
-  visitorEndpoint: "",
+  visitorEndpoint: "https://script.google.com/macros/s/AKfycbzdLlACm51Wan3EMNcyceKqfB9-0YJaJNxlx-TO8e2La-XyrMCW_bFZC9AyBgjXpto/exec",
 
   // "Send me a message" form on the Contact section. Can be the same Formspree
   // URL as above (you'll get both in one inbox), or a separate one.
@@ -583,6 +621,10 @@ const CONFIG = {
   // Intro video on the About section. Paste a YouTube embed URL, e.g.
   // "https://www.youtube.com/embed/XXXXXXXXXXX" — or leave empty to hide.
   introVideoEmbed: "https://7haym.github.io/james-amit-portfolio/ask%20me/index.html",
+
+  // Optional GIF preview for the intro video thumbnail. Paste a direct image link
+  // (ends in .gif). Leave empty and the thumbnail shows the editorial blur instead.
+  introGif: "",
 
   resumePdf: "https://raw.githubusercontent.com/7haym/james-amit-portfolio/main/Resume/James_Amit_CV.pdf"
 };
@@ -605,31 +647,37 @@ const CERT_BASE = "https://raw.githubusercontent.com/7haym/james-amit-portfolio/
    Leave `url` empty and the card shows "Coming soon".
    Optional: `duration` (e.g. "5 min"), `embed` (use a different iframe URL
    than `url`).
+
+   THUMBNAIL: paste a photo link into `photo` (e.g. "Courses/5S/cover.jpg" or a
+   full https:// link). Until you add one, the card shows a plain placeholder.
    --------------------------------------------------------------------- */
 const courseGroups = ["Skill Improvement Courses","People & Performance Courses"];
 const projects = [
   { group:0, title:"5S: Turn Workplace Chaos into Order", tag:"5S", glyph:"🧹",
-    summary:"Workplace organization and process improvement.", duration:"15 mins", url:"Courses/5S/5S Micro Learning.html" },
+    summary:"Workplace organization and process improvement.", duration:"15 mins", url:"Courses/5S/5S Micro Learning.html", photo:"" },
   { group:0, title:"Beat the Busy Trap: Eisenhower Decision Matrix", tag:"Eisenhower", glyph:"🗓️",
-    summary:"Prioritization and time management.", duration:"10 mins", url:"Courses/Eisenhower/Eisenhower Micro Learning.html" },
+    summary:"Prioritization and time management.", duration:"10 mins", url:"Courses/Eisenhower/Eisenhower Micro Learning.html", photo:"" },
   { group:0, title:"Detective at Work: Find the Root Cause", tag:"5 Whys", glyph:"🕵️",
-    summary:"Problem-solving using the 5 Whys technique.", duration:"", url:"" },
+    summary:"Problem-solving using the 5 Whys technique.", duration:"", url:"", photo:"" },
   { group:1, title:"The Art of Prioritization", tag:"Prioritize", glyph:"📌",
-    summary:"Managing competing tasks and deadlines.", duration:"", url:"" },
+    summary:"Managing competing tasks and deadlines.", duration:"", url:"", photo:"" },
   { group:1, title:"Feedback That Moves People Forward", tag:"Feedback", glyph:"💬",
-    summary:"Giving constructive, actionable feedback.", duration:"", url:"" },
+    summary:"Giving constructive, actionable feedback.", duration:"", url:"", photo:"" },
   { group:1, title:"Think Before You Decide", tag:"Decisions", glyph:"🤔",
-    summary:"Practical decision-making and critical thinking.", duration:"", url:"" }
+    summary:"Practical decision-making and critical thinking.", duration:"", url:"", photo:"" }
 ];
 
 /* ---------------------------------------------------------------------
-   VIDEOS: `glyph` is the big emoji on the card, `ep` the little label.
+   VIDEOS: `ep` is the episode number on the card.
+   `gif` = paste a direct link to a GIF preview (ends in .gif). Leave it empty
+   and the thumbnail is a blurred frame of the actual video (its Google Drive
+   thumbnail). If that can't load, you get a soft colour blur.
    --------------------------------------------------------------------- */
 const videos = [
-  { title:"Cultural Dimensions", cls:"c1", glyph:"🌏", ep:"01", id:"1vhh2bbHsaZzgqoSLNJEu1fGuvEbZrPUW", text:"One of the videos I created as part of our Foundation Training. It prepares learners to understand Australian culture." },
-  { title:"Heightened Focus", cls:"c2", glyph:"🎯", ep:"02", id:"1-mVeeRgqcHQfzpn7C7TBholABwEJG8_g", text:"One of the episodes I created for my Heightened Focus course series." },
-  { title:"Active Listening · Ep. 6", cls:"c3", glyph:"👂", ep:"03", id:"1CFZRxxOVru1Ia8r2RsCywvLhTOeDWDCm", text:"One of the episodes I created for my Active Listening course series." },
-  { title:"Product Feature", cls:"c1", glyph:"📣", ep:"04", id:"1gdwRFQBr1QVhqCIyac52OmJxJ7utc4T4", text:"A sample product video update in a marketing design, made to hype team members and encourage them to educate customers about its benefits." }
+  { title:"Cultural Dimensions", cls:"c1", glyph:"🌏", ep:"01", gif:"", id:"1vhh2bbHsaZzgqoSLNJEu1fGuvEbZrPUW", text:"One of the videos I created as part of our Foundation Training. It prepares learners to understand Australian culture." },
+  { title:"Heightened Focus", cls:"c2", glyph:"🎯", ep:"02", gif:"", id:"1-mVeeRgqcHQfzpn7C7TBholABwEJG8_g", text:"One of the episodes I created for my Heightened Focus course series." },
+  { title:"Active Listening · Ep. 6", cls:"c3", glyph:"👂", ep:"03", gif:"", id:"1CFZRxxOVru1Ia8r2RsCywvLhTOeDWDCm", text:"One of the episodes I created for my Active Listening course series." },
+  { title:"Product Feature", cls:"c1", glyph:"📣", ep:"04", gif:"", id:"1gdwRFQBr1QVhqCIyac52OmJxJ7utc4T4", text:"A sample product video update in a marketing design, made to hype team members and encourage them to educate customers about its benefits." }
 ];
 
 /* CERTIFICATES: [title, cover label, emoji, pdf filename in /certificates] */
@@ -732,20 +780,48 @@ const cObs = new IntersectionObserver(es=>es.forEach(e=>{
 }),{threshold:.6});
 $$('[data-count]').forEach(el=>cObs.observe(el));
 
+/* editorial thumbnail: blur underneath, optional photo/GIF on top, type + button over it */
+const pad2 = n => String(n+1).padStart(2,'0');
+const ICON = {
+  play:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.2v15.6L20 12z"/></svg>',
+  eye:'<svg class="eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1.5 12S5.6 5 12 5s10.5 7 10.5 7-4.1 7-10.5 7S1.5 12 1.5 12z"/><circle class="pupil" cx="12" cy="12" r="3"/></svg>'
+};
+/* ring text is spaced so it closes the circle exactly (circumference ≈ 282.7) */
+const edBtn = (icon,label) => {
+  const n = Math.max(2,Math.round(27/(label.length+3)));
+  const txt = Array(n).fill(label).join(' · ')+' · ';
+  const ls = (282.7/txt.length - 6.3).toFixed(2);
+  return `<span class="ed-btn" aria-hidden="true"><span class="ring-wrap"><svg class="ring" viewBox="0 0 120 120"><text style="letter-spacing:${ls}px"><textPath href="#edRing">${txt}</textPath></text></svg></span><span class="disc">${ICON[icon]}</span></span>`;
+};
+/* if a GIF/photo fails, drop back to the blurred real-content thumbnail, then to the colour blur */
+function edFallback(img){
+  const fb = img.dataset.fb;
+  if(fb){ img.removeAttribute('data-fb'); img.classList.add('blurred'); img.src = fb; } else img.remove();
+}
+const thumbInner = ({tag,no,glyph,media,blurSrc,btn}) =>
+  `<span class="bl"><i></i><i></i><i></i></span>`
+  + (media ? `<img class="media" src="${esc(media)}" ${blurSrc?`data-fb="${esc(blurSrc)}"`:''} alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="edFallback(this)"/>`
+    : blurSrc ? `<img class="media blurred" src="${esc(blurSrc)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.remove()"/>` : '')
+  + `<span class="scrim"></span><span class="ghost">${glyph||''}</span><span class="dots"></span>`
+  + (tag ? `<span class="cv-tag">${esc(tag)}</span>` : '')
+  + (no ? `<span class="cv-no">No. ${esc(no)}</span>` : '')
+  + (btn||'');
+
 /* intro video */
 (function(){
   const box=$('#introVideo');
   if(CONFIG.introVideoEmbed){
-    box.innerHTML=`<div class="video-box"><button class="play-card" data-embed="${esc(CONFIG.introVideoEmbed)}" aria-label="Play introduction video"><span class="disc">▶</span><span class="cap">Intro · Watch</span></button></div>`;
+    box.innerHTML=`<div class="video-box"><button class="play-card thumb k4" data-embed="${esc(CONFIG.introVideoEmbed)}" aria-label="Play introduction video">${thumbInner({tag:'Intro',glyph:'👋',media:CONFIG.introGif,btn:edBtn('play','WATCH')})}</button></div>`;
   } else {
-    box.innerHTML=`<div class="video-box"><div class="play-card" style="cursor:default"><span class="cap" style="left:50%;bottom:50%;transform:translate(-50%,50%);font-size:.9rem">Intro video coming soon</span></div></div>`;
+    box.innerHTML=`<div class="video-box"><div class="play-card thumb k4" style="cursor:default">${thumbInner({tag:'Intro',glyph:'👋'})}<span class="cap" style="left:50%;bottom:50%;transform:translate(-50%,50%);font-size:.9rem">Intro video coming soon</span></div></div>`;
   }
 })();
 
 /* videos */
+const VK = {c1:'k3',c2:'k5',c3:'k6'};
 $('#videoGrid').innerHTML = videos.map(v=>`
   <figure class="rv">
-    <div class="video-box"><button class="play-card ${v.cls}" data-embed="https://drive.google.com/file/d/${v.id}/preview" aria-label="Play ${esc(v.title)}"><span class="g">${v.glyph}</span><span class="ep">${esc(v.ep)}</span><span class="disc">▶</span><span class="cap">${esc(v.title)}</span></button></div>
+    <div class="video-box"><button class="play-card thumb ${VK[v.cls]||'k3'}" data-embed="https://drive.google.com/file/d/${v.id}/preview" aria-label="Play ${esc(v.title)}">${thumbInner({tag:'Video',no:v.ep,glyph:v.glyph,media:v.gif,blurSrc:`https://drive.google.com/thumbnail?id=${v.id}&sz=w800`,btn:edBtn('play','PLAY')})}</button></div>
     <figcaption><h3>${esc(v.title)}</h3><p>${esc(v.text)}</p></figcaption>
   </figure>`).join('');
 
@@ -757,11 +833,6 @@ document.addEventListener('click',e=>{
     p.replaceWith(f);
   }
 });
-
-/* typographic cover: colour block + emoji + label + number */
-const pad2 = n => String(n+1).padStart(2,'0');
-const coverHtml = (glyph,tag,i) =>
-  `<div class="cover k${i%5}" aria-hidden="true"><span class="cv-tag">${esc(tag)}</span><span class="cv-glyph">${glyph}</span><span class="cv-no">No. ${pad2(i)}</span></div>`;
 
 /* microlearning courses */
 function toEmbed(u){
@@ -781,7 +852,7 @@ function renderProjects(list){
       const i=projects.indexOf(p), live=!!p.url;
       return `
       <article class="card">
-        <div class="img">${coverHtml(p.glyph,p.tag,i)}</div>
+        <div class="img"${live?` data-launch="${i}"`:''}><div class="thumb flat"><span class="glyph" aria-hidden="true">${p.glyph}</span>${p.photo?`<img class="pic" src="${esc(p.photo)}" alt="" loading="lazy" decoding="async" onerror="this.remove()"/>`:''}</div></div>
         <div class="body">
           <span class="meta">Microlearning${p.duration?' · '+esc(p.duration):''}</span>
           <h3>${esc(p.title)}</h3><p>${esc(p.summary)}</p>
@@ -801,10 +872,35 @@ $('#search').addEventListener('input',e=>{
 /* certificates */
 $('#certList').innerHTML = certs.map((c,i)=>`
   <article class="card">
-    <div class="img">${coverHtml(c.glyph,c.tag,i)}</div>
+    <div class="img" data-pdf="${esc(c.link)}" data-title="${esc(c.title)}"><div class="thumb k${i%5}">${thumbInner({tag:c.tag,no:pad2(i),glyph:c.glyph,btn:edBtn('eye','PREVIEW')})}</div></div>
     <div class="body"><h3>${esc(c.title)}</h3>
       <button class="link" data-pdf="${esc(c.link)}" data-title="${esc(c.title)}">View certificate →</button></div>
   </article>`).join('');
+
+/* certificate thumbnails: first page of the real PDF, rendered with pdf.js and blurred.
+   Falls back to the colour blur if the PDF can't be fetched/rendered. */
+const PDFJS_CDN = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/';
+let pdfLibP;
+const loadPdfJs = () => pdfLibP || (pdfLibP = new Promise((res,rej)=>{
+  const sc=document.createElement('script'); sc.src=PDFJS_CDN+'pdf.min.js';
+  sc.onload=()=>{ try{
+    window.pdfjsLib.GlobalWorkerOptions.workerSrc = PDFJS_CDN+'pdf.worker.min.js';  /* cross-origin worker is blocked, so pdf.js quietly runs it on the main thread */
+    res(window.pdfjsLib); }catch(e){ rej(e); } };
+  sc.onerror=rej; document.head.appendChild(sc);
+}));
+async function paintCert(thumb){
+  try{
+    const lib = await loadPdfJs();
+    const pdf = await lib.getDocument({url:thumb.closest('[data-pdf]').dataset.pdf}).promise;
+    const page = await pdf.getPage(1);
+    const vp = page.getViewport({scale: 520/page.getViewport({scale:1}).width});
+    const cv = document.createElement('canvas'); cv.width=vp.width; cv.height=vp.height; cv.className='media blurred';
+    await page.render({canvasContext:cv.getContext('2d'),viewport:vp}).promise;
+    thumb.querySelector('.bl').after(cv);
+  }catch(e){ /* keep the colour blur */ }
+}
+const certObs = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ certObs.unobserve(e.target); paintCert(e.target); } }),{rootMargin:'250px'});
+$$('#certList .thumb').forEach(t=>certObs.observe(t));
 
 /* AI toolkit */
 const aiCard = ([name,use],i) => `
@@ -869,6 +965,11 @@ $('#modalClose').addEventListener('click',closeModal);
 modal.addEventListener('click',e=>{ if(e.target===modal) closeModal(); });
 document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ if(stage.classList.contains('on')) closeStage(); else closeModal(); } });
 
+/* Google Apps Script web apps can't answer a JSON preflight, so send plain text to them (still JSON inside) */
+const postHeaders = u => /script\.google\.com/.test(u)
+  ? {'Content-Type':'text/plain;charset=utf-8'}
+  : {'Content-Type':'application/json','Accept':'application/json'};
+
 /* visitor book (opt-in) */
 $('#visitorForm').addEventListener('submit',async e=>{
   e.preventDefault();
@@ -888,7 +989,7 @@ $('#visitorForm').addEventListener('submit',async e=>{
     msg.textContent='Opening your email app to send this to James…'; msg.classList.add('ok'); return;
   }
   try{
-    const r=await fetch(CONFIG.visitorEndpoint,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)});
+    const r=await fetch(CONFIG.visitorEndpoint,{method:'POST',headers:postHeaders(CONFIG.visitorEndpoint),body:JSON.stringify(payload)});
     if(!r.ok) throw new Error(r.status);
     f.reset(); msg.textContent='Thank you! You\'re in the book. ✨ I\'ll be in touch.'; msg.classList.add('ok');
   }catch(err){ msg.textContent='Something went wrong. Please try again, or message me on LinkedIn.'; msg.classList.add('err'); }
@@ -913,7 +1014,7 @@ $('#msgForm').addEventListener('submit',async e=>{
   }
   const btn=f.querySelector('button[type=submit]'); btn.disabled=true;
   try{
-    const r=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},
+    const r=await fetch(endpoint,{method:'POST',headers:postHeaders(endpoint),
       body:JSON.stringify({kind:'message',_subject:'Portfolio message from '+name,name,email,message,page:location.href,submittedAt:new Date().toISOString()})});
     if(!r.ok) throw new Error(r.status);
     f.reset(); out.textContent='Sent! Thanks for reaching out. I\'ll reply soon. ✨'; out.classList.add('ok');
